@@ -1,22 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import FormLoader from "../../../FormLoader";
-const ModalComponent = ({ show, handleClose, FormSchema }) => {
+const ModalComponent = ({
+  show,
+  handleClose,
+  FormSchema,
+  FormState,
+  StateChange,
+}) => {
+  const closeAndRetuenValues = (s) => {
+    StateChange(s);
+    handleClose();
+  };
+
   return (
     <Modal show={show} onHide={handleClose} backdrop="static" keyboard={false}>
       <Modal.Header closeButton>
         <Modal.Title>Modal title</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <FormLoader FormSchema={FormSchema} />
+        {FormSchema && (
+          <FormLoader
+            FormSchema={FormSchema}
+            submitAction={{
+              submitText: "Submit",
+              onSubmit: closeAndRetuenValues,
+            }}
+          />
+        )}
+        {FormState && (
+          <FormLoader
+            FormState={FormState}
+            submitAction={{
+              submitText: "Update",
+              onSubmit: (e) => {
+                StateChange(e);
+                handleClose();
+              },
+            }}
+          />
+        )}
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
-        </Button>
-        <Button variant="primary">Understood</Button>
-      </Modal.Footer>
     </Modal>
   );
 };

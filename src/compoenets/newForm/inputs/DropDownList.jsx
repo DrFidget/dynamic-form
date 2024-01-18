@@ -11,13 +11,14 @@ const DropDownList = ({ Element, Styles, HandleChange }) => {
       id={dataValues.id}
       style={Styles}
       onChange={HandleInputChange}
+      value={
+        dataValues.value ||
+        (inputProperties.options && inputProperties.options[0]) ||
+        ""
+      }
     >
       {inputProperties.options.map((item, key) => {
-        return key === 0 ? (
-          <option selected value={item} key={key}>
-            {item}
-          </option>
-        ) : (
+        return (
           <option value={item} key={key}>
             {item}
           </option>

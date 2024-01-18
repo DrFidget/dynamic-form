@@ -16,7 +16,7 @@ const DateCompoenent = ({ Element, Styles, HandleChange }) => {
         type="date"
         className="form-control"
         {...inputProperties}
-        value={value}
+        value={value || ""}
         onChange={HandleInputChange}
       />
     </div>

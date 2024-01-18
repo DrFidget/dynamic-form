@@ -14,7 +14,7 @@ const Text = ({ Element, Styles, HandleChange }) => {
         type="text"
         className="form-control"
         {...inputProperties}
-        value={dataValues.value}
+        value={dataValues.value || ""}
         onChange={HandleInputChange}
       />
     </div>

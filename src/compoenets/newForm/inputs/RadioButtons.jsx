@@ -13,7 +13,7 @@ const RadioButtons = ({ Element, Styles, HandleChange }) => {
             name={dataValues.id}
             className="form-check-input"
             type="radio"
-            value={inputProperties.data[key]}
+            value={inputProperties.data[key] || ""}
             onChange={handleInputChange}
           />
           <label>{item}</label>

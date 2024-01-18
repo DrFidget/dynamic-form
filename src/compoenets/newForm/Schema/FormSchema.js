@@ -133,12 +133,12 @@ export const FormSchema = [
     fieldType: "table",
     options: [
       {
-        id: "mile1",
+        id: "mile12",
         fieldName: "Text Field",
         fieldType: "text",
       },
       {
-        id: "radio1",
+        id: "radio12",
         fieldName: "Drop Down List",
         fieldType: "list",
         options: ["Lahore", "Karachi", "Islamabad", "Peshawar", "Faisalabad"],

@@ -12,7 +12,7 @@ const Time = ({ Element, Styles, HandleChange }) => {
         type="time"
         className="form-control"
         {...inputProperties}
-        value={dataValues.value}
+        value={dataValues.value || ""}
         onChange={HandleInputChange}
       />
     </div>

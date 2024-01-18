@@ -12,7 +12,7 @@ const Number = ({ Element, Styles, HandleChange }) => {
         type="number"
         className="form-control"
         {...inputProperties}
-        value={dataValues.value}
+        value={dataValues.value || ""}
         onChange={HandleInputChange}
       />
     </div>
