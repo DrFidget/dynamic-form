@@ -3,7 +3,7 @@ import * as Components from "../InterFace";
 export const InputTypes = {
   checkBox: Components.CheckBox,
   date: Components.DateCompoenent,
-  dateAndTime: Components.DateAndTime,
+  datetime: Components.DateAndTime,
   divider: Components.Divider,
   list: Components.DropDownList,
   radioList: Components.RadioButtons,

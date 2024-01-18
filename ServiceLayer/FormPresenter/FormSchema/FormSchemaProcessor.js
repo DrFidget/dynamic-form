@@ -21,29 +21,54 @@ export const FormSchemaProcessor = {
     return obj;
   },
   generalInputKeys: (x, field) => {
-    for (let k in allowedInputKeys) {
-      field[k] &&
-        (x[allowedInputKeys[k].keyName] = allowedInputKeys[k].method(field[k]));
+    for (let key in allowedInputKeys) {
+      const inputKey = allowedInputKeys[key].keyName;
+      const inputValue = field[key];
+
+      if (inputValue !== undefined && inputValue !== null) {
+        x[inputKey] = allowedInputKeys[key].method(inputValue);
+      }
     }
   },
+
   typeBasedInputKeys: (x, field) => {
-    let allowedInputKeys = typeBasedInputKeys[field.fieldType];
-    if (!allowedInputKeys) return;
-    for (let k in allowedInputKeys) {
-      field[k] &&
-        (x[allowedInputKeys[k].keyName] = allowedInputKeys[k].method(field[k]));
+    const allowedKeys = typeBasedInputKeys[field.fieldType];
+
+    if (!allowedKeys) return;
+
+    for (let key in allowedKeys) {
+      const inputKey = allowedKeys[key].keyName;
+      const inputValue = field[key];
+
+      if (inputValue !== undefined && inputValue !== null) {
+        x[inputKey] = allowedKeys[key].method(inputValue);
+      }
     }
   },
 };
 
 const allowedInputKeys = {
-  enabled: { method: (kv) => !kv, keyName: "disabled" },
+  enabled: {
+    method: (kv) => !kv,
+    keyName: "disabled",
+  },
 };
 
 const allowedNumberInputKeys = {
-  numberDecimal: { method: (kv) => kv, keyName: "numberDecimal" },
-  numberMin: { method: (kv) => kv, keyName: "min" },
-  numberMax: { method: (kv) => kv, keyName: "max" },
+  numberDecimal: {
+    method: (kv) => {
+      if (kv) return 0.1;
+    },
+    keyName: "step",
+  },
+  numberMin: {
+    method: (kv) => kv,
+    keyName: "min",
+  },
+  numberMax: {
+    method: (kv) => kv,
+    keyName: "max",
+  },
 };
 const optionDataGroup = {
   options: { method: (kv) => kv, keyName: "options" },

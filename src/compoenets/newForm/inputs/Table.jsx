@@ -21,7 +21,7 @@ const Table = ({ Element, Styles, HandleChange }) => {
         let temp2 = [];
         Element.forEach((item) => {
           temp2.push(item.dataValues);
-          console.log(item.dataValues);
+          // console.log(item.dataValues);
         });
         temp.push(temp2);
       });
@@ -30,7 +30,7 @@ const Table = ({ Element, Styles, HandleChange }) => {
   }, [TableFormState]);
 
   const StateChange = (State) => {
-    console.log(State);
+    // console.log(State);
     if (TableFormState) {
       let x = [...TableFormState];
       x.push(State);
