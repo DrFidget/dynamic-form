@@ -6,9 +6,7 @@ const DateCompoenent = ({ Element, Styles, HandleChange }) => {
   const HandleInputChange = (e) => {
     HandleChange(e.target.value, dataValues.id);
   };
-  const value = inputProperties.disabled
-    ? new Date().toISOString().slice(0, 10)
-    : dataValues.value;
+
   return (
     <div style={Styles} id={dataValues.id}>
       <label className="form-label">{dataValues.fieldName}</label>
@@ -16,7 +14,7 @@ const DateCompoenent = ({ Element, Styles, HandleChange }) => {
         type="date"
         className="form-control"
         {...inputProperties}
-        value={value || ""}
+        value={dataValues.value || ""}
         onChange={HandleInputChange}
       />
     </div>

@@ -1,3 +1,6 @@
+import { DefaultMethods } from "./DefaultFunctions";
+import { InternalDefaultfunctions } from "./InternalDefaultmethods";
+
 export const FormSchemaProcessor = {
   generateFormFields: (schema) => {
     return schema.map((field) =>
@@ -9,13 +12,17 @@ export const FormSchemaProcessor = {
     let inputProp = {};
     FormSchemaProcessor.generalInputKeys(inputProp, field);
     FormSchemaProcessor.typeBasedInputKeys(inputProp, field);
+    let ValidationProps = {};
+    FormSchemaProcessor.getValidationRules(ValidationProps, field);
     let obj = {
+      validationRules:
+        Object.keys(ValidationProps).length > 0 ? ValidationProps : null,
       inputProperties: inputProp,
       dataValues: {
         id: field.id,
         fieldName: field.fieldName,
         fieldType: field.fieldType,
-        value: null,
+        value: null || inputProp.default,
       },
     };
     return obj;
@@ -45,13 +52,56 @@ export const FormSchemaProcessor = {
       }
     }
   },
+
+  getValidationRules: (x, field) => {
+    for (let key in validationRules) {
+      const inputKey = validationRules[key].keyName;
+      const inputValue = field[key];
+
+      if (inputValue !== undefined && inputValue !== null) {
+        x[inputKey] = validationRules[key].method(inputValue);
+      }
+    }
+  },
 };
 
+const validationRules = {
+  validation: {
+    method: (kv) => {
+      let x = kv;
+      x.isValid = false;
+      x.message = "";
+      x.color = "";
+      return x;
+    },
+    keyName: "validation",
+  },
+};
 const allowedInputKeys = {
   enabled: {
     method: (kv) => !kv,
     keyName: "disabled",
   },
+  default: {
+    method: (kv) => {
+      // console.log(kv);
+      let x = DefaultMethods[kv];
+      if (!x) x = InternalDefaultfunctions[kv];
+      if (!x) throw "method not found";
+      return x();
+    },
+    keyName: "default",
+  },
+  // validation: {
+  //   method: (kv) => {
+  //     let x = kv;
+  //     x.isValid = false;
+  //     x.message = "";
+  //     x.color = "";
+  //     return x;
+  //   },
+  //   keyName: "validation",
+  // },
 };
 
 const allowedNumberInputKeys = {

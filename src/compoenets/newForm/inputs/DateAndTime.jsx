@@ -1,6 +1,6 @@
 import React from "react";
 
-const DateAndTime = ({ Element, Styles, HandleChange }) => {
+const DateAndTime = ({ Element, Styles, HandleChange, DefaultMethods }) => {
   const { dataValues, inputProperties } = Element;
 
   const HandleInputChange = (e) => {

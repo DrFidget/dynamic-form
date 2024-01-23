@@ -1,7 +1,8 @@
 import React from "react";
 
 const Number = ({ Element, Styles, HandleChange }) => {
-  const { dataValues, inputProperties } = Element;
+  const { dataValues, inputProperties, validationRules } = Element;
+
   const HandleInputChange = (e) => {
     HandleChange(e.target.value, dataValues.id);
   };
@@ -15,6 +16,12 @@ const Number = ({ Element, Styles, HandleChange }) => {
         value={dataValues.value || ""}
         onChange={HandleInputChange}
       />
+
+      {validationRules && !validationRules.validation.isValid && (
+        <p style={{ color: `${validationRules.validation.color}` }}>
+          {validationRules.validation.message}
+        </p>
+      )}
     </div>
   );
 };

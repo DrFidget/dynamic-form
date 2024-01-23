@@ -177,16 +177,18 @@ export const FormSchema = [
       rules: [
         {
           type: "w",
+          rule: "${evenNum} >= 10 && ${evenNum} <= 200",
+
+          msg: "Value must be between 10 and 200",
+          color: "#F9A825",
+        },
+        {
+          type: "w",
           rule: "${evenNum} >= 100 && ${evenNum} <= 200",
           msg: "Value must be between 100 and 200",
-          color: "#F9A825",
+          color: "#0A00FF",
         },
       ],
     },
   },
-
-  // {
-  //   id:"option",
-  //   type:"option"
-  // }
 ];

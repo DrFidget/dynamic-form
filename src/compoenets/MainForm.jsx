@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import FormLoader from "./FormLoader";
 
-const MainForm = ({ FormSchema }) => {
+const MainForm = ({ FormSchema, DefaultMethods }) => {
   return (
     <div className="" style={{}}>
       <form className=" bg-secondary w-50">
         <h1>FORM</h1>
         <FormLoader
+          DefaultMethods={DefaultMethods}
           FormSchema={FormSchema}
           submitAction={{
             submitText: "Submit",

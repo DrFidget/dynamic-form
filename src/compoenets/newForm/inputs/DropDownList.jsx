@@ -1,7 +1,8 @@
 import React from "react";
 
-const DropDownList = ({ Element, Styles, HandleChange }) => {
+const DropDownList = ({ Element, Styles, HandleChange, DefaultMethods }) => {
   const { inputProperties, dataValues } = Element;
+
   const HandleInputChange = (e) => {
     HandleChange(e.target.value, dataValues.id);
   };

@@ -1,10 +1,9 @@
 import React from "react";
 
 const Text = ({ Element, Styles, HandleChange }) => {
-  const { dataValues, inputProperties } = Element;
+  const { dataValues, inputProperties, validationRules } = Element;
 
   const HandleInputChange = (e) => {
-    // Element.updateValue(e.target.value);
     HandleChange(e.target.value, dataValues.id);
   };
   return (
