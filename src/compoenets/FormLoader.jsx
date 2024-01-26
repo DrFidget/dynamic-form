@@ -1,6 +1,9 @@
+// import Button from "react-bootstrap/Button";
 import React, { useEffect, useState } from "react";
 import FormBody from "./FormBody";
 import { FormSchemaProcessor } from "../../ServiceLayer/FormPresenter/FormSchema/FormSchemaProcessor";
+import { HandleChangeState } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleChange";
+import { HandleGroupVisibility } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleBinding";
 const FormLoader = ({
   FormSchema,
   submitAction,
@@ -8,12 +11,18 @@ const FormLoader = ({
   DefaultMethods,
 }) => {
   const [formSchemaState, setFormSchemaState] = useState(() => {
-    if (FormSchema) return FormSchemaProcessor.generateFormFields(FormSchema);
-    return FormState;
+    let schema_or_state;
+    if (FormSchema)
+      schema_or_state = FormSchemaProcessor.generateFormFields(FormSchema);
+    else schema_or_state = FormState;
+    HandleGroupVisibility(schema_or_state);
+    return schema_or_state;
   });
 
   const [formValues, setFormValues] = useState(null);
-  const [readyToSubmit, setReadyToSubmit] = useState(false);
+  const [readyToSubmit, setReadyToSubmit] = useState(
+    submitAction.stateOnLoad === true ? true : false
+  );
 
   useEffect(() => {
     let x = {};
@@ -23,83 +32,16 @@ const FormLoader = ({
     setFormValues(x);
   }, [formSchemaState]);
 
-  function replaceVariables(inputString, dict) {
-    const variablePattern = /\${(\w+)}/g;
-
-    const replacedString = inputString.replace(
-      variablePattern,
-      (match, variableName) => {
-        if (dict.hasOwnProperty(variableName)) {
-          return dict[variableName];
-        } else {
-          return match;
-        }
-      }
+  const HandleChange = (value, id) => {
+    const { updatedFields, isReadyToSubmit } = HandleChangeState(
+      value,
+      id,
+      { ...formValues },
+      [...formSchemaState]
     );
 
-    return replacedString;
-  }
-
-  const ValidateEachProperty = (rule, dict) => {
-    let ModifiedRule = replaceVariables(rule, dict);
-    return eval(ModifiedRule);
-  };
-
-  const getObjFromId = (id) => {
-    return formSchemaState.find((element) => element.dataValues.id === id);
-  };
-
-  const HandleValidation = (ChangedObject, Dictionary) => {
-    if (ChangedObject.validationRules) {
-      const { validationRules } = ChangedObject;
-      const { rules: RuleList } = validationRules.validation;
-
-      let isValid = true;
-      let message = "";
-      let color = "";
-
-      for (let Singlerule of RuleList) {
-        if (!ValidateEachProperty(Singlerule.rule, Dictionary)) {
-          isValid = false;
-          message = Singlerule.msg;
-          color = Singlerule.color;
-          break;
-        }
-      }
-
-      if (
-        typeof isValid === "boolean" &&
-        typeof message === "string" &&
-        typeof color === "string"
-      )
-        ChangedObject.validationRules.validation = {
-          ...ChangedObject.validationRules.validation,
-          isValid,
-          message,
-          color,
-        };
-    }
-  };
-
-  //-----------------------------------------------------------------------------------------
-  const HandleChange = (value, id) => {
-    let ChangedObject = getObjFromId(id);
-    ChangedObject.dataValues.value = value;
-    let Dictionary = { ...formValues };
-    Dictionary[id] = value;
-    HandleValidation(ChangedObject, Dictionary);
-
-    setFormSchemaState((prev) => {
-      let prevTemp = [...prev];
-      const updatedFields = prevTemp.map((element) => {
-        if (element.dataValues.id === id) {
-          return ChangedObject;
-        } else {
-          return element;
-        }
-      });
-      return updatedFields;
-    });
+    setFormSchemaState(updatedFields);
+    setReadyToSubmit(isReadyToSubmit);
   };
   return (
     <>
@@ -109,14 +51,15 @@ const FormLoader = ({
         DefaultMethods={DefaultMethods}
       />
       {submitAction && (
-        <div
+        <button
           className="btn btn-primary"
-          onClick={(e) =>
+          disabled={!readyToSubmit}
+          onClick={() =>
             submitAction.onSubmit && submitAction.onSubmit(formSchemaState)
           }
         >
           {submitAction.submitText}
-        </div>
+        </button>
       )}
     </>
   );

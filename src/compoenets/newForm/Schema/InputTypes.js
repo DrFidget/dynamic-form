@@ -1,7 +1,7 @@
 import * as Components from "../InterFace";
 
 export const InputTypes = {
-  checkBox: Components.CheckBox,
+  checkbox: Components.CheckBox,
   date: Components.DateCompoenent,
   datetime: Components.DateAndTime,
   divider: Components.Divider,

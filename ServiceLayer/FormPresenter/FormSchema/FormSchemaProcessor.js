@@ -1,22 +1,39 @@
 import { DefaultMethods } from "./DefaultFunctions";
 import { InternalDefaultfunctions } from "./InternalDefaultmethods";
 
+// FormSchemaProcessor object with methods for generating form fields
 export const FormSchemaProcessor = {
+  // Generate form fields based on the provided schema
   generateFormFields: (schema) => {
     return schema.map((field) =>
       FormSchemaProcessor.generateFormField(field, schema)
     );
   },
+
+  // Generate a single form field based on the provided field and schema
   generateFormField: (field, schema) => {
+    // Throw an error if field id is not defined
     if (!field.id) throw "field Id not defined";
+
     let inputProp = {};
+    let OptionalProps = {};
+
+    // Set general input keys
     FormSchemaProcessor.generalInputKeys(inputProp, field);
+
+    // Set type-based input keys
     FormSchemaProcessor.typeBasedInputKeys(inputProp, field);
-    let ValidationProps = {};
-    FormSchemaProcessor.getValidationRules(ValidationProps, field);
+
+    // Get optional input keys
+    FormSchemaProcessor.getOptionalInputKeys(OptionalProps, field);
+
+    // Set default value for hidden property
+    if (!inputProp.hidden) {
+      inputProp.hidden = false;
+    }
+
+    // Create an object representing the form field
     let obj = {
-      validationRules:
-        Object.keys(ValidationProps).length > 0 ? ValidationProps : null,
       inputProperties: inputProp,
       dataValues: {
         id: field.id,
@@ -25,19 +42,29 @@ export const FormSchemaProcessor = {
         value: null || inputProp.default,
       },
     };
+
+    // Add optional properties if any
+    if (Object.keys(OptionalProps).length > 0) {
+      obj.optionalProperties = OptionalProps;
+    }
+
     return obj;
   },
+
+  // Set general input keys based on the allowedInputKeys configuration
   generalInputKeys: (x, field) => {
     for (let key in allowedInputKeys) {
       const inputKey = allowedInputKeys[key].keyName;
       const inputValue = field[key];
 
+      // Set the input property if the value is defined and not null
       if (inputValue !== undefined && inputValue !== null) {
         x[inputKey] = allowedInputKeys[key].method(inputValue);
       }
     }
   },
 
+  // Set type-based input keys based on the field type
   typeBasedInputKeys: (x, field) => {
     const allowedKeys = typeBasedInputKeys[field.fieldType];
 
@@ -47,44 +74,73 @@ export const FormSchemaProcessor = {
       const inputKey = allowedKeys[key].keyName;
       const inputValue = field[key];
 
+      // Set the input property if the value is defined and not null
       if (inputValue !== undefined && inputValue !== null) {
         x[inputKey] = allowedKeys[key].method(inputValue);
       }
     }
   },
 
-  getValidationRules: (x, field) => {
-    for (let key in validationRules) {
-      const inputKey = validationRules[key].keyName;
+  // Get optional input keys based on the OptionalInputKeys configuration
+  getOptionalInputKeys: (x, field) => {
+    for (let key in OptionalInputKeys) {
+      const inputKey = OptionalInputKeys[key].keyName;
       const inputValue = field[key];
 
+      // Set the input property if the value is defined and not null
       if (inputValue !== undefined && inputValue !== null) {
-        x[inputKey] = validationRules[key].method(inputValue);
+        x[inputKey] = OptionalInputKeys[key].method(inputValue);
       }
     }
   },
 };
 
-const validationRules = {
+// Configuration for optional input keys
+const OptionalInputKeys = {
   validation: {
     method: (kv) => {
+      // Method to process validation key
+      let findErrRule = kv.rules.find((x) => x.type === "e"); //find type = error in rules
       let x = kv;
-      x.isValid = false;
+      x.type = "";
+      x.isValid = findErrRule !== undefined ? false : true;
       x.message = "";
       x.color = "";
       return x;
     },
     keyName: "validation",
   },
+  binding: {
+    method: (kv) => {
+      // Method to process binding key
+      kv.property = false;
+      return kv;
+    },
+    keyName: "binding",
+  },
+  groupId: {
+    method: (kv) => kv,
+    keyName: "groupId",
+  },
+  groupVisibility: {
+    method: (kv) => kv,
+    keyName: "groupVisibility",
+  },
 };
+
+// Configuration for allowed input keys
 const allowedInputKeys = {
   enabled: {
     method: (kv) => !kv,
     keyName: "disabled",
   },
+  visible: {
+    method: (kv) => !kv,
+    keyName: "hidden",
+  },
   default: {
     method: (kv) => {
-      // console.log(kv);
+      // Method to process default key
       let x = DefaultMethods[kv];
       if (!x) x = InternalDefaultfunctions[kv];
       if (!x) throw "method not found";
@@ -92,21 +148,13 @@ const allowedInputKeys = {
     },
     keyName: "default",
   },
-  // validation: {
-  //   method: (kv) => {
-  //     let x = kv;
-  //     x.isValid = false;
-  //     x.message = "";
-  //     x.color = "";
-  //     return x;
-  //   },
-  //   keyName: "validation",
-  // },
 };
 
+// Configuration for allowed number input keys
 const allowedNumberInputKeys = {
   numberDecimal: {
     method: (kv) => {
+      // Method to process numberDecimal key
       if (kv) return 0.1;
     },
     keyName: "step",
@@ -120,11 +168,14 @@ const allowedNumberInputKeys = {
     keyName: "max",
   },
 };
+
+// Configuration for option data group
 const optionDataGroup = {
   options: { method: (kv) => kv, keyName: "options" },
   data: { method: (kv) => kv, keyName: "data" },
 };
 
+// Configuration for type-based input keys
 const typeBasedInputKeys = {
   number: allowedNumberInputKeys,
   radioList: { ...optionDataGroup },

@@ -24,7 +24,7 @@ const ModalComponent = ({
           <FormLoader
             FormSchema={FormSchema}
             submitAction={{
-              submitText: "Submit",
+              submitText: "Add",
               onSubmit: closeAndRetuenValues,
             }}
           />

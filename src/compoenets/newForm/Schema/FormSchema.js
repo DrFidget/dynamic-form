@@ -106,6 +106,16 @@ export const FormSchema = [
     numberDecimal: false,
     numberMin: "10",
     numberMax: "20",
+    validation: {
+      rules: [
+        {
+          type: "e",
+          rule: "${noifd1} >= 10 && ${noifd1} <= 20",
+          msg: "Value must be between 10 and 20",
+          color: "red",
+        },
+      ],
+    },
   },
   // User can only enter numeric value between 10 and 20.
 
@@ -177,16 +187,83 @@ export const FormSchema = [
       rules: [
         {
           type: "w",
-          rule: "${evenNum} >= 10 && ${evenNum} <= 200",
-
-          msg: "Value must be between 10 and 200",
+          rule: "${evenNum} >= 10 && ${evenNum} <= 20",
+          msg: "Value must be between 10 and 20",
           color: "#F9A825",
         },
+      ],
+    },
+  },
+  {
+    id: "towork",
+    fieldName: "Lone Worker",
+    fieldType: "checkbox",
+    binding: {
+      property: "value",
+      target: "div55",
+      targetGroup: "loneform",
+      targetProperty: "visible",
+    },
+  },
+  {
+    id: "div55",
+    fieldName: "",
+    fieldType: "divider",
+    groupId: "loneform",
+    groupVisibility: "false",
+  },
+  {
+    id: "name",
+    fieldName: "Name",
+    fieldType: "text",
+    default: "#VAR_UNAME#",
+    enabled: false,
+    clearValues: false,
+    visible: false,
+    groupId: "loneform",
+  },
+  {
+    id: "lookupSpeed",
+    fieldName: "Speed MPH",
+    fieldType: "list",
+    options: ["10", "15"],
+    binding: {
+      property: "value",
+      target: "textDistanceField",
+      targetProperty: "value",
+      targetPropertyLookup: "table",
+    },
+  },
+  {
+    id: "lookupTime",
+    fieldName: "Time",
+    fieldType: "list",
+    options: ["10 ", "15 "],
+    binding: {
+      property: "value",
+      target: "textDistanceField",
+      targetProperty: "value",
+      targetPropertyLookup: "table", // property for table
+    },
+  },
+  {
+    id: "textDistanceField",
+    fieldName: "Distance meters",
+    fieldType: "text",
+    enabled: false,
+    lookup: {
+      col: "lookupSpeed", // id of 1st field defining the column field
+      row: "lookupTime", // id of 2nd field, defining the row field
+      source: [
         {
-          type: "w",
-          rule: "${evenNum} >= 100 && ${evenNum} <= 200",
-          msg: "Value must be between 100 and 200",
-          color: "#0A00FF",
+          MPH: "10",
+          "10 ": "367",
+          "15 ": "440",
+        },
+        {
+          MPH: "15",
+          "10 ": "550",
+          "15 ": "660",
         },
       ],
     },
