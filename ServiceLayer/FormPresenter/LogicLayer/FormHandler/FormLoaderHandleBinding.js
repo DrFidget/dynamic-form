@@ -1,51 +1,39 @@
-import { getObjFromId } from "./FormLoaderUtils";
+import { tableLookupHandle } from "./FormLoaderHandleLookup";
+import { getObjFromId, formLoaderUtils } from "./FormLoaderUtils";
 
 export const handleBinding = (id, formSchema) => {
+  let updatedSchema = [...formSchema];
   let Obj = getObjFromId(id, formSchema);
 
-  if (Obj.optionalProperties) {
-    let binding = Obj.optionalProperties.binding;
-    if (binding) {
-      if (binding.targetGroup) {
-        let groupId = binding.targetGroup;
-        let updatedSchema = formSchema.map((element) => {
-          if (
-            element.optionalProperties &&
-            element.optionalProperties.groupId
-          ) {
-            let gId = element.optionalProperties.groupId;
-            if (gId === groupId) {
-              let x = {
-                ...element,
-                inputProperties: {
-                  ...element.inputProperties,
-                  hidden: !Obj.dataValues.value,
-                },
-              };
-              return x;
-            }
-          } else return element;
-        });
-        return updatedSchema;
-      } else if (binding.target) {
-        let targetID = binding.target;
-        let updatedSchema = formSchema.map((element) => {
-          if (element.dataValues.id === targetID) {
-            return {
-              ...element,
-              inputProperties: {
-                ...element.inputProperties,
-                hidden: !Obj.dataValues.value, //if value=true hidden = false
-              },
-            };
-          } else return element;
-        });
-        return updatedSchema;
-      }
-    }
+  if (!Obj.optionalProperties || !Obj.optionalProperties.binding)
+    return formSchema;
+
+  let binding = Obj.optionalProperties.binding;
+  // check target priority (array , group or single) and get target fields
+  let targetFields = formLoaderUtils.getTargetFields(binding, formSchema);
+  //[lsit of fields with matched target id]
+
+  let updatedFields = [];
+  if (binding.targetPropertyLookup === "table") {
+    updatedFields = tableLookupHandle({ ...targetFields[0] }, Obj);
+    // function(tableLookup,object.value,) return updated fields
+    // return formSchema;
+  } else {
+    updatedFields = formLoaderUtils.updateTargetProperty(
+      Obj,
+      binding,
+      targetFields
+    );
   }
-  // }
-  return formSchema;
+  // update target property (target property to be updated)
+
+  updatedFields.forEach((uf) => {
+    let fi = updatedSchema.findIndex(
+      (sf) => sf.dataValues.id === uf.dataValues.id
+    );
+    if (fi !== -1) updatedSchema[fi] = { ...uf };
+  });
+  return updatedSchema;
 };
 
 const TurnVisibilityFalse = (FormSchema, groupId) => {

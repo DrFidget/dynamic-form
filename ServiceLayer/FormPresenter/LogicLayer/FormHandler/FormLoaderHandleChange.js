@@ -66,18 +66,6 @@ const IsReadyToSubmit = (formSchema) => {
       element.optionalProperties.validation &&
       element.optionalProperties.validation.isValid === false
   );
-  // for (let element of formSchema) {
-  //   let optionalProperties = element.optionalProperties;
-  //   if (optionalProperties && optionalProperties.validation) {
-  //     if (
-  //       optionalProperties.validation.isValid === false &&
-  //       optionalProperties.validation.type === "e"
-  //     ) {
-  //       return false;
-  //     }
-  //   }
-  // }
-  // return true;
 
   return !result;
 };
@@ -91,7 +79,7 @@ const ChangeField = (value, id, dict, formSchema) => {
     ChangedObject.optionalProperties &&
     ChangedObject.optionalProperties.validation
   )
-    HandleValidation(ChangedObject, Dictionary);
+    HandleValidation(ChangedObject, Dictionary); // ERROR : mutation in formSchema
   const updatedFields2 = [...formSchema];
   let foundIndex = formSchema.findIndex((ele) => ele.dataValues.id === id);
   if (foundIndex === -1) updatedFields2[foundIndex] = ChangedObject;
@@ -99,8 +87,19 @@ const ChangeField = (value, id, dict, formSchema) => {
 };
 
 export const HandleChangeState = (value, id, dict, formSchema) => {
+  // i will send each method schema and the field changed
+  // i expect from each method to send me the updated fields they have changed.
+
   let updatedFields = ChangeField(value, id, dict, formSchema);
   let isReadyToSubmit = IsReadyToSubmit(formSchema);
   updatedFields = handleBinding(id, [...updatedFields]);
+
+  // Change field should give us single field.
+  // single field will be passed to binding method.
+  // binding method should give us affected updated fields.
+
+  // destructure and update all fields in schema for react render
+  // check for validation is ready to submit
+
   return { updatedFields, isReadyToSubmit };
 };

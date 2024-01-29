@@ -1,5 +1,5 @@
-import { DefaultMethods } from "./DefaultFunctions";
-import { InternalDefaultfunctions } from "./InternalDefaultmethods";
+import { DefaultMethods } from "./DefaultMethods/DefaultFunctions";
+import { InternalDefaultfunctions } from "./DefaultMethods/InternalDefaultmethods";
 
 // FormSchemaProcessor object with methods for generating form fields
 export const FormSchemaProcessor = {
@@ -110,6 +110,7 @@ const OptionalInputKeys = {
     },
     keyName: "validation",
   },
+
   binding: {
     method: (kv) => {
       // Method to process binding key
@@ -125,6 +126,21 @@ const OptionalInputKeys = {
   groupVisibility: {
     method: (kv) => kv,
     keyName: "groupVisibility",
+  },
+  lookup: {
+    method: (kv) => {
+      let x = { ...kv };
+      x.col = {
+        tableDimension: kv.col,
+        value: null,
+      };
+      x.row = {
+        tableDimension: kv.row,
+        value: null,
+      };
+      return x;
+    },
+    keyName: "lookup",
   },
 };
 
@@ -147,6 +163,10 @@ const allowedInputKeys = {
       return x();
     },
     keyName: "default",
+  },
+  required: {
+    method: (kv) => kv,
+    keyName: "required",
   },
 };
 

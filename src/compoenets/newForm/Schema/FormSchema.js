@@ -201,7 +201,8 @@ export const FormSchema = [
     binding: {
       property: "value",
       target: "div55",
-      targetGroup: "loneform",
+      // targetGroup: "loneform",
+      targetArray: ["div55", "name"],
       targetProperty: "visible",
     },
   },
@@ -238,7 +239,7 @@ export const FormSchema = [
     id: "lookupTime",
     fieldName: "Time",
     fieldType: "list",
-    options: ["10 ", "15 "],
+    options: ["10", "15"],
     binding: {
       property: "value",
       target: "textDistanceField",
@@ -257,15 +258,93 @@ export const FormSchema = [
       source: [
         {
           MPH: "10",
-          "10 ": "367",
-          "15 ": "440",
+          10: "367",
+          15: "440",
         },
         {
           MPH: "15",
-          "10 ": "550",
-          "15 ": "660",
+          10: "550",
+          15: "660",
         },
       ],
     },
+  },
+  {
+    id: "com1",
+    fieldName: "Comments. We are also cloning value in comments field",
+    fieldType: "text",
+    groupId: "com2",
+    groupVisibility: "false",
+    required: true,
+    clearValues: false,
+    visible: false,
+    binding: {
+      property: "value",
+      target: "com",
+      targetProperty: "value",
+    },
+  },
+  {
+    id: "com",
+    fieldName: "Comments. We are also cloning value in comments field",
+    fieldType: "text",
+    clearValues: false,
+    groupId: "com3",
+    groupVisibility: "true",
+    binding: {
+      property: "value",
+      target: "com1",
+      targetProperty: "value",
+    },
+  },
+  {
+    id: "tawer",
+    altId: "top_taw",
+    fieldName: "TAW",
+    fieldType: "checkbox",
+    binding: {
+      property: "value",
+      target: "t-time",
+      targetGroup: "serial",
+      targetArray: [
+        "t-time", // id of 1st child field
+        "t-dist", // id of 2nd child field
+      ],
+      targetProperty: "visible",
+    },
+  },
+  {
+    id: "t-time",
+    fieldName: "Clearing Time (sec)",
+    fieldType: "list",
+    options: ["10 ", "15 ", "20 ", "25 ", "30 "],
+    visible: false,
+  },
+  {
+    id: "t-dist",
+    fieldName: "Sight Distance",
+    fieldType: "text",
+    required: true,
+    visible: false,
+  },
+  {
+    id: "na",
+    fieldName: "This checkbox will set visible false of associated fields",
+    fieldType: "checkbox",
+    binding: {
+      property: "value",
+      target: "trname",
+      targetGroup: "mint",
+      targetProperty: "visible",
+      logicalFunction: "!",
+    },
+  },
+  {
+    id: "trname",
+    fieldName: "NAME",
+    fieldType: "text",
+    numberDecimal: true,
+    required: true,
+    groupId: "mint",
   },
 ];
