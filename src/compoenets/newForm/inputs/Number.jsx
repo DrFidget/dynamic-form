@@ -17,11 +17,13 @@ const Number = ({ Element, Styles, HandleChange }) => {
         onChange={HandleInputChange}
       />
 
-      {optionalProperties && !optionalProperties.message != "" && (
-        <p style={{ color: `${optionalProperties.validation.color}` }}>
-          {optionalProperties.validation.message}
-        </p>
-      )}
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

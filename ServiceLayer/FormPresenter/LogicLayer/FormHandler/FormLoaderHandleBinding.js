@@ -1,7 +1,8 @@
 import { tableLookupHandle } from "./FormLoaderHandleLookup";
+import { MappingMethods } from "./FormLoaderHandleMapping";
 import { getObjFromId, formLoaderUtils } from "./FormLoaderUtils";
 
-export const handleBinding = (id, formSchema) => {
+export const handleBinding = (id, formSchema, dict) => {
   let updatedSchema = [...formSchema];
   let Obj = getObjFromId(id, formSchema);
 
@@ -10,29 +11,35 @@ export const handleBinding = (id, formSchema) => {
 
   let binding = Obj.optionalProperties.binding;
   // check target priority (array , group or single) and get target fields
-  let targetFields = formLoaderUtils.getTargetFields(binding, formSchema);
-  //[lsit of fields with matched target id]
-
   let updatedFields = [];
-  if (binding.targetPropertyLookup === "table") {
-    updatedFields = tableLookupHandle({ ...targetFields[0] }, Obj);
-    // function(tableLookup,object.value,) return updated fields
-    // return formSchema;
-  } else {
-    updatedFields = formLoaderUtils.updateTargetProperty(
-      Obj,
-      binding,
-      targetFields
-    );
-  }
-  // update target property (target property to be updated)
 
-  updatedFields.forEach((uf) => {
-    let fi = updatedSchema.findIndex(
-      (sf) => sf.dataValues.id === uf.dataValues.id
-    );
-    if (fi !== -1) updatedSchema[fi] = { ...uf };
-  });
+  if (binding.mapping) {
+    return MappingMethods.MappingHandler(binding, Obj, formSchema, dict);
+  } else {
+    let targetFields = formLoaderUtils.getTargetFields(binding, formSchema);
+    //[lsit of fields with matched target id]
+
+    if (binding.targetPropertyLookup === "table") {
+      updatedFields = tableLookupHandle({ ...targetFields[0] }, Obj);
+      // function(tableLookup,object.value,) return updated fields
+      // return formSchema;
+    } else {
+      updatedFields = formLoaderUtils.updateTargetProperty(
+        Obj,
+        binding,
+        targetFields
+      );
+    }
+    // update target property (target property to be updated)
+
+    updatedFields.forEach((uf) => {
+      let fi = updatedSchema.findIndex(
+        (sf) => sf.dataValues.id === uf.dataValues.id
+      );
+      if (fi !== -1) updatedSchema[fi] = { ...uf };
+    });
+  }
+
   return updatedSchema;
 };
 

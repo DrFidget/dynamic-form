@@ -1,15 +1,17 @@
 import { handleBinding } from "./FormLoaderHandleBinding";
 import { getObjFromId } from "./FormLoaderUtils";
 
-function replaceVariables(inputString, dict) {
-  const variablePattern = /\${(\w+)}/g;
+export function replaceVariables(inputString, dict, flag) {
+  const variablePattern = /\${([^{}]+)}/g;
 
   const replacedString = inputString.replace(
     variablePattern,
     (match, variableName) => {
       if (dict.hasOwnProperty(variableName)) {
+        if (!dict[variableName]) return "";
         return dict[variableName];
       } else {
+        if (flag) return " ";
         return match;
       }
     }
@@ -18,7 +20,7 @@ function replaceVariables(inputString, dict) {
   return replacedString;
 }
 
-const ValidateEachProperty = (rule, dict) => {
+export const ValidateEachProperty = (rule, dict) => {
   let ModifiedRule = replaceVariables(rule, dict);
   return eval(ModifiedRule);
 };
@@ -92,7 +94,7 @@ export const HandleChangeState = (value, id, dict, formSchema) => {
 
   let updatedFields = ChangeField(value, id, dict, formSchema);
   let isReadyToSubmit = IsReadyToSubmit(formSchema);
-  updatedFields = handleBinding(id, [...updatedFields]);
+  updatedFields = handleBinding(id, [...updatedFields], dict);
 
   // Change field should give us single field.
   // single field will be passed to binding method.

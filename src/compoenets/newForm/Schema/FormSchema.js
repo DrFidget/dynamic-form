@@ -269,34 +269,7 @@ export const FormSchema = [
       ],
     },
   },
-  {
-    id: "com1",
-    fieldName: "Comments. We are also cloning value in comments field",
-    fieldType: "text",
-    groupId: "com2",
-    groupVisibility: "false",
-    required: true,
-    clearValues: false,
-    visible: false,
-    binding: {
-      property: "value",
-      target: "com",
-      targetProperty: "value",
-    },
-  },
-  {
-    id: "com",
-    fieldName: "Comments. We are also cloning value in comments field",
-    fieldType: "text",
-    clearValues: false,
-    groupId: "com3",
-    groupVisibility: "true",
-    binding: {
-      property: "value",
-      target: "com1",
-      targetProperty: "value",
-    },
-  },
+
   {
     id: "tawer",
     altId: "top_taw",
@@ -346,5 +319,157 @@ export const FormSchema = [
     numberDecimal: true,
     required: true,
     groupId: "mint",
+  },
+  {
+    id: "test",
+
+    fieldName: "Condition",
+
+    fieldType: "radioList",
+
+    options: [
+      "A/C - Adjusted w/ Comments",
+
+      "R/C - Repaired / Replaced w/ Comments",
+
+      "N/A - Test Not Applicable",
+    ],
+
+    data: ["A/C", "R/C", "N/A"],
+
+    binding: {
+      property: "value",
+      target: "com1", // this should be 1st id of same targetGroup
+      targetGroup: "com2",
+      targetProperty: "visible",
+      mapping: [
+        {
+          options: ["A/C", "R/C"],
+          mapTo: "true",
+          targetGroup: "com2",
+        },
+        {
+          options: ["OK", "N/A"],
+          mapTo: "false",
+          targetGroup: "com2",
+        },
+        {
+          options: ["A/C", "R/C"],
+          mapTo: "false",
+          targetGroup: "com3",
+        },
+        {
+          options: ["OK", "N/A"],
+          mapTo: "true",
+          targetGroup: "com3",
+        },
+      ],
+    },
+  },
+  {
+    id: "com2",
+    fieldName: "com2",
+    fieldType: "text",
+    groupId: "com2",
+    groupVisibility: "false",
+    required: true,
+    clearValues: false,
+    visible: false,
+    binding: {
+      property: "value",
+      target: "com",
+      targetProperty: "value",
+    },
+  },
+  {
+    id: "com3",
+    fieldName: "com3",
+    fieldType: "text",
+    clearValues: false,
+    groupId: "com3",
+    groupVisibility: "true",
+    binding: {
+      property: "value",
+      target: "com1",
+      targetProperty: "value",
+    },
+  },
+  {
+    id: "time-text",
+    fieldName:
+      "This field shows the data that we filled in 2 different input fields",
+    fieldType: "text",
+  },
+  {
+    id: "num-ptime",
+    fieldName: "Time (sec)",
+    fieldType: "number",
+    binding: {
+      property: "value",
+      target: "time-text",
+      targetArray: ["time-text"],
+      targetProperty: "value",
+      mapping: [
+        {
+          formatFunction: "From: ${num-ptime} to: ${num-warntime}",
+        },
+      ],
+    },
+  },
+  {
+    id: "num-warntime",
+    fieldName: "Warning Time(sec)",
+    fieldType: "number",
+    binding: {
+      property: "value",
+      target: "time-text",
+      targetArray: ["time-text"],
+      targetProperty: "value",
+      mapping: [
+        {
+          formatFunction: "From: ${num-ptime} to: ${num-warntime}",
+        },
+      ],
+    },
+  },
+
+  {
+    id: "maxspeed",
+    fieldName: "Max Op. Speed (mph)",
+    fieldType: "number",
+    binding: {
+      property: "value",
+      target: "warntm",
+      targetProperty: "value",
+      mathFunction: "${aplen} / ( ${maxspeed} * 1.46667 )",
+      fun: {
+        type: "round",
+        args: [
+          "1", // This will show only 1 digit after decimal
+        ],
+      },
+    },
+  },
+  {
+    id: "aplen",
+    fieldName: "App Length (ft)",
+    fieldType: "number",
+    binding: {
+      property: "value",
+      target: "warntm",
+      targetProperty: "value",
+      mathFunction: "${aplen} / ( ${maxspeed} * 1.46667 )",
+      fun: {
+        type: "round",
+        args: [
+          "1", // This will show only 1 digit after decimal
+        ],
+      },
+    },
+  },
+  {
+    id: "warntm",
+    fieldName: "Warning Time from formula (sec)",
+    fieldType: "text",
   },
 ];
