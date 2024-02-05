@@ -16,8 +16,7 @@ export const handleBinding = (id, formSchema, dict) => {
   if (binding.mapping) {
     return MappingMethods.MappingHandler(binding, Obj, formSchema, dict);
   } else {
-    let targetFields = formLoaderUtils.getTargetFields(binding, formSchema);
-    //[lsit of fields with matched target id]
+    let targetFields = formLoaderUtils.getTargetFields(binding, formSchema); //targets [{},{}]
 
     if (binding.targetPropertyLookup === "table") {
       updatedFields = tableLookupHandle({ ...targetFields[0] }, Obj);
@@ -27,7 +26,8 @@ export const handleBinding = (id, formSchema, dict) => {
       updatedFields = formLoaderUtils.updateTargetProperty(
         Obj,
         binding,
-        targetFields
+        targetFields,
+        dict
       );
     }
     // update target property (target property to be updated)

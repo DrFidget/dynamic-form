@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 
 const RadioButtons = ({ Element, Styles, HandleChange }) => {
   const { dataValues, inputProperties } = Element;
+  const { data, options } = inputProperties;
+  const [Values, setValues] = useState(data ? data : options);
 
   const handleInputChange = (e) => {
     HandleChange(e.target.value, dataValues.id);
@@ -14,7 +16,7 @@ const RadioButtons = ({ Element, Styles, HandleChange }) => {
             name={dataValues.id}
             className="form-check-input"
             type="radio"
-            value={inputProperties.data[key] || ""}
+            value={Values[key] || ""}
             onChange={handleInputChange}
           />
           <label>{item}</label>

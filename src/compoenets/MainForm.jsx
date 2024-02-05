@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import FormLoader from "./FormLoader";
 
-const MainForm = ({ FormSchema }) => {
+const MainForm = ({ FormSchema, submit }) => {
   return (
     <div className="" style={{}}>
-      <form className=" bg-secondary w-50">
+      <form className=" bg-secondary ">
         <h1>FORM</h1>
         <FormLoader
           FormSchema={FormSchema}
@@ -14,6 +14,7 @@ const MainForm = ({ FormSchema }) => {
             onSubmit: (s) => {
               console.log("pressed");
               console.log(s);
+              submit(s);
             },
           }}
         />

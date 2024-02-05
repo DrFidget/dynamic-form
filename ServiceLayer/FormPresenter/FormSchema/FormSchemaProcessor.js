@@ -1,5 +1,6 @@
 import { DefaultMethods } from "./DefaultMethods/DefaultFunctions";
 import { InternalDefaultfunctions } from "./DefaultMethods/InternalDefaultmethods";
+import { callExternalMethods } from "./DefaultMethods/CallExternalMethods";
 
 // FormSchemaProcessor object with methods for generating form fields
 export const FormSchemaProcessor = {
@@ -32,6 +33,18 @@ export const FormSchemaProcessor = {
       inputProp.hidden = false;
     }
 
+    if (inputProp.default) {
+      if (Array.isArray(inputProp.default) && inputProp.options.length === 0) {
+        // inputProp.options = [...inputProp.default];
+        let x = inputProp.default.find((e) => e.options);
+        if (x.options) inputProp.options = x.options;
+
+        if (x.data) inputProp.data = x.data;
+
+        if (!x.value) inputProp.default = "";
+      }
+    }
+
     // Create an object representing the form field
     let obj = {
       inputProperties: inputProp,
@@ -39,7 +52,7 @@ export const FormSchemaProcessor = {
         id: field.id,
         fieldName: field.fieldName,
         fieldType: field.fieldType,
-        value: null || inputProp.default,
+        value: "" || inputProp.default,
       },
     };
 
@@ -52,8 +65,9 @@ export const FormSchemaProcessor = {
   },
 
   // Set general input keys based on the allowedInputKeys configuration
-  generalInputKeys: (x, field) => {
+  generalInputKeys: (x, field, skipDefault) => {
     for (let key in allowedInputKeys) {
+      // if (key === "default" && skipDefault) continue;
       const inputKey = allowedInputKeys[key].keyName;
       const inputValue = field[key];
 
@@ -157,10 +171,12 @@ const allowedInputKeys = {
   default: {
     method: (kv) => {
       // Method to process default key
-      let x = DefaultMethods[kv];
-      if (!x) x = InternalDefaultfunctions[kv];
-      if (!x) throw "method not found";
-      return x();
+
+      if (kv in DefaultMethods) return DefaultMethods[kv]();
+      if (kv in InternalDefaultfunctions) return InternalDefaultfunctions[kv]();
+      let x = callExternalMethods(kv);
+      if (x && x.length > 0) return x;
+      return kv;
     },
     keyName: "default",
   },

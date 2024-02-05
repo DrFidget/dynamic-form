@@ -22,7 +22,12 @@ export function replaceVariables(inputString, dict, flag) {
 
 export const ValidateEachProperty = (rule, dict) => {
   let ModifiedRule = replaceVariables(rule, dict);
-  return eval(ModifiedRule);
+
+  try {
+    return eval(ModifiedRule);
+  } catch (e) {
+    return false;
+  }
 };
 
 const HandleValidation = (ChangedObject, Dictionary) => {
@@ -73,7 +78,7 @@ const IsReadyToSubmit = (formSchema) => {
 };
 
 const ChangeField = (value, id, dict, formSchema) => {
-  let ChangedObject = getObjFromId(id, formSchema);
+  let ChangedObject = getObjFromId(id, formSchema); //avoide mutation
   ChangedObject.dataValues.value = value;
   let Dictionary = dict;
   Dictionary[id] = value;
@@ -82,9 +87,9 @@ const ChangeField = (value, id, dict, formSchema) => {
     ChangedObject.optionalProperties.validation
   )
     HandleValidation(ChangedObject, Dictionary); // ERROR : mutation in formSchema
-  const updatedFields2 = [...formSchema];
+  let updatedFields2 = [...formSchema];
   let foundIndex = formSchema.findIndex((ele) => ele.dataValues.id === id);
-  if (foundIndex === -1) updatedFields2[foundIndex] = ChangedObject;
+  if (foundIndex !== -1) updatedFields2[foundIndex] = { ...ChangedObject }; //not updating correctly
   return updatedFields2;
 };
 

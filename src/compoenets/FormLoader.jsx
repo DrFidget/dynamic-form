@@ -54,9 +54,10 @@ const FormLoader = ({
         <button
           className="btn btn-primary"
           disabled={!readyToSubmit}
-          onClick={() =>
-            submitAction.onSubmit && submitAction.onSubmit(formSchemaState)
-          }
+          onClick={(e) => {
+            submitAction.onSubmit && submitAction.onSubmit(formSchemaState);
+            e.preventDefault();
+          }}
         >
           {submitAction.submitText}
         </button>

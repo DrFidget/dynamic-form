@@ -1,15 +1,12 @@
 import React from "react";
-
-// import FormLoader from "./compoenets/FormLoader";
-import MainForm from "./compoenets/MainForm";
-import { FormSchema } from "./compoenets/newForm/Schema/FormSchema";
+import FormView from "./FormView";
+import { Route, Routes } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
-      <MainForm FormSchema={FormSchema} />
-      {/* <FormLoader FormSchema={FormSchema} /> */}
-    </div>
+    <Routes>
+      <Route path="/" element={<FormView />}></Route>
+    </Routes>
   );
 };
 

@@ -1,5 +1,20 @@
+import { replaceVariables } from "./FormLoaderHandleChange";
+function deepCopy(obj) {
+  if (typeof obj !== "object" || obj === null) {
+    return obj;
+  }
+
+  let copy = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      copy[key] = deepCopy(obj[key]);
+    }
+  }
+  return copy;
+}
 export const getObjFromId = (id, formSchema) => {
-  return formSchema.find((element) => element.dataValues.id === id);
+  let obj = formSchema.find((element) => element.dataValues.id === id);
+  return deepCopy(obj);
 };
 
 export const formLoaderUtils = {
@@ -17,11 +32,35 @@ export const formLoaderUtils = {
     if (binding.target)
       return fields.filter((field) => field.dataValues.id === binding.target);
   },
+
+  mathOperaton: (value, type, args) => {
+    switch (type) {
+      case "round":
+        return value.toFixed(args[0]);
+      default:
+        break;
+    }
+  },
   updateTargetProperty: (Obj, binding, fields, dict) => {
+    let val = Obj.dataValues.value;
+    if (binding.targetProperty === "value" && binding.mathFunction) {
+      let actualFunction = replaceVariables(binding.mathFunction, dict);
+      try {
+        val = eval(actualFunction);
+        if (binding.fun)
+          val = formLoaderUtils.mathOperaton(
+            val,
+            binding.fun.type,
+            binding.fun.args
+          );
+      } catch (e) {
+        val = "Error in calculation!";
+      }
+    }
     return fields.map((f) => {
       formLoaderUtils.targetPropertyMethods[binding.targetProperty](
         f,
-        Obj.dataValues.value,
+        val,
         binding,
         dict
       );

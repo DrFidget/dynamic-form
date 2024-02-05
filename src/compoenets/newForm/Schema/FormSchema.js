@@ -7,6 +7,23 @@ export const FormSchema = [
     enabled: false,
     clearValues: false,
   },
+
+  {
+    id: "testBat",
+    fieldName: "BUS Nom",
+    fieldType: "list",
+    default: "#ASSET.lists('busNomenclature')#",
+    options: [],
+  },
+  {
+    id: "materialType",
+    fieldName: "Material Type",
+    fieldType: "list",
+    default:
+      "#APPLICATIONLOOKUP.lists('materialTypes','${des} (${key1}, ${key2})','${des}','sort')#",
+    options: [],
+  },
+
   // VAR_NOW variable shows real time date and time
 
   {
@@ -152,6 +169,24 @@ export const FormSchema = [
         fieldName: "Drop Down List",
         fieldType: "list",
         options: ["Lahore", "Karachi", "Islamabad", "Peshawar", "Faisalabad"],
+      },
+      {
+        id: "noifd",
+        fieldName: "Number field with Max and Min Number Validation",
+        fieldType: "number",
+        numberDecimal: false,
+        numberMin: "10",
+        numberMax: "20",
+        validation: {
+          rules: [
+            {
+              type: "e",
+              rule: "${noifd} >= 10 && ${noifd} <= 20",
+              msg: "Value must be between 10 and 20",
+              color: "red",
+            },
+          ],
+        },
       },
     ],
   },
