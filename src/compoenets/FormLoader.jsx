@@ -55,7 +55,8 @@ const FormLoader = ({
           className="btn btn-primary"
           disabled={!readyToSubmit}
           onClick={(e) => {
-            submitAction.onSubmit && submitAction.onSubmit(formSchemaState);
+            submitAction.onSubmit &&
+              submitAction.onSubmit(formSchemaState, formValues);
             e.preventDefault();
           }}
         >

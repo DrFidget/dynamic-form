@@ -98,7 +98,7 @@ export const HandleChangeState = (value, id, dict, formSchema) => {
   // i expect from each method to send me the updated fields they have changed.
 
   let updatedFields = ChangeField(value, id, dict, formSchema);
-  let isReadyToSubmit = IsReadyToSubmit(formSchema);
+
   updatedFields = handleBinding(id, [...updatedFields], dict);
 
   // Change field should give us single field.
@@ -107,6 +107,6 @@ export const HandleChangeState = (value, id, dict, formSchema) => {
 
   // destructure and update all fields in schema for react render
   // check for validation is ready to submit
-
+  let isReadyToSubmit = IsReadyToSubmit(updatedFields);
   return { updatedFields, isReadyToSubmit };
 };
