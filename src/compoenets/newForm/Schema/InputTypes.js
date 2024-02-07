@@ -11,7 +11,7 @@ export const InputTypes = {
   number: Components.Number,
   radioButtons: Components.RadioButtons,
   scribble: Components.Signature,
-  table: Components.Table,
+  table: Components.TableInput,
   text: Components.Text,
   time: Components.Time,
 };

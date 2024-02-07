@@ -9,6 +9,7 @@ const FormLoader = ({
   submitAction,
   FormState,
   DefaultMethods,
+  Values,
 }) => {
   const [formSchemaState, setFormSchemaState] = useState(() => {
     let schema_or_state;
@@ -16,6 +17,16 @@ const FormLoader = ({
       schema_or_state = FormSchemaProcessor.generateFormFields(FormSchema);
     else schema_or_state = FormState;
     HandleGroupVisibility(schema_or_state);
+
+    if (Values) {
+      schema_or_state = schema_or_state.map((e) => ({
+        ...e,
+        dataValues: {
+          ...e.dataValues,
+          value: e.dataValues.value || Values[e.dataValues.id],
+        },
+      }));
+    }
     return schema_or_state;
   });
 
@@ -55,8 +66,7 @@ const FormLoader = ({
           className="btn btn-primary"
           disabled={!readyToSubmit}
           onClick={(e) => {
-            submitAction.onSubmit &&
-              submitAction.onSubmit(formSchemaState, formValues);
+            submitAction.onSubmit && submitAction.onSubmit(formValues);
             e.preventDefault();
           }}
         >

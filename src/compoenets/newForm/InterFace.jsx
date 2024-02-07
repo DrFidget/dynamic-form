@@ -7,9 +7,9 @@ import Image from "./inputs/Image";
 import Number from "./inputs/Number";
 import RadioButtons from "./inputs/RadioButtons";
 import Signature from "./inputs/Signature";
-import Table from "./inputs/Table";
 import Text from "./inputs/Text";
 import Time from "./inputs/Time";
+import TableInput from "./inputs/tableInput/tableInput";
 
 //export all
 export {
@@ -22,7 +22,7 @@ export {
   Number,
   RadioButtons,
   Signature,
-  Table,
   Text,
   Time,
+  TableInput,
 };

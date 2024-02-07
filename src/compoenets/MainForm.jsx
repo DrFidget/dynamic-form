@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import FormLoader from "./FormLoader";
 import { useNavigate } from "react-router-dom";
-const MainForm = ({ FormSchema, FormState, handleSubmit }) => {
+const MainForm = ({ FormSchema, Values, handleSubmit }) => {
   let navigate = useNavigate();
   return (
     <div className="" style={{}}>
       <form className=" bg-secondary ">
         <h1>FORM</h1>
-        {FormState ? (
+        {Values ? (
           <FormLoader
-            FormState={FormState}
+            FormSchema={FormSchema}
+            Values={Values}
             submitAction={{
               submitText: "Done",
               stateOnLoad: true,
-              onSubmit: (s, dict) => {
+              onSubmit: (dict) => {
                 // submit(s, dict);
-                handleSubmit(s, dict);
+                handleSubmit(dict);
                 navigate("/");
               },
             }}
@@ -26,9 +27,9 @@ const MainForm = ({ FormSchema, FormState, handleSubmit }) => {
             submitAction={{
               submitText: "Submit",
               stateOnLoad: false,
-              onSubmit: (s, dict) => {
+              onSubmit: (dict) => {
                 // submit(s, dict);
-                handleSubmit(s, dict);
+                handleSubmit(dict);
                 navigate("/");
               },
             }}

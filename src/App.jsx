@@ -16,9 +16,9 @@ const App = () => {
     row: null,
     data: null,
   });
-  const handleSubmit = (Fstate, values) => {
+  const handleSubmit = (values) => {
     let x = [...DEEPCOPY(state)];
-    x.push({ ProcessedSchema: Fstate, Data: values });
+    x.push({ Data: values });
     setState(x);
   };
 
@@ -33,12 +33,21 @@ const App = () => {
         ...editMode,
         inEditMode: true,
         row: k,
-        data: state[k].ProcessedSchema,
+        data: state[k].Data,
       });
       navigate("/form");
     },
   };
   return (
+    // <Model
+    //   isOpen={true}
+    //   onClose={(e) => {
+    //     console.log("close it");
+    //   }}
+    //   headerText={"Add a new record"}
+    // >
+    //   ABC
+    // </Model>
     <Routes>
       <Route path="/" element={<Home data={state} Actions={Actions} />} />
       <Route
@@ -46,9 +55,10 @@ const App = () => {
         element={
           editMode.inEditMode ? (
             <MainForm
-              FormState={editMode.data}
-              handleSubmit={(Fstate, values) => {
-                let x = { ProcessedSchema: Fstate, Data: values };
+              FormSchema={FormSchema}
+              Values={editMode.data}
+              handleSubmit={(values) => {
+                let x = { Data: values };
                 setState((prevState) => {
                   let y = [...DEEPCOPY(prevState)];
                   y[editMode.row] = DEEPCOPY(x);
@@ -66,7 +76,7 @@ const App = () => {
             <MainForm FormSchema={FormSchema} handleSubmit={handleSubmit} />
           )
         }
-      ></Route>
+      />
       <Route path="/report" element={<Report />} />
     </Routes>
   );

@@ -10,7 +10,6 @@ const FormBody = ({
     margin: "10px 10px",
   };
   const InputValueChange = (value, id) => {
-    // console.log("FormBody Changed");
     H_Change(value, id);
   };
   return (
