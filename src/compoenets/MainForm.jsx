@@ -14,9 +14,9 @@ const MainForm = ({ FormSchema, Values, handleSubmit }) => {
             submitAction={{
               submitText: "Done",
               stateOnLoad: true,
-              onSubmit: (dict) => {
+              onSubmit: (dict, x) => {
                 // submit(s, dict);
-                handleSubmit(dict);
+                handleSubmit(dict, x);
                 navigate("/");
               },
             }}
@@ -27,9 +27,9 @@ const MainForm = ({ FormSchema, Values, handleSubmit }) => {
             submitAction={{
               submitText: "Submit",
               stateOnLoad: false,
-              onSubmit: (dict) => {
+              onSubmit: (dict, x) => {
                 // submit(s, dict);
-                handleSubmit(dict);
+                handleSubmit(dict, x);
                 navigate("/");
               },
             }}

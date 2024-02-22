@@ -1,0 +1,123 @@
+/* Text Input */
+.custom_input {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Container for all input types */
+.custom_Input_container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+
+/* Container for select input */
+.custom_select_container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+/* Label style for select */
+
+/* Select style */
+.custom_select_container select {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* Option style */
+.custom_select_container select option {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+
+
+
+/* Container for radio buttons */
+.custom_radio_container {
+    margin-bottom: 20px;
+}
+
+/* Style for each radio button div */
+.custom_radio_container div {
+    margin-bottom: 10px;
+}
+
+/* Style for radio button input */
+.custom_radio_container input[type="radio"] {
+    margin-right: 5px; /* Adjust spacing between input and label as needed */
+}
+
+/* Style for radio button label */
+.custom_radio_container label {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+
+
+button {
+    font-family: Arial, sans-serif;
+    background-color: rgb(185, 185, 185);
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Button hover effect */
+button:hover {
+    background-color: #8a8a8a; /* Change to desired hover background color */
+}
+
+/* Button active effect */
+button:active {
+    transform: translateY(1px); /* Push the button down slightly when clicked */
+}
+
+
+/* Global table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Table header style */
+table th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Table row style */
+table tr {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Table cell style */
+table td {
+    padding: 10px;
+}
+
+/* Hover effect on table rows */
+table tbody tr:hover {
+    background-color: #f0f0f0;
+}

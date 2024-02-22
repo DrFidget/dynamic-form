@@ -7,11 +7,11 @@ const Image = ({ Element, Styles, HandleChange }) => {
     HandleChange(e.target.value, dataValues.id);
   };
   return (
-    <div style={Styles} id={dataValues.id}>
+    <div style={Styles} id={dataValues.id} className="custom_Input_container">
       <label className="form-label">{dataValues.fieldName}</label>
       <input
         type="file"
-        className="form-control"
+        className="custom_input"
         accept="image/png, image/gif, image/jpeg"
         {...inputProperties}
         value={dataValues.value || ""}

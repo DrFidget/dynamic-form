@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 const Report = () => {
   const location = useLocation();
-  const state = location.state;
+  const report = location.state;
   const navigate = useNavigate();
 
   return (
@@ -12,16 +12,20 @@ const Report = () => {
       <table>
         <thead>
           <tr>
-            <th>Key</th>
+            <th>#</th>
+            <th>Field Name</th>
+            {/* <th>Id</th> */}
             <th>Value</th>
           </tr>
         </thead>
         <tbody>
-          {state
-            ? Object.entries(state).map(([key, value]) => (
-                <tr key={key}>
-                  <td>{key}</td>
-                  <td>{JSON.stringify(value)}</td>
+          {report
+            ? report.map((e, k) => (
+                <tr key={k}>
+                  <td>{k + 1}</td>
+                  <td>{e.fieldName}</td>
+                  {/* <td>{e.id}</td> */}
+                  <td>{e.value}</td>
                 </tr>
               ))
             : null}

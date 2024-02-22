@@ -11,14 +11,18 @@ import Report from "./Home/compoennets/Report";
 const App = () => {
   const navigate = useNavigate();
   const [state, setState] = useState([]);
+  const [report, setreport] = useState([]);
   const [editMode, setEditMode] = useState({
     inEditMode: false,
     row: null,
     data: null,
   });
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, reportValues) => {
     let x = [...DEEPCOPY(state)];
+    let y = [...DEEPCOPY(report)];
+    y.push({ Report: reportValues });
     x.push({ Data: values });
+    setreport(y);
     setState(x);
   };
 
@@ -49,7 +53,10 @@ const App = () => {
     //   ABC
     // </Model>
     <Routes>
-      <Route path="/" element={<Home data={state} Actions={Actions} />} />
+      <Route
+        path="/"
+        element={<Home data={state} report={report} Actions={Actions} />}
+      />
       <Route
         path="/form"
         element={

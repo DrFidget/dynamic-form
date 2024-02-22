@@ -7,7 +7,7 @@ const FormBody = ({
   DefaultMethods,
 }) => {
   const FieldStyles = {
-    margin: "10px 10px",
+    margin: "20px 20px",
   };
   const InputValueChange = (value, id) => {
     H_Change(value, id);

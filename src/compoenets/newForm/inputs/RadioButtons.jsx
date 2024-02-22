@@ -9,17 +9,18 @@ const RadioButtons = ({ Element, Styles, HandleChange }) => {
     HandleChange(e.target.value, dataValues.id);
   };
   return (
-    <div style={Styles} id={dataValues.id}>
+    <div style={Styles} id={dataValues.id} class="custom_radio_container">
       {inputProperties.options.map((item, key) => (
-        <div key={key} className="form-check">
+        <div key={key} className="">
           <input
             name={dataValues.id}
-            className="form-check-input"
+            className=""
             type="radio"
             value={Values[key] || ""}
             onChange={handleInputChange}
           />
-          <label>{item}</label>
+
+          <label class="">{item}</label>
         </div>
       ))}
     </div>

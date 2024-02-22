@@ -7,9 +7,15 @@ const DropDownList = ({ Element, Styles, HandleChange }) => {
     HandleChange(e.target.value, dataValues.id);
   };
   return (
-    <div id={dataValues.id} style={Styles} {...inputProperties}>
-      <label className="form-label">{dataValues.fieldName}</label>
+    <div
+      id={dataValues.id}
+      class="custom_select_container"
+      style={Styles}
+      {...inputProperties}
+    >
+      <label class="">{dataValues.fieldName}</label>
       <select
+        class="custom_Select_dropdown"
         className="form-select w-50"
         onChange={HandleInputChange}
         value={
@@ -21,7 +27,7 @@ const DropDownList = ({ Element, Styles, HandleChange }) => {
         <option value={undefined}>Select Value</option>
         {inputProperties.options.map((item, key) => {
           return (
-            <option value={item} key={key}>
+            <option value={item} key={key} class="">
               {item}
             </option>
           );

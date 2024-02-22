@@ -4,6 +4,7 @@ import FormBody from "./FormBody";
 import { FormSchemaProcessor } from "../../ServiceLayer/FormPresenter/FormSchema/FormSchemaProcessor";
 import { HandleChangeState } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleChange";
 import { HandleGroupVisibility } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleBinding";
+
 const FormLoader = ({
   FormSchema,
   submitAction,
@@ -23,7 +24,10 @@ const FormLoader = ({
         ...e,
         dataValues: {
           ...e.dataValues,
-          value: e.dataValues.value || Values[e.dataValues.id],
+
+          value: Array.isArray(Values[e.dataValues.id])
+            ? [...Values[e.dataValues.id]]
+            : Values[e.dataValues.id],
         },
       }));
     }
@@ -63,10 +67,16 @@ const FormLoader = ({
       />
       {submitAction && (
         <button
+          type="button"
           className="btn btn-primary"
           disabled={!readyToSubmit}
           onClick={(e) => {
-            submitAction.onSubmit && submitAction.onSubmit(formValues);
+            let x = [];
+            formSchemaState.forEach((element) => {
+              x.push(element.dataValues);
+            });
+
+            submitAction.onSubmit && submitAction.onSubmit(formValues, x);
             e.preventDefault();
           }}
         >

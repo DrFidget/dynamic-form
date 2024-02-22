@@ -8,15 +8,15 @@ const CheckBox = ({ Element, Styles, HandleChange }) => {
   };
 
   return (
-    <div style={Styles} id={dataValues.id}>
+    <div style={Styles} id={dataValues.id} className="custom_Checkbox">
       <input
         type="checkbox"
-        className="form-check-input"
+        className="custom_Checkbox_input"
         {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
       />
-      <label className="form-check-label mx-3">{dataValues.fieldName}</label>
+      <label className="custom_Checkbox_label">{dataValues.fieldName}</label>
     </div>
   );
 };

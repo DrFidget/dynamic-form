@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-const Home = ({ data, Actions }) => {
+const Home = ({ data, Actions, report }) => {
   let navigate = useNavigate();
   return (
     <>
@@ -19,8 +19,8 @@ const Home = ({ data, Actions }) => {
             </tr>
           </thead>
           <tbody>
-            {data.length > 0 &&
-              data.map((e, k) => (
+            {report.length > 0 &&
+              report.map((e, k) => (
                 <tr key={k}>
                   <td>Form {k + 1} added</td>
                   <td>
@@ -32,7 +32,7 @@ const Home = ({ data, Actions }) => {
                   <td>
                     <button
                       onClick={() => {
-                        navigate("/report", { state: e.Data });
+                        navigate("/report", { state: e.Report });
                       }}
                     >
                       Show Report

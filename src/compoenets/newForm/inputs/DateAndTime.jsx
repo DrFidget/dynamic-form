@@ -10,11 +10,11 @@ const DateAndTime = ({ Element, Styles, HandleChange, DefaultMethods }) => {
     ? new Date().toISOString().slice(0, 10)
     : dataValues.value;
   return (
-    <div style={Styles} id={dataValues.id}>
+    <div style={Styles} id={dataValues.id} className="custom_Input_container">
       <label className="form-label">{dataValues.fieldName}</label>
       <input
         type="datetime-local"
-        className="form-control"
+        className="custom_input"
         {...inputProperties}
         value={value || ""}
         onChange={HandleInputChange}

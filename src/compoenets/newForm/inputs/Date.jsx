@@ -8,11 +8,11 @@ const DateCompoenent = ({ Element, Styles, HandleChange }) => {
   };
 
   return (
-    <div style={Styles} id={dataValues.id}>
+    <div style={Styles} id={dataValues.id} className="custom_Input_container">
       <label className="form-label">{dataValues.fieldName}</label>
       <input
         type="date"
-        className="form-control"
+        className="custom_input"
         {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
