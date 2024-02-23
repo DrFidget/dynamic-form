@@ -1,0 +1,29 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.toolbar{
+    font-weight: bold;
+    /* width:100vw; */
+    padding-block: 10px;
+    padding-inline: 20px;
+    background-color: rgba(0, 0, 0, 0.493);
+}
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    height: 100%; 
+    padding: 2px;
+}
+
+.flexContainerDiv {
+    padding: 10px;
+    flex: 1; /* Equal spacing */
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    color: black;
+    background-color: rgb(92, 92, 92);
+}

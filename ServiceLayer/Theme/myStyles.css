@@ -13,6 +13,7 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    /* margin-inline: 10px; */
 }
 
 label {
@@ -69,8 +70,17 @@ label {
     font-size: 16px;
 }
 
+.custom_Checkbox{
+    margin-bottom: 20px;
+}
 
-
+.custom_Checkbox  input[type=checkbox]{
+    margin-right: 5px;
+}
+.custom_Checkbox label{
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
 button {
     font-family: Arial, sans-serif;
     background-color: rgb(185, 185, 185);
@@ -121,3 +131,4 @@ table td {
 table tbody tr:hover {
     background-color: #f0f0f0;
 }
+

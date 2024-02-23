@@ -1,0 +1,11 @@
+.container{
+    padding: 10px;
+    border: 1px solid black; 
+    border-radius: 15px; 
+}
+
+.buttoncontainer{
+    margin-top: 20px;
+    display: flex;
+    justify-content:space-evenly
+}   
