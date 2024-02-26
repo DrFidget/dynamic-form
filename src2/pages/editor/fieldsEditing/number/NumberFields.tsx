@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TypeBasedOptions } from "../../TypeBasedOptions";
+import { TypeBasedOptions } from "../TypeBasedOptions";
 import { TNumber, TValidation } from "../../../../types/TypeBasedProps";
 import { inputsInterface } from "../../../../compoenents/inputsInterface";
 import Validation from "./Validation";

@@ -18,8 +18,8 @@ interface List {
   data: string[] | number[];
 }
 
-export interface IbaseProp {
-  number: TNumber;
-  list: List;
-  radioList: List;
+export interface TRequired {
+  id?: string;
+  fieldName?: string;
+  fieldType?: string;
 }
