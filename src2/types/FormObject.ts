@@ -1,16 +1,16 @@
-import { TValidation } from "./TypeBasedProps"
+import { TValidation } from "./TypeBasedProps";
 
-export interface TFields{
-    id?:string  
-    fieldName?:string
-    fieldType?:string
-    numberMin?:number
-    numberMax?:number
-    numberDecimal?:boolean
-    validation?:TValidation
+export interface TFields {
+  id?: string;
+  fieldName?: string;
+  fieldType?: string;
+  numberMin?: number;
+  numberMax?: number;
+  numberDecimal?: boolean;
+  validation?: { rules: TValidation[] };
 }
 
-export interface TFormType{
-    Name:string;
-    Schema:TFields[]
+export interface TFormType {
+  Name: string;
+  Schema: TFields[];
 }

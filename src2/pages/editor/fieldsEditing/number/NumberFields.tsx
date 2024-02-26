@@ -9,16 +9,34 @@ import Modal from "../../../../compoenents/Modal";
 
 interface Props {
   NumberFieldsSchema?: TNumber;
+  onApplyProperties: (object: TNumber) => void;
+  onSkipProperties: () => void;
 }
 
-const NumberFields = ({ NumberFieldsSchema }: Props) => {
-  const [numberFields, setNumberFields] = useState<TNumber>({
-    validation: { rules: [] },
+interface EditMode {
+  isOpen: boolean;
+  data?: TValidation;
+  row?: number;
+}
+
+const NumberFields = ({
+  NumberFieldsSchema,
+  onApplyProperties,
+  onSkipProperties,
+}: Props) => {
+  const [numberFields, setNumberFields] = useState<TNumber>(() => {
+    if (NumberFieldsSchema) return NumberFieldsSchema;
+    return {
+      validation: { rules: [] },
+    };
   });
   const [needValidation, setNeedvalidation] = useState(() => {
-    if (NumberFieldsSchema && NumberFieldsSchema.validation) return true;
     return false;
   });
+  const [validationEdit, setValidationEdit] = useState<EditMode>({
+    isOpen: false,
+  });
+
   const options = TypeBasedOptions.number;
 
   const HandleChange = (val: any, key: string) => {
@@ -36,17 +54,40 @@ const NumberFields = ({ NumberFieldsSchema }: Props) => {
         let x = { ...numberFields };
         delete x.validation;
         setNumberFields(x);
-        // delete numberFields.validation;
       }
     }
   };
-  const HandleApplyRule = (object: any) => {
+  const HandleApplyRule = (object: TValidation) => {
     setNeedvalidation(false);
     let x = { ...numberFields };
     if (x.validation) {
       x.validation.rules.push(object);
     }
     setNumberFields(x);
+  };
+
+  const tableActions = {
+    onEdit: (index: number) => {
+      setValidationEdit({
+        isOpen: true,
+        row: index,
+        data: numberFields.validation?.rules[index],
+      });
+    },
+    onEditSave: (newRule: TValidation) => {
+      let x = { ...numberFields };
+      if (x.validation) x.validation.rules[validationEdit.row || 0] = newRule;
+      setNumberFields(x);
+
+      let xx: EditMode = { isOpen: false };
+      setValidationEdit(xx);
+    },
+
+    onDelete: (index: number) => {
+      let x = { ...numberFields };
+      x.validation?.rules.splice(index, 1);
+      setNumberFields(x);
+    },
   };
 
   return (
@@ -68,13 +109,50 @@ const NumberFields = ({ NumberFieldsSchema }: Props) => {
             );
           }
         })}
-
         <Button
           text="Add Rule"
           color="green"
           onClick={() => setNeedvalidation(!needValidation)}
         />
-
+        {numberFields.validation &&
+          numberFields.validation.rules.length > 0 && (
+            <table>
+              <thead>
+                <tr>
+                  <th>Rules</th>
+                  <th>Edit</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                {numberFields.validation.rules.map((e, k) => (
+                  <tr key={k}>
+                    <td>Rule {k + 1} Added </td>
+                    <td>
+                      <Button
+                        color="blue"
+                        text="edit"
+                        onClick={() => {
+                          tableActions.onEdit(k);
+                        }}
+                        type="button"
+                      />
+                    </td>
+                    <td>
+                      <Button
+                        color="red"
+                        text="delete"
+                        onClick={() => {
+                          tableActions.onDelete(k);
+                        }}
+                        type="button"
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         <Modal
           children={<Validation handleApplyRule={HandleApplyRule} />}
           isOpen={needValidation}
@@ -83,16 +161,32 @@ const NumberFields = ({ NumberFieldsSchema }: Props) => {
             setNeedvalidation(false);
           }}
         />
+        <Modal
+          children={
+            <Validation
+              EditModeState={validationEdit.data}
+              handleApplyRule={tableActions.onEditSave}
+              ButtonText="Confirm"
+            />
+          }
+          isOpen={validationEdit.isOpen}
+          headerText="Edit Validation Rule"
+          onClose={() => {
+            let x: EditMode = { isOpen: false };
+            setValidationEdit(x);
+          }}
+        />
 
         <div className={styles.buttoncontainer}>
           <Button
             color="green"
             onClick={() => {
               ValidateProps();
+              onApplyProperties(numberFields);
             }}
             text="Apply"
           />
-          <Button color="red" onClick={() => {}} text="Skip" />
+          <Button color="red" onClick={onSkipProperties} text="Skip" />
         </div>
       </div>
     </>

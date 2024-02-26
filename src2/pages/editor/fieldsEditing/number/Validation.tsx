@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { inputsInterface } from "../../../../compoenents/inputsInterface";
 import Button from "../../../../compoenents/Button";
+import { TValidation } from "../../../../types/TypeBasedProps";
 
 interface ValidationInput {
   type: string;
@@ -22,15 +23,26 @@ const ValidationInputs: { [key: string]: ValidationInput } = {
 };
 
 interface Props {
-  handleApplyRule: (object: any) => void;
+  handleApplyRule: (object: TValidation) => void;
+  EditModeState?: TValidation;
+  ButtonText?: string;
 }
 
-const ValidationNumber = ({ handleApplyRule }: Props) => {
-  const [validation, setValidation] = useState({
-    type: "",
-    rule: "",
-    msg: "",
-    color: "",
+const ValidationNumber = ({
+  handleApplyRule,
+  EditModeState,
+  ButtonText,
+}: Props) => {
+  const [validation, setValidation] = useState(() => {
+    if (EditModeState) {
+      return EditModeState;
+    }
+    return {
+      type: "",
+      rule: "",
+      msg: "",
+      color: "",
+    };
   });
 
   const handleChange = (val: any, key: string) => {
@@ -82,7 +94,7 @@ const ValidationNumber = ({ handleApplyRule }: Props) => {
         onClick={() => {
           handleRuleAddition();
         }}
-        text="Add Rule"
+        text={ButtonText || "Add Rule"}
       />
     </>
   );

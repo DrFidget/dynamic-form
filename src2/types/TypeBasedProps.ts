@@ -1,5 +1,5 @@
 export interface TValidation {
-  type: string,//"w" | "e" | "s" | "c";
+  type: string; //"w" | "e" | "s" | "c";
   rule: string;
   msg: string;
   color: string;
@@ -10,7 +10,7 @@ export interface TNumber {
   numberMin?: number;
   numberMax?: number;
   // EnableValidation?:boolean;
-  validation?: {rules:TValidation[]};
+  validation?: { rules: TValidation[] };
 }
 
 interface List {
@@ -18,23 +18,8 @@ interface List {
   data: string[] | number[];
 }
 
-
-
-export interface IbaseProp{
-    number:TNumber,
-    list:List,
-    radioList:List,
-}
-
-
-const abc={
-  numberDecimal:true,
-  numberMin:0,
-  numberMax:10,
-  validation:{
-    type:"w",
-    rule:"abc",
-    msg:"abc",
-    color:"red"
-  }
+export interface IbaseProp {
+  number: TNumber;
+  list: List;
+  radioList: List;
 }
