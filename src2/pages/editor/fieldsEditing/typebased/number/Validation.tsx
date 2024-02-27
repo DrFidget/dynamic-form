@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { inputsInterface } from "../../../../compoenents/inputsInterface";
-import Button from "../../../../compoenents/Button";
-import { TValidation } from "../../../../types/TypeBasedProps";
+import { inputsInterface } from "../../../../../compoenents/inputsInterface";
+import Button from "../../../../../compoenents/Button";
+import { TValidation } from "../../../../../types/TypeBasedProps";
 
 interface ValidationInput {
   type: string;

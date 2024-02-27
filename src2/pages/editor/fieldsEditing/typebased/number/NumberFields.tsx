@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { TypeBasedOptions } from "../TypeBasedOptions";
-import { TNumber, TValidation } from "../../../../types/TypeBasedProps";
-import { inputsInterface } from "../../../../compoenents/inputsInterface";
+import { TypeBasedOptions } from "../../TypeBasedOptions";
+import { TNumber, TValidation } from "../../../../../types/TypeBasedProps";
+import { inputsInterface } from "../../../../../compoenents/inputsInterface";
 import Validation from "./Validation";
-import Button from "../../../../compoenents/Button";
+import Button from "../../../../../compoenents/Button";
 import styles from "./Number.module.css";
-import Modal from "../../../../compoenents/Modal";
+import Modal from "../../../../../compoenents/Modal";
 
 interface Props {
   NumberFieldsSchema?: TNumber;
@@ -47,6 +47,7 @@ const NumberFields = ({
     if (numberFields.numberMin && numberFields.numberMax) {
       if (numberFields.numberMin > numberFields.numberMax) {
         alert("Minimum Value can't be greater than Maximum Value");
+        return;
       }
     }
     if (numberFields.validation) {
@@ -56,6 +57,7 @@ const NumberFields = ({
         setNumberFields(x);
       }
     }
+    onApplyProperties(numberFields);
   };
   const HandleApplyRule = (object: TValidation) => {
     setNeedvalidation(false);
@@ -182,7 +184,6 @@ const NumberFields = ({
             color="green"
             onClick={() => {
               ValidateProps();
-              onApplyProperties(numberFields);
             }}
             text="Apply"
           />

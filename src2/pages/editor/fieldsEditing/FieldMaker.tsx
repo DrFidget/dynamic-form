@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { TFields } from "../../../types/FormObject";
 import { MapTypeToCompoenet } from "./interface";
-import { TNumber, TRequired } from "../../../types/TypeBasedProps";
+import { TList, TNumber, TRequired } from "../../../types/TypeBasedProps";
 import RequiredInputs from "./required/RequiredInputs";
 import OptionalProperties from "./optionalProperties/OptionalProperties";
 const FieldMaker = () => {
+  const l1: TList = {
+    options: ["abc", "bcd"],
+    data: ["aa1", "aa2"],
+  };
+
   const [singleField, setSingleField] = useState<TFields>({
     id: "",
     fieldName: "",
@@ -66,7 +71,9 @@ const FieldMaker = () => {
           setSingleField(x);
           ChangeMode.optional();
         },
-        SkipHandle: () => {},
+        SkipHandle: () => {
+          ChangeMode.optional();
+        },
       },
     },
   };
@@ -87,6 +94,8 @@ const FieldMaker = () => {
                   onSkipProperties={Actions.typeBased.Number.SkipHandle}
                 />
               );
+            case "list":
+              return <MapTypeToCompoenet.list ListFieldsProps={l1} />;
 
             default:
               return null;

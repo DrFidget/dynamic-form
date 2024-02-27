@@ -6,6 +6,7 @@ interface ButtonProps {
   text: string;
   disabled?: boolean;
   type?: "submit" | "button";
+  styles?: any;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,6 +15,7 @@ const Button: React.FC<ButtonProps> = ({
   text,
   type,
   disabled = false,
+  styles,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -41,6 +43,7 @@ const Button: React.FC<ButtonProps> = ({
         border: "none",
         borderRadius: "5px",
         cursor: disabled ? "not-allowed" : "pointer",
+        ...styles,
       }}
       onClick={handleClick}
       onMouseEnter={handleMouseEnter}

@@ -6,7 +6,9 @@ interface Props {
   label?: string;
   htmlprops?: any;
   warning?: { message: string; color: string };
+  placeHolder?: string;
   onChange: (e: string) => void;
+  onKeyDown?: (e: string) => void;
 }
 const TextInput = ({
   defaultValue,
@@ -15,17 +17,25 @@ const TextInput = ({
   onChange,
   htmlprops,
   warning,
+  placeHolder,
+  onKeyDown,
 }: Props) => {
   return (
     <div className="custom_Input_container" style={{ position: "relative" }}>
-      <label className="">{label + "  "}</label>
+      {label && <label className="">{label + "  "}</label>}
       <input
+        placeholder={placeHolder || ""}
         className="custom_input"
         {...htmlprops}
         type="text"
         value={value || ""}
         onChange={(e: any) => {
           onChange(e.target.value);
+        }}
+        onKeyDown={(e: any) => {
+          if (e.key === "Enter" && onKeyDown) {
+            onKeyDown(e.target.value);
+          }
         }}
       />
       {warning && (

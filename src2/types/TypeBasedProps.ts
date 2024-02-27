@@ -13,9 +13,14 @@ export interface TNumber {
   validation?: { rules: TValidation[] };
 }
 
-interface List {
-  options: string[] | number[];
-  data: string[] | number[];
+// interface TOptions {
+//   id: string;
+//   text: string;
+// }
+
+export interface TList {
+  options: string[];
+  data?: string[];
 }
 
 export interface TRequired {
