@@ -8,8 +8,9 @@ import Button from "../../../../../compoenents/Button";
 
 interface Props {
   ListFieldsProps?: TList;
+  onApply: (fields: TList) => void;
 }
-const ListFields = ({ ListFieldsProps }: Props) => {
+const ListFields = ({ ListFieldsProps, onApply }: Props) => {
   const [ListFields, setListFields] = useState<TList>(() => {
     if (ListFieldsProps) return ListFieldsProps;
     return {
@@ -62,6 +63,7 @@ const ListFields = ({ ListFieldsProps }: Props) => {
           alert("please fill out all the Mapping fields !");
           return;
         }
+        onApply(ListFields);
       },
     },
   };

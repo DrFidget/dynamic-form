@@ -28,3 +28,8 @@ export interface TRequired {
   fieldName?: string;
   fieldType?: string;
 }
+export interface THtmlProps {
+  visible?: boolean;
+  enable?: boolean;
+  required?: boolean;
+}

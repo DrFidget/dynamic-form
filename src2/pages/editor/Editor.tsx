@@ -16,7 +16,6 @@ const Editor = () => {
       <div className={`${styles.toolbar}`}>Toolbar</div>
       <div className={`${styles.flexContainer}`}>
         <div className={`${styles.flexContainerDiv}`}>
-          Add Field
           <FieldMaker />
         </div>
         <div className={`${styles.flexContainerDiv}`}>Fields in Form</div>

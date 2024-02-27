@@ -70,6 +70,7 @@ const RequiredInputs = ({ onNext, RequiredProperties }: Props) => {
 
   return (
     <>
+      <h2>Required Properties</h2>
       {enabletypeSelector && (
         <SelectType
           fieldTypes={fieldTypes}

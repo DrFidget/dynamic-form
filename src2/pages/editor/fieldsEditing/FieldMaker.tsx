@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { TFields } from "../../../types/FormObject";
 import { MapTypeToCompoenet } from "./interface";
-import { TList, TNumber, TRequired } from "../../../types/TypeBasedProps";
+import {
+  THtmlProps,
+  TList,
+  TNumber,
+  TRequired,
+} from "../../../types/TypeBasedProps";
 import RequiredInputs from "./required/RequiredInputs";
 import OptionalProperties from "./optionalProperties/OptionalProperties";
+import HtmlProperties from "./htmlProperties/HtmlProperties";
 const FieldMaker = () => {
-  const l1: TList = {
-    options: ["abc", "bcd"],
-    data: ["aa1", "aa2"],
-  };
-
   const [singleField, setSingleField] = useState<TFields>({
     id: "",
     fieldName: "",
@@ -19,6 +20,7 @@ const FieldMaker = () => {
     required: true,
     typeBased: false,
     optional: false,
+    HtmlProps: false,
   });
 
   const ChangeMode = {
@@ -27,6 +29,7 @@ const FieldMaker = () => {
         required: true,
         typeBased: false,
         optional: false,
+        HtmlProps: false,
       };
       setinputMode(x);
     },
@@ -35,6 +38,7 @@ const FieldMaker = () => {
         required: false,
         typeBased: true,
         optional: false,
+        HtmlProps: false,
       };
       setinputMode(x);
     },
@@ -43,6 +47,16 @@ const FieldMaker = () => {
         required: false,
         typeBased: false,
         optional: true,
+        HtmlProps: false,
+      };
+      setinputMode(x);
+    },
+    HtmlProps: () => {
+      let x = {
+        required: false,
+        typeBased: false,
+        optional: false,
+        HtmlProps: true,
       };
       setinputMode(x);
     },
@@ -69,11 +83,33 @@ const FieldMaker = () => {
             : null;
           object.validation ? (x.validation = object.validation) : null;
           setSingleField(x);
-          ChangeMode.optional();
+          ChangeMode.HtmlProps();
         },
         SkipHandle: () => {
-          ChangeMode.optional();
+          ChangeMode.HtmlProps();
         },
+      },
+      List: {
+        handlePropsApply: (object: TList) => {
+          let x = { ...singleField };
+          x.options = object.options;
+          object.data ? (x.data = object.data) : null;
+          setSingleField(x);
+          ChangeMode.HtmlProps();
+        },
+      },
+    },
+    HtmlProps: {
+      Apply: (object: THtmlProps) => {
+        let x = { ...singleField };
+        x.visible = object.visible ? true : false;
+        x.enable = object.enable ? true : false;
+        x.required = object.required ? true : false;
+        setSingleField({ ...x });
+        ChangeMode.optional();
+      },
+      SkipHandle: () => {
+        ChangeMode.optional();
       },
     },
   };
@@ -89,19 +125,38 @@ const FieldMaker = () => {
           switch (singleField.fieldType) {
             case "number":
               return (
-                <MapTypeToCompoenet.number
-                  onApplyProperties={Actions.typeBased.Number.HandlePropsApply}
-                  onSkipProperties={Actions.typeBased.Number.SkipHandle}
-                />
+                <>
+                  <h2>Type Based Properties</h2>
+                  <MapTypeToCompoenet.number
+                    onApplyProperties={
+                      Actions.typeBased.Number.HandlePropsApply
+                    }
+                    onSkipProperties={Actions.typeBased.Number.SkipHandle}
+                  />
+                </>
               );
             case "list":
-              return <MapTypeToCompoenet.list ListFieldsProps={l1} />;
+            case "radioList":
+              return (
+                <>
+                  <h2>Type Based Properties</h2>
+                  <MapTypeToCompoenet.list
+                    onApply={Actions.typeBased.List.handlePropsApply}
+                  />
+                </>
+              );
 
             default:
+              ChangeMode.HtmlProps();
               return null;
           }
         })()}
-
+      {inputMode.HtmlProps && (
+        <HtmlProperties
+          onApply={Actions.HtmlProps.Apply}
+          onSkip={Actions.HtmlProps.SkipHandle}
+        />
+      )}
       {inputMode.optional && <OptionalProperties />}
     </div>
   );
@@ -121,4 +176,8 @@ export default FieldMaker;
 //   id: "req",
 //   fieldName: "abc",
 //   fieldType: "number",
+// };
+// const l1: TList = {
+//   options: ["abc", "bcd"],
+//   data: ["aa1", "aa2"],
 // };

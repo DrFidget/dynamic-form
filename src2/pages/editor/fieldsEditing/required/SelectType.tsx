@@ -14,7 +14,9 @@ interface ButtonListProps {
 const SelectType: React.FC<ButtonListProps> = ({ fieldTypes, onClick }) => {
   return (
     <>
-      <h2 style={{ textAlign: "center" }}>Select Input Type</h2>
+      <p style={{ textAlign: "center", fontSize: "20px" }}>
+        Please Select Input Type...
+      </p>
       <div className={styles.buttonContainer}>
         {fieldTypes.map((field) => (
           <button

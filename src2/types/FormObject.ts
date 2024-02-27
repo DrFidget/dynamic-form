@@ -8,6 +8,11 @@ export interface TFields {
   numberMax?: number;
   numberDecimal?: boolean;
   validation?: { rules: TValidation[] };
+  options?: string[];
+  data?: string[];
+  visible?: boolean;
+  enable?: boolean;
+  required?: boolean;
 }
 
 export interface TFormType {
