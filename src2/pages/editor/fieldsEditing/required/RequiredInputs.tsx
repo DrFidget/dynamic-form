@@ -11,7 +11,7 @@ const fieldTypes = [
   { id: "divider", name: "Divider" },
   { id: "checkbox", name: "CheckBox" },
   { id: "list", name: "DropDown List" },
-  { id: "radiolist", name: "Radio List" },
+  { id: "radioList", name: "Radio List" },
   { id: "date", name: "Date" },
   { id: "datetime", name: "Date and Time" },
 ];

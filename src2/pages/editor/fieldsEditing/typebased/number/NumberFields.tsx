@@ -8,7 +8,7 @@ import styles from "./Number.module.css";
 import Modal from "../../../../../compoenents/Modal";
 
 interface Props {
-  NumberFieldsSchema?: TNumber;
+  NumberFieldsSchema?: TNumber | null;
   onApplyProperties: (object: TNumber) => void;
   onSkipProperties: () => void;
 }

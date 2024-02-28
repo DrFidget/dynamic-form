@@ -9,6 +9,7 @@ interface Props {
   placeHolder?: string;
   onChange: (e: string) => void;
   onKeyDown?: (e: string) => void;
+  styles?: React.CSSProperties;
 }
 const TextInput = ({
   defaultValue,
@@ -19,9 +20,13 @@ const TextInput = ({
   warning,
   placeHolder,
   onKeyDown,
+  styles,
 }: Props) => {
   return (
-    <div className="custom_Input_container" style={{ position: "relative" }}>
+    <div
+      className="custom_Input_container"
+      style={{ position: "relative", ...styles }}
+    >
       {label && <label className="">{label + "  "}</label>}
       <input
         placeholder={placeHolder || ""}

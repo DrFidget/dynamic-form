@@ -7,7 +7,7 @@ import styles from "./ListFields.module.css";
 import Button from "../../../../../compoenents/Button";
 
 interface Props {
-  ListFieldsProps?: TList;
+  ListFieldsProps?: TList | null;
   onApply: (fields: TList) => void;
   // controlledInput?: any;
 }
@@ -53,18 +53,16 @@ const ListFields = ({ ListFieldsProps, onApply }: Props) => {
 
     Button: {
       ValidateProps: () => {
-        if (
-          ListFields.options.length === 0 ||
-          ListFields.options.includes("")
-        ) {
+        let x = { ...ListFields };
+        if (x.options.length === 0 || x.options.includes("")) {
           alert("please fill out Options !");
           return;
         }
-        if (ListFields.data?.includes("")) {
-          alert("please fill out all the Mapping fields !");
+        if ((enterData && x.data?.includes("")) || x.data?.length === 0) {
+          alert("please fill out all the fields !");
           return;
         }
-        onApply(ListFields);
+        onApply(x);
       },
     },
   };

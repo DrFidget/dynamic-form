@@ -133,7 +133,12 @@ export const useActions = () => {
         ) => {
           let x = { ...singleField };
           x.options = object.options;
-          object.data ? (x.data = object.data) : null;
+          if (object.data) {
+            x.data = object.data;
+          } else {
+            if (x.data) delete x.data;
+          }
+          // object.data ? (x.data = object.data) : null;
           setSingleField(x);
           ChangeMode.HtmlProps();
           setDone("type");

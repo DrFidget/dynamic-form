@@ -6,6 +6,7 @@ interface Props {
   title: string;
   key?: String;
   onClick: () => void;
+  styles?: React.CSSProperties;
 }
 
 const Collapsible = ({
@@ -14,6 +15,7 @@ const Collapsible = ({
   isOpen,
   onClick,
   key = "*",
+  styles,
 }: Props) => {
   return (
     <div
@@ -24,6 +26,7 @@ const Collapsible = ({
         // backgroundColor: "green",
         borderRadius: "10px",
         overflow: "hidden",
+        ...styles,
       }}
     >
       <div
@@ -43,7 +46,18 @@ const Collapsible = ({
           color="blue"
         />
       </div>
-      {isOpen && <div style={{ backgroundColor: "#dee3e5" }}> {children}</div>}
+      {isOpen && (
+        <div
+          style={{
+            backgroundColor: "#dee3e5",
+            paddingInline: "20px",
+            paddingBlock: "10px",
+          }}
+        >
+          {" "}
+          {children}
+        </div>
+      )}
     </div>
   );
 };

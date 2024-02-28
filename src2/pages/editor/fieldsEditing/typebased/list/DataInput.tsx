@@ -13,25 +13,30 @@ const DataInput = ({ options, data, onChange }: Props) => {
   //   });
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       {options.length > 0 && (
-        <table style={{ border: "1px solid black" }}>
+        <table>
           <thead>
-            <th>Options</th>
-            <th>Values to Map</th>
+            <tr>
+              <th>#</th>
+              <th>Options</th>
+              <th>Values to Map</th>
+            </tr>
           </thead>
           <tbody>
             {options.map((e, k) => (
               <tr key={k}>
+                <td>{k + 1}</td>
                 <td>{e}</td>
                 <td>
                   <TextInput
+                    styles={{ margin: "0" }}
                     value={data[k]}
                     onChange={(e: string) => {
                       onChange(e, k);
                     }}
                     placeHolder="enter"
-                    label="Enter value..."
+                    // label="Enter value..."
                   />
                 </td>
               </tr>

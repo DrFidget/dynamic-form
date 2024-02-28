@@ -12,16 +12,27 @@ const OptionsInput = ({ Options, AppendOptions, RemoveOption }: Props) => {
 
   return (
     <div>
-      <TextInput
-        onChange={(s: string) => setInputState(s)}
-        value={inputstate}
-        label="Enter Options"
-        placeHolder="press enter to add..."
-        onKeyDown={(s: string) => {
-          setInputState("");
-          AppendOptions(s);
-        }}
-      />
+      <div style={{ marginBlockEnd: "20px" }}>
+        <TextInput
+          onChange={(s: string) => setInputState(s)}
+          value={inputstate}
+          label="Enter Options"
+          placeHolder="press enter to add..."
+          onKeyDown={(s: string) => {
+            setInputState("");
+            AppendOptions(s);
+          }}
+          styles={{ margin: "0" }}
+        />
+        <Button
+          color="green"
+          text="add"
+          onClick={() => {
+            setInputState("");
+            AppendOptions(inputstate);
+          }}
+        />
+      </div>
       Options:
       <ol>
         {Options.length > 0 &&
