@@ -8,7 +8,7 @@ export interface TFields {
   numberMax?: number;
   numberDecimal?: boolean;
   validation?: { rules: TValidation[] };
-  options?: string[];
+  options?: string[] | TFields[];
   data?: string[];
   visible?: boolean;
   enable?: boolean;

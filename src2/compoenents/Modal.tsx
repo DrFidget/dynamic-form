@@ -26,7 +26,7 @@ const Modal: React.FC<ModalProps> = ({
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
+        // alignItems: "center",
       }}
       onClick={onClose}
     >
@@ -37,6 +37,7 @@ const Modal: React.FC<ModalProps> = ({
           padding: "20px",
           borderRadius: "8px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
+          overflowY: "scroll",
         }}
         onClick={(e) => e.stopPropagation()}
       >

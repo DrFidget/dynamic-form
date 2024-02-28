@@ -6,7 +6,7 @@ interface ButtonProps {
   text: string;
   disabled?: boolean;
   type?: "submit" | "button";
-  styles?: any;
+  styles?: React.CSSProperties;
 }
 
 const Button: React.FC<ButtonProps> = ({

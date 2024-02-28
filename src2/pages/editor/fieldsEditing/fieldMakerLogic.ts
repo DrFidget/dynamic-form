@@ -64,13 +64,10 @@ export const useChangeMode = () => {
   return { inputMode, ChangeMode };
 };
 
-export const useDoneFields = () => {
-  const [doneFields, setDoneFields] = useState<doneFields>({
-    req: false,
-    type: false,
-    opt: false,
-    html: false,
-  });
+export const useDoneFields = (
+  obj = { req: false, type: false, opt: false, html: false }
+) => {
+  const [doneFields, setDoneFields] = useState<doneFields>(obj);
 
   const setDone = (key: "req" | "type" | "opt" | "html") => {
     setDoneFields({ ...doneFields, [key]: true });
@@ -139,6 +136,21 @@ export const useActions = () => {
             if (x.data) delete x.data;
           }
           // object.data ? (x.data = object.data) : null;
+          setSingleField(x);
+          ChangeMode.HtmlProps();
+          setDone("type");
+        },
+      },
+      table: {
+        onNext: (
+          objList: TFields[],
+          singleField: TFields,
+          setSingleField: React.Dispatch<React.SetStateAction<TFields>>,
+          ChangeMode: any,
+          setDone: any
+        ) => {
+          let x = { ...singleField };
+          x.options = objList;
           setSingleField(x);
           ChangeMode.HtmlProps();
           setDone("type");

@@ -14,6 +14,7 @@ const fieldTypes = [
   { id: "radioList", name: "Radio List" },
   { id: "date", name: "Date" },
   { id: "datetime", name: "Date and Time" },
+  { id: "table", name: "Table" },
 ];
 
 interface Props {
