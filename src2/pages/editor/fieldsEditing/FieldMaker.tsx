@@ -123,7 +123,10 @@ const FieldMaker = () => {
                       />
                     </>
                   );
-
+                case "table":
+                  <>
+                    <MapTypeToCompoenet.table />
+                  </>;
                 default:
                   ChangeMode.HtmlProps();
                   setDone("type");
@@ -143,6 +146,18 @@ const FieldMaker = () => {
         >
           {inputMode.HtmlProps && (
             <HtmlProperties
+              HtmlProps={{
+                visible:
+                  singleField.visible !== undefined
+                    ? singleField.visible
+                    : true,
+                enable:
+                  singleField.enable !== undefined ? singleField.enable : true,
+                required:
+                  singleField.required !== undefined
+                    ? singleField.required
+                    : false,
+              }}
               onApply={(object) =>
                 Actions.HtmlProps.Apply(
                   object,

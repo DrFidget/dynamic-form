@@ -12,12 +12,16 @@ const propshtml = [
 interface Props {
   onSkip: () => void;
   onApply: (obj: THtmlProps) => void;
+  HtmlProps?: THtmlProps;
 }
-const HtmlProperties = ({ onSkip, onApply }: Props) => {
-  const [props, setProps] = useState<THtmlProps>({
-    visible: true,
-    enable: true,
-    required: false,
+const HtmlProperties = ({ onSkip, onApply, HtmlProps }: Props) => {
+  const [props, setProps] = useState<THtmlProps>(() => {
+    if (HtmlProps) return HtmlProps;
+    return {
+      visible: true,
+      enable: true,
+      required: false,
+    };
   });
 
   const handleChange = (v: boolean, k: string) => {
