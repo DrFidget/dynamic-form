@@ -9,6 +9,7 @@ import Button from "../../../../../compoenents/Button";
 interface Props {
   ListFieldsProps?: TList;
   onApply: (fields: TList) => void;
+  // controlledInput?: any;
 }
 const ListFields = ({ ListFieldsProps, onApply }: Props) => {
   const [ListFields, setListFields] = useState<TList>(() => {

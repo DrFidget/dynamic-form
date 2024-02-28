@@ -31,7 +31,7 @@ const RequiredInputs = ({ onNext, RequiredProperties }: Props) => {
     };
   });
   const [enabletypeSelector, setEnableTypeSelector] = useState(
-    RequiredProperties ? false : true
+    RequiredProperties?.fieldType != "" ? false : true
   );
 
   const Actions = {

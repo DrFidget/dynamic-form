@@ -14,8 +14,9 @@
 .flexContainer {
     display: flex;
     flex-direction: row;
-    gap: 5px;
+    gap: 25px;
     height: 100%; 
+    width: 100%;
     padding: 2px;
 }
 
@@ -25,5 +26,7 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     color: black;
-    background-color: rgb(92, 92, 92);
+    /* border: 1px solid black; */
+
+    /* background-color: rgb(92, 92, 92); */
 }
