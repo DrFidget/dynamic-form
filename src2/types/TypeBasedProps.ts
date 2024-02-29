@@ -33,3 +33,18 @@ export interface THtmlProps {
   enable?: boolean;
   required?: boolean;
 }
+
+export interface TLookup {
+  col: string;
+  row: string;
+  source: [];
+}
+
+export interface TOptional {
+  altId?: string;
+  groupId?: string;
+  tag?: string;
+  default?: string;
+  binding?: any;
+  lookUp?: any;
+}

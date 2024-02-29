@@ -90,7 +90,7 @@ const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
                         : null;
                       singleField.validation
                         ? (x.validation = singleField.validation)
-                        : (singleField.validation = { rules: [] });
+                        : (x.validation = { rules: [] });
                     }
                     return (
                       <>

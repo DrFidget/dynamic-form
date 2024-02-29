@@ -54,7 +54,10 @@ const NumberFields = ({
       if (numberFields.validation.rules.length < 1) {
         let x = { ...numberFields };
         delete x.validation;
-        setNumberFields(x);
+
+        // setNumberFields(x);
+        onApplyProperties({ ...x });
+        return;
       }
     }
     onApplyProperties(numberFields);
