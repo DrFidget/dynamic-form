@@ -34,10 +34,13 @@ export interface THtmlProps {
   required?: boolean;
 }
 
+export interface TSource {
+  [key: string]: string;
+}
 export interface TLookup {
-  col: string;
-  row: string;
-  source: [];
+  col?: string;
+  row?: string;
+  source?: string; //"[{}.{}]"
 }
 
 export interface TOptional {

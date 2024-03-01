@@ -1,4 +1,4 @@
-import { TOptional } from "../../../../types/TypeBasedProps";
+import { TLookup, TOptional } from "../../../../types/TypeBasedProps";
 
 export const Actions = {
   ID: {
@@ -12,6 +12,13 @@ export const Actions = {
       x[id] = value;
       if (value === "") delete x[id];
       setOptionalProps(x);
+    },
+  },
+  LookUp: {
+    onsubmit: (object: any) => {
+      // console.log(object);
+      let table = JSON.parse(object.source);
+      console.log(table);
     },
   },
 };
