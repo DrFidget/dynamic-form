@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import TextInput from "../../../../../compoenents/TextInput";
 import Button from "../../../../../compoenents/Button";
-import { TLookup } from "../../../../../types/TypeBasedProps";
+import { TLookup, TSource } from "../../../../../types/TypeBasedProps";
 
-const ROW_IDENTITFIER = "ROW";
+const ROW_IDENTITFIER = "MPH";
 
 interface Tlook {
   row?: string;
@@ -15,33 +15,6 @@ interface Props {
   OnSubmit: (obj: TLookup) => void;
 }
 
-const parseFormattedData = (formattedData: any) => {
-  const rows = formattedData.slice(0, -2).split("},");
-
-  const parsedData: string[][] = [];
-
-  rows.forEach((row: any) => {
-    const values = row.slice(1, -1).split(",");
-
-    const rowData: string[] = [];
-
-    values.forEach((value: any) => {
-      const pair = value.split(":");
-
-      rowData.push(pair[1].trim().slice(1, -1));
-    });
-
-    parsedData.push(rowData);
-  });
-
-  let noOfCols = parsedData[0].length;
-  const regex = /(?<=")\w+(?=":)/g;
-  const keys = formattedData.match(regex).slice(0, noOfCols);
-
-  parsedData.unshift(keys);
-
-  return parsedData;
-};
 const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
   const [lookup, setLookup] = useState<Tlook>(() => {
     if (LookupProps)
@@ -62,15 +35,21 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
 
   useEffect(() => {
     if (LookupProps) {
-      let xString = LookupProps.source as string;
-      const formatted = parseFormattedData(xString) as string[][];
-      let row = formatted.length as number;
-      let col = formatted[0].length as number;
+      let x = LookupProps.source;
+      let twoDTable: string[][] = [];
+      const keys = Object.keys(x[0]);
+      const tableRows = x.length + 1;
+      const tableCols = keys.length;
       setTableSize({
-        rows: row,
-        cols: col,
+        cols: tableCols,
+        rows: tableRows,
       });
-      setTableData(formatted);
+      twoDTable.push(keys);
+      x.forEach((item) => {
+        let vals = Object.values(item) as string[];
+        twoDTable.push(vals);
+      });
+      setTableData(twoDTable);
     }
   }, []);
 
@@ -136,30 +115,28 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
           return;
         }
       });
-      let xString = Actions.ChangeFormat() as string;
+      let formattedTable = Actions.ChangeFormat() as TSource[];
       let submitObj: TLookup = {
         col: lookup.col,
         row: lookup.row,
-        source: xString,
+        source: formattedTable,
       };
       OnSubmit(submitObj);
     },
     ChangeFormat: () => {
-      let lstring: string = `[ \n`;
+      let tableList: TSource[] = [];
 
       for (let row = 1; row < tableSize.rows; row++) {
-        let xString: string = `{`;
+        let ob: TSource = {};
         for (let col = 0; col < tableSize.cols; col++) {
           let temp = tableData[0][col];
-          xString += `"${temp}": "${tableData[row][col]}"` + ",\n";
+
+          ob[temp] = tableData[row][col];
         }
-        xString = xString.slice(0, -2);
-        xString += `}`;
-        lstring += xString + ",\n";
+        tableList.push(ob);
       }
-      lstring = lstring.slice(0, -2);
-      lstring += `\n]`;
-      return lstring;
+
+      return tableList;
       // console.log(lstring);
     },
   };

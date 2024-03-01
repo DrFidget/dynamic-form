@@ -38,9 +38,9 @@ export interface TSource {
   [key: string]: string;
 }
 export interface TLookup {
-  col?: string;
-  row?: string;
-  source?: string; //"[{}.{}]"
+  col: string;
+  row: string;
+  source: TSource[]; //"[{}.{}]"
 }
 
 export interface TOptional {

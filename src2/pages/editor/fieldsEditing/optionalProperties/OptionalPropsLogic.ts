@@ -15,10 +15,8 @@ export const Actions = {
     },
   },
   LookUp: {
-    onsubmit: (object: any) => {
-      // console.log(object);
-      let table = JSON.parse(object.source);
-      console.log(table);
+    onsubmit: (object: TLookup) => {
+      console.log(object);
     },
   },
 };

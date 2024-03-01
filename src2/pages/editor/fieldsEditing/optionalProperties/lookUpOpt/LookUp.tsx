@@ -26,7 +26,17 @@ const LookUp = ({ LookupProps, OnSubmit }: Props) => {
         {LookupProps ? (
           <TableLookup LookupProps={LookupProps} OnSubmit={OnSubmit} />
         ) : (
-          <TableLookup OnSubmit={OnSubmit} />
+          <TableLookup
+            OnSubmit={OnSubmit}
+            LookupProps={{
+              col: "abc",
+              row: "xyz",
+              source: [
+                { MPH: "10", "10": "367", "15": "440" },
+                { MPH: "15", "10": "550", "15": "660" },
+              ],
+            }}
+          />
         )}
         {/* <TableLookup /> */}
       </Modal>
