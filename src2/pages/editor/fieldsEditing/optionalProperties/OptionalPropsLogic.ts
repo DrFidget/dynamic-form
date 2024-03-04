@@ -15,10 +15,22 @@ export const Actions = {
     },
   },
   LookUp: {
-    onsubmit: (object: any) => {
-      // console.log(object);
-      let table = JSON.parse(object.source);
-      console.log(table);
+    onsubmit: (
+      object: TLookup,
+      optionalProps: TOptional,
+      setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
+    ) => {
+      let x = { ...optionalProps };
+      x.lookUp = object;
+      setOptionalProps(x);
+    },
+    resetLookup: (
+      optionalProps: TOptional,
+      setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
+    ) => {
+      let x = { ...optionalProps };
+      x.lookUp ?? delete x.lookUp;
+      setOptionalProps({ ...x });
     },
   },
 };

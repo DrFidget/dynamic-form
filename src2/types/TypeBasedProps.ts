@@ -40,6 +40,7 @@ export interface TSource {
 export interface TLookup {
   col?: string;
   row?: string;
+  IdCol?: string;
   source?: string; //"[{}.{}]"
 }
 

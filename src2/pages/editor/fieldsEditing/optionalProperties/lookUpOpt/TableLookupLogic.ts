@@ -21,22 +21,28 @@ const FormattingFromString = {
     }
     return x;
   },
-  FormatAndReturn: (xtring: Array<Array<[string, string]>>) => {
-    let abc: Array<Array<string>> = [];
-    let header: Array<string> = [xtring[0][0][0]];
-    for (let k = 0; k < xtring.length; k++) {
-      header.push(xtring[k][0][1]);
-      let aa: Array<string> = [];
-      for (let i = 0; i < xtring.length; i++) {
-        if (i === 0) {
-          aa.push(xtring[i][k + 1][0]);
-        }
-        aa.push(xtring[i][k + 1][1]);
-      }
-      abc.push(aa);
+  FormatAndReturn: (
+    inputData: Array<Array<[string, string]>>
+  ): Array<Array<string>> => {
+    const formattedData: Array<Array<string>> = [];
+
+    const header: Array<string> = [inputData[0][0][0]];
+    for (let i = 0; i < inputData.length; i++) {
+      header.push(inputData[i][0][1]);
     }
-    abc.unshift(header);
-    return abc;
+
+    formattedData.push(header);
+
+    for (let i = 1; i < inputData[0].length; i++) {
+      const rowData: Array<string> = [];
+      for (let j = 0; j < inputData.length; j++) {
+        if (j == 0) rowData.push(inputData[0][j + 1][0]);
+        rowData.push(inputData[j][i][1]);
+      }
+      formattedData.push(rowData);
+    }
+
+    return formattedData;
   },
 };
 

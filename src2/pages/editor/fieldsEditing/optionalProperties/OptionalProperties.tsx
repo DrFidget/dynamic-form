@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import IDoptional from "./IDoptional";
-import { TOptional } from "../../../../types/TypeBasedProps";
+import { TLookup, TOptional } from "../../../../types/TypeBasedProps";
 import { Actions } from "./OptionalPropsLogic";
-import CheckBoxInput from "../../../../compoenents/CheckBoxinput";
 import LookUp from "./lookUpOpt/LookUp";
 
 const OptionalProperties = () => {
@@ -20,7 +19,14 @@ const OptionalProperties = () => {
           tag: optionalProps?.tag ?? "",
         }}
       />
-      <LookUp OnSubmit={Actions.LookUp.onsubmit} />
+      <LookUp
+        OnSubmit={(obj: TLookup) =>
+          Actions.LookUp.onsubmit(obj, optionalProps, setOptionalProps)
+        }
+        onReset={() => {
+          Actions.LookUp.resetLookup(optionalProps, setOptionalProps);
+        }}
+      />
     </div>
   );
 };

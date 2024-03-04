@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import TextInput from "../../../../../compoenents/TextInput";
 import Button from "../../../../../compoenents/Button";
 import { TLookup } from "../../../../../types/TypeBasedProps";
+import { formatFromString } from "./TableLookupLogic";
 
 const ROW_IDENTITFIER = "MPH";
 
@@ -36,19 +37,14 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
   useEffect(() => {
     if (LookupProps) {
       let xString = LookupProps.source as string;
-      const formatted = parseFormattedData(xString) as string[][];
+      const formatted = formatFromString(xString) as string[][];
       let row = formatted.length as number;
       let col = formatted[0].length as number;
       setTableSize({
-        cols: tableCols,
-        rows: tableRows,
+        rows: row,
+        cols: col,
       });
-      twoDTable.push(keys);
-      x.forEach((item) => {
-        let vals = Object.values(item) as string[];
-        twoDTable.push(vals);
-      });
-      setTableData(twoDTable);
+      setTableData(formatted);
     }
   }, []);
 
@@ -114,31 +110,32 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
           return;
         }
       });
-      let formattedTable = Actions.ChangeFormat() as TSource[];
+      let xString = Actions.ChangeFormat() as string;
       let submitObj: TLookup = {
         col: lookup.col,
         row: lookup.row,
+        IdCol: tableData[0][0],
         source: xString,
       };
       OnSubmit(submitObj);
     },
     ChangeFormat: () => {
-      let lstring: string = `[ \n`;
+      let string: string = `[ \n`;
 
-      for (let row = 1; row < tableSize.rows; row++) {
-        let xString: string = `{`;
-        for (let col = 0; col < tableSize.cols; col++) {
-          let temp = tableData[0][col];
-          xString += `"${temp}": "${tableData[row][col]}"` + ",\n";
+      for (let i = 1; i < tableSize.cols; i++) {
+        let temp = `{`;
+        for (let j = 0; j < tableSize.rows; j++) {
+          let key = tableData[j][0];
+          let value = tableData[j][i];
+          temp += `"${key}":"${value}"` + ",\n";
         }
-        xString = xString.slice(0, -2);
-        xString += `}`;
-        lstring += xString + ",\n";
+        temp = temp.slice(0, -2);
+        temp += `}`;
+        string += temp + `,\n`;
       }
-      lstring = lstring.slice(0, -2);
-      lstring += `\n]`;
-      return lstring;
-      // console.log(lstring);
+      string = string.slice(0, -2);
+      string += "\n]";
+      return string;
     },
   };
 
