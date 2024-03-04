@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import TextInput from "../../../../../compoenents/TextInput";
 import Button from "../../../../../compoenents/Button";
-import { TLookup, TSource } from "../../../../../types/TypeBasedProps";
+import { TLookup } from "../../../../../types/TypeBasedProps";
 
 const ROW_IDENTITFIER = "MPH";
 
@@ -35,11 +35,10 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
 
   useEffect(() => {
     if (LookupProps) {
-      let x = LookupProps.source;
-      let twoDTable: string[][] = [];
-      const keys = Object.keys(x[0]);
-      const tableRows = x.length + 1;
-      const tableCols = keys.length;
+      let xString = LookupProps.source as string;
+      const formatted = parseFormattedData(xString) as string[][];
+      let row = formatted.length as number;
+      let col = formatted[0].length as number;
       setTableSize({
         cols: tableCols,
         rows: tableRows,
@@ -119,24 +118,26 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
       let submitObj: TLookup = {
         col: lookup.col,
         row: lookup.row,
-        source: formattedTable,
+        source: xString,
       };
       OnSubmit(submitObj);
     },
     ChangeFormat: () => {
-      let tableList: TSource[] = [];
+      let lstring: string = `[ \n`;
 
       for (let row = 1; row < tableSize.rows; row++) {
-        let ob: TSource = {};
+        let xString: string = `{`;
         for (let col = 0; col < tableSize.cols; col++) {
           let temp = tableData[0][col];
-
-          ob[temp] = tableData[row][col];
+          xString += `"${temp}": "${tableData[row][col]}"` + ",\n";
         }
-        tableList.push(ob);
+        xString = xString.slice(0, -2);
+        xString += `}`;
+        lstring += xString + ",\n";
       }
-
-      return tableList;
+      lstring = lstring.slice(0, -2);
+      lstring += `\n]`;
+      return lstring;
       // console.log(lstring);
     },
   };
@@ -174,9 +175,6 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
                         placeHolder="Enter Data..."
                         value={tableData[rowIndex][colIndex] || ""}
                         styles={{ margin: "0" }}
-                        htmlprops={{
-                          disabled: rowIndex === 0 && colIndex === 0,
-                        }}
                       />
                     </td>
                   ))}

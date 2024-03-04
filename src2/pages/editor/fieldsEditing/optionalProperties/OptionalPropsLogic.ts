@@ -3,7 +3,7 @@ import { TLookup, TOptional } from "../../../../types/TypeBasedProps";
 export const Actions = {
   ID: {
     onChange: (
-      id: string,
+      id: "altId" | "groupId" | "tag",
       value: string,
       optionalProps: TOptional,
       setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
@@ -15,8 +15,10 @@ export const Actions = {
     },
   },
   LookUp: {
-    onsubmit: (object: TLookup) => {
-      console.log(object);
+    onsubmit: (object: any) => {
+      // console.log(object);
+      let table = JSON.parse(object.source);
+      console.log(table);
     },
   },
 };

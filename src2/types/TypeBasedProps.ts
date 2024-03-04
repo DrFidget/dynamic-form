@@ -38,9 +38,9 @@ export interface TSource {
   [key: string]: string;
 }
 export interface TLookup {
-  col: string;
-  row: string;
-  source: TSource[]; //"[{}.{}]"
+  col?: string;
+  row?: string;
+  source?: string; //"[{}.{}]"
 }
 
 export interface TOptional {
@@ -49,5 +49,5 @@ export interface TOptional {
   tag?: string;
   default?: string;
   binding?: any;
-  lookUp?: any;
+  lookUp?: TLookup;
 }
