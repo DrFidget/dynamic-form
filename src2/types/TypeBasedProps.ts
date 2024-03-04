@@ -40,6 +40,7 @@ export interface TSource {
 export interface TLookup {
   col?: string;
   row?: string;
+  IdCol?: string;
   source?: string; //"[{}.{}]"
 }
 
@@ -49,5 +50,5 @@ export interface TOptional {
   tag?: string;
   default?: string;
   binding?: any;
-  lookUp?: any;
+  lookUp?: TLookup;
 }

@@ -4,10 +4,10 @@ import TextInput from "../../../../compoenents/TextInput";
 interface Props {
   optIDs: {
     altId: string;
-    groupId: String;
+    groupId: string;
     tag: string;
   };
-  onChange: (id: string, value: string) => void;
+  onChange: (id: "altId" | "groupId" | "tag", value: string) => void;
 }
 
 const optID = [
@@ -23,10 +23,10 @@ const IDoptional = ({ optIDs, onChange }: Props) => {
         <TextInput
           key={k}
           onChange={(s) => {
-            onChange(e.id, s);
+            onChange(e.id as "altId" | "groupId" | "tag", s);
           }}
           label={e.label}
-          value={optIDs[e.id] || ""}
+          value={optIDs[e.id as "altId" | "groupId" | "tag"]}
         />
       ))}
     </div>

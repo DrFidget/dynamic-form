@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import TextInput from "../../../../../compoenents/TextInput";
 import Button from "../../../../../compoenents/Button";
 import { TLookup } from "../../../../../types/TypeBasedProps";
+import { formatFromString } from "./TableLookupLogic";
 
-const ROW_IDENTITFIER = "ROW";
+const ROW_IDENTITFIER = "MPH";
 
 interface Tlook {
   row?: string;
@@ -15,33 +16,6 @@ interface Props {
   OnSubmit: (obj: TLookup) => void;
 }
 
-const parseFormattedData = (formattedData: any) => {
-  const rows = formattedData.slice(0, -2).split("},");
-
-  const parsedData: string[][] = [];
-
-  rows.forEach((row: any) => {
-    const values = row.slice(1, -1).split(",");
-
-    const rowData: string[] = [];
-
-    values.forEach((value: any) => {
-      const pair = value.split(":");
-
-      rowData.push(pair[1].trim().slice(1, -1));
-    });
-
-    parsedData.push(rowData);
-  });
-
-  let noOfCols = parsedData[0].length;
-  const regex = /(?<=")\w+(?=":)/g;
-  const keys = formattedData.match(regex).slice(0, noOfCols);
-
-  parsedData.unshift(keys);
-
-  return parsedData;
-};
 const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
   const [lookup, setLookup] = useState<Tlook>(() => {
     if (LookupProps)
@@ -63,7 +37,7 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
   useEffect(() => {
     if (LookupProps) {
       let xString = LookupProps.source as string;
-      const formatted = parseFormattedData(xString) as string[][];
+      const formatted = formatFromString(xString) as string[][];
       let row = formatted.length as number;
       let col = formatted[0].length as number;
       setTableSize({
@@ -140,27 +114,26 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
       let submitObj: TLookup = {
         col: lookup.col,
         row: lookup.row,
+        IdCol: tableData[0][0],
         source: xString,
       };
       OnSubmit(submitObj);
     },
     ChangeFormat: () => {
-      let lstring: string = `[ \n`;
-
+      let abc: string = `[ \n`;
       for (let row = 1; row < tableSize.rows; row++) {
-        let xString: string = `{`;
+        let abc1: string = `{`;
         for (let col = 0; col < tableSize.cols; col++) {
-          let temp = tableData[0][col];
-          xString += `"${temp}": "${tableData[row][col]}"` + ",\n";
+          abc1 += `"${tableData[col][0]}": "${tableData[col][row]}"` + ",\n";
         }
-        xString = xString.slice(0, -2);
-        xString += `}`;
-        lstring += xString + ",\n";
+        abc1 = abc1.slice(0, -2);
+        abc1 += `}`;
+        abc += abc1 + ",\n";
       }
-      lstring = lstring.slice(0, -2);
-      lstring += `\n]`;
-      return lstring;
-      // console.log(lstring);
+      abc = abc.slice(0, -2);
+      abc += `\n]`;
+      console.log(abc);
+      return abc;
     },
   };
 
@@ -197,9 +170,6 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
                         placeHolder="Enter Data..."
                         value={tableData[rowIndex][colIndex] || ""}
                         styles={{ margin: "0" }}
-                        htmlprops={{
-                          disabled: rowIndex === 0 && colIndex === 0,
-                        }}
                       />
                     </td>
                   ))}
