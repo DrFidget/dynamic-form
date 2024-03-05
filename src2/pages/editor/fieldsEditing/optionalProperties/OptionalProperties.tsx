@@ -5,7 +5,7 @@ import { Actions } from "./OptionalPropsLogic";
 import CheckBoxInput from "../../../../compoenents/CheckBoxinput";
 import Modal from "../../../../compoenents/Modal";
 import TableLookup from "./lookUpOpt/TableLookup";
-import Mapping from "./mappingOpt/Mapping";
+import Binding from "./bindingOpt/Binding";
 
 const OptionalProperties = () => {
   const [optionalProps, setOptionalProps] = useState<TOptional>({});
@@ -67,18 +67,18 @@ const OptionalProperties = () => {
       </Modal>
 
       <CheckBoxInput
-        label="Add Mapping"
+        label="Add Binding"
         value={isMapping.needed}
         onChange={(e) => {
           setIsMapping({ ...isMapping, needed: e });
         }}
       />
       <Modal
-        headerText="Mapping"
+        headerText="Binding"
         isOpen={isMapping.needed}
         onClose={() => setIsMapping({ ...isMapping, needed: false })}
       >
-        <Mapping />
+        <Binding />
       </Modal>
     </div>
   );

@@ -53,7 +53,7 @@ export interface TOptional {
   lookUp?: TLookup;
 }
 
-interface TBinding {
+export interface TBinding {
   property?: "value"; //"enable" | "visible" | "value";
   targetProperty?: "enable" | "visible" | "value";
   targetPropertyLookup?: "table";
