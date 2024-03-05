@@ -4,8 +4,6 @@ import Button from "../../../../../compoenents/Button";
 import { TLookup } from "../../../../../types/TypeBasedProps";
 import { formatFromString } from "./TableLookupLogic";
 
-const ROW_IDENTITFIER = "MPH";
-
 interface Tlook {
   row?: string;
   col?: string;
@@ -29,8 +27,9 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
     };
   });
   const [tableSize, setTableSize] = useState({ rows: 2, cols: 2 });
+  const [colId, setColId] = useState("MPH");
   const [tableData, setTableData] = useState<string[][]>([
-    [ROW_IDENTITFIER, ""],
+    [colId, ""],
     ["", ""],
   ]);
 
@@ -40,6 +39,7 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
       const formatted = formatFromString(xString) as string[][];
       let row = formatted.length as number;
       let col = formatted[0].length as number;
+      setColId(formatted[0][0]);
       setTableSize({
         rows: row,
         cols: col,
@@ -135,6 +135,7 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
       }
       string = string.slice(0, -2);
       string += "\n]";
+      // console.log(string);
       return string;
     },
   };

@@ -52,3 +52,23 @@ export interface TOptional {
   binding?: any;
   lookUp?: TLookup;
 }
+
+interface TBinding {
+  property?: "value"; //"enable" | "visible" | "value";
+  targetProperty?: "enable" | "visible" | "value";
+  targetPropertyLookup?: "table";
+  target?: string;
+  targetGroup?: string;
+  targetArray?: string[];
+  logicalFunction?: "!";
+  mathFunction?: "string";
+  fun?: TFun;
+  // mapping?: any;
+}
+
+interface TFun {
+  type?: string;
+  args?: string[];
+}
+
+interface TMapping {}
