@@ -48,7 +48,7 @@ export interface TOptional {
   altId?: string;
   groupId?: string;
   tag?: string;
-  default?: string;
+  default?: string; // ---
   binding?: any;
   lookUp?: TLookup;
 }
@@ -60,15 +60,15 @@ export interface TBinding {
   target?: string;
   targetGroup?: string;
   targetArray?: string[];
-  logicalFunction?: "!";
-  mathFunction?: "string";
+  logicalFunction?: string;
+  mathFunction?: string;
   fun?: TFun;
   // mapping?: any;
 }
 
-interface TFun {
-  type?: string;
-  args?: string[];
+export interface TFun {
+  type?: "round" | "";
+  args: string[];
 }
 
 interface TMapping {}
