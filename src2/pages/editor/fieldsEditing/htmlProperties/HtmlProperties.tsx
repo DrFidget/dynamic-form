@@ -37,7 +37,7 @@ const HtmlProperties = ({ onSkip, onApply, HtmlProps }: Props) => {
             handleChange(s, e.key);
           }}
           label={e.title}
-          value={props[e.key]}
+          value={props[(e.key as "visible") || "enable" || "required"]}
         />
       ))}
       <div className={styles.buttoncontainer}>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { TFields } from "../../../types/FormObject";
 import { MapTypeToCompoenet } from "./interface";
 import RequiredInputs from "./required/RequiredInputs";
@@ -8,6 +8,7 @@ import Collapsible from "../../../compoenents/Collapsible";
 import { useChangeMode, useActions, useDoneFields } from "./fieldMakerLogic";
 import { TList, TNumber } from "../../../types/TypeBasedProps";
 import Button from "../../../compoenents/Button";
+import SingleFieldContext from "../../../context/singleField/SingleFieldContext";
 
 interface Props {
   styles?: React.CSSProperties;
@@ -35,6 +36,11 @@ const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
   );
   const { inputMode, ChangeMode } = useChangeMode();
   const Actions = useActions();
+  const { setField } = useContext<any>(SingleFieldContext);
+
+  useEffect(() => {
+    setField({ ...singleField });
+  }, [singleField]);
 
   return (
     <div style={{ ...styles }}>

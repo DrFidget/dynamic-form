@@ -3,6 +3,7 @@ import TextInput from "../../../../../compoenents/TextInput";
 import Button from "../../../../../compoenents/Button";
 import { TLookup } from "../../../../../types/TypeBasedProps";
 import { formatFromString } from "./TableLookupLogic";
+import swal from "sweetalert";
 
 interface Tlook {
   row?: string;
@@ -101,12 +102,12 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
     },
     HandleSubmitButton: () => {
       if (!lookup?.col || !lookup?.row) {
-        alert("Fill all the fields!...");
+        swal("Fill all the fields!...");
         return;
       }
       tableData.forEach((e) => {
         if (e.includes("")) {
-          alert("Fill all the cells of the Table");
+          swal("Fill all the cells of the Table");
           return;
         }
       });

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { inputsInterface } from "../../../../../compoenents/inputsInterface";
 import Button from "../../../../../compoenents/Button";
 import { TValidation } from "../../../../../types/TypeBasedProps";
-
+import swal from "sweetalert";
 interface ValidationInput {
   type: string;
   label: string;
@@ -53,7 +53,7 @@ const ValidationNumber = ({
   const handleRuleAddition = () => {
     let x = Object.values(validation);
     if (x.includes("")) {
-      alert("Validation Properties should not be empty");
+      swal("Validation Properties should not be empty");
       return;
     }
     handleApplyRule(validation);

@@ -6,6 +6,7 @@ import Validation from "./Validation";
 import Button from "../../../../../compoenents/Button";
 import styles from "./Number.module.css";
 import Modal from "../../../../../compoenents/Modal";
+import swal from "sweetalert";
 
 interface Props {
   NumberFieldsSchema?: TNumber | null;
@@ -46,7 +47,7 @@ const NumberFields = ({
   const ValidateProps = () => {
     if (numberFields.numberMin && numberFields.numberMax) {
       if (numberFields.numberMin > numberFields.numberMax) {
-        alert("Minimum Value can't be greater than Maximum Value");
+        swal("Minimum Value can't be greater than Maximum Value");
         return;
       }
     }

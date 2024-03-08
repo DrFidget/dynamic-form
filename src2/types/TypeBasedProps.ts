@@ -9,14 +9,8 @@ export interface TNumber {
   numberDecimal?: boolean;
   numberMin?: number;
   numberMax?: number;
-  // EnableValidation?:boolean;
   validation?: { rules: TValidation[] };
 }
-
-// interface TOptions {
-//   id: string;
-//   text: string;
-// }
 
 export interface TList {
   options: string[];
@@ -56,14 +50,14 @@ export interface TOptional {
 export interface TBinding {
   property?: "value"; //"enable" | "visible" | "value";
   targetProperty?: "enable" | "visible" | "value";
-  targetPropertyLookup?: "table";
+  targetPropertyLookup?: "table"; // only for list | radio List
   target?: string;
   targetGroup?: string;
   targetArray?: string[];
   logicalFunction?: string;
   mathFunction?: string;
   fun?: TFun;
-  // mapping?: any;
+  mapping?: TMapping[];
 }
 
 export interface TFun {
@@ -71,4 +65,16 @@ export interface TFun {
   args: string[];
 }
 
-interface TMapping {}
+export interface TMapping {
+  target?: string;
+  targetGroup?: string;
+  targetArray?: string[];
+
+  formatFunction?: string; //conditional if binding.targetProperty==value
+
+  options?: string[];
+  mapTo?: string;
+
+  // mapToValue?: string;
+  // otherTargetProperty?: "enable" | "visible" | "value";
+}

@@ -5,6 +5,7 @@ import DataInput from "./DataInput";
 import CheckBoxInput from "../../../../../compoenents/CheckBoxinput";
 import styles from "./ListFields.module.css";
 import Button from "../../../../../compoenents/Button";
+import swal from "sweetalert";
 
 interface Props {
   ListFieldsProps?: TList | null;
@@ -27,7 +28,7 @@ const ListFields = ({ ListFieldsProps, onApply }: Props) => {
     Options: {
       AppendOptions: (e: string) => {
         if (ListFields.options.includes(e)) {
-          alert("value already added");
+          swal("value already added");
           return;
         }
         setListFields({ ...ListFields, options: [...ListFields.options, e] });
@@ -55,11 +56,11 @@ const ListFields = ({ ListFieldsProps, onApply }: Props) => {
       ValidateProps: () => {
         let x = { ...ListFields };
         if (x.options.length === 0 || x.options.includes("")) {
-          alert("please fill out Options !");
+          swal("please fill out Options !");
           return;
         }
         if ((enterData && x.data?.includes("")) || x.data?.length === 0) {
-          alert("please fill out all the fields !");
+          swal("please fill out all the fields !");
           return;
         }
         onApply(x);

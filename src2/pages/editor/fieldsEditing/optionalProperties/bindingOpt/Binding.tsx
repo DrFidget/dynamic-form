@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { TBinding, TFun } from "../../../../../types/TypeBasedProps";
+import { TBinding, TFun, TMapping } from "../../../../../types/TypeBasedProps";
 import TargetProperties from "./TargetProperties";
 import TargetFields from "./TargetFields";
 import MathFunctions from "./MathFunctions";
-
+import Mapping from "./mapping/Mapping";
+import Button from "../../../../../compoenents/Button";
+import swal from "sweetalert";
 const Binding = () => {
   const [bindingProps, setBindingProps] = useState<TBinding>({});
 
@@ -78,6 +80,24 @@ const Binding = () => {
         }
       },
     },
+    Mapping: {
+      onSubmit: (mappingProps: TMapping) => {
+        let x = bindingProps.mapping || ([] as TMapping[]);
+        x.push(mappingProps);
+        setBindingProps({ ...bindingProps, mapping: x });
+      },
+      DeleteMappingObj: (index: number) => {
+        console.log(index);
+        let x = { ...bindingProps };
+        if (x.mapping && x.mapping.length > 0) {
+          x.mapping.splice(index, 1);
+          if (x.mapping.length === 0) {
+            delete x.mapping;
+          }
+          setBindingProps({ ...x });
+        }
+      },
+    },
   };
   return (
     <>
@@ -104,6 +124,7 @@ const Binding = () => {
           />
         </div>
       </div>
+      <hr />
       <div>
         <MathFunctions
           MathFunctionProps={{
@@ -116,6 +137,57 @@ const Binding = () => {
           AddFunction={Actions.MathFunctions.AddFunction}
         />
       </div>
+      <hr />
+      <Mapping
+        bindingProps={bindingProps}
+        onSubmit={Actions.Mapping.onSubmit}
+      />
+      {bindingProps.mapping && bindingProps.mapping.length > 0 && (
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Target</th>
+              <th>Format</th>
+              <th>Options</th>
+              <th>MapTo</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {bindingProps.mapping.length > 0 &&
+              bindingProps.mapping.map((e, k) => (
+                <tr key={k}>
+                  <td>{k + 1}</td>
+                  <td>
+                    {e.target ? e.target : ""}
+                    {e.targetArray ? e.targetArray : ""}
+                    {e.targetGroup ? e.targetGroup : ""}
+                  </td>
+                  <td></td>
+                  <td>{e.options ? e.options : ""}</td>
+                  <td>{e.mapTo ? e.mapTo : ""}</td>
+                  <td
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <Button
+                      color="red"
+                      onClick={() => {
+                        Actions.Mapping.DeleteMappingObj(k);
+                      }}
+                      text="delete"
+                    />
+                    {/* <Button
+                      color="orange"
+                      onClick={() => {}}
+                      text="edit"
+                    />{" "} */}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      )}
     </>
   );
 };

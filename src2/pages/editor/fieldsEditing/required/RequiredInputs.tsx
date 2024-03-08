@@ -3,7 +3,7 @@ import { TRequired } from "../../../../types/TypeBasedProps";
 import SelectType from "./SelectType";
 import TextInput from "../../../../compoenents/TextInput";
 import Button from "../../../../compoenents/Button";
-
+import swal from "sweetalert";
 const fieldTypes = [
   { id: "text", name: "Text" },
   { id: "number", name: "Number" },
@@ -58,7 +58,7 @@ const RequiredInputs = ({ onNext, RequiredProperties }: Props) => {
       next: () => {
         let x = Object.values(reqFields);
         if (x.includes("")) {
-          alert("ID,Name,Type Can not be empty");
+          swal("ID,Name,Type Can not be empty");
           return;
         }
         onNext({ ...reqFields });
