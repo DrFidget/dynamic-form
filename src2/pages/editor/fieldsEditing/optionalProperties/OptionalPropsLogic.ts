@@ -22,7 +22,7 @@ export const Actions = {
       setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
     ) => {
       let x = { ...optionalProps };
-      x.lookUp = object;
+      x.lookup = object;
       setOptionalProps(x);
     },
     resetLookup: (
@@ -30,8 +30,8 @@ export const Actions = {
       setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
     ) => {
       let x = { ...optionalProps };
-      if (x.lookUp) {
-        delete x.lookUp;
+      if (x.lookup) {
+        delete x.lookup;
       }
       setOptionalProps({ ...x });
     },

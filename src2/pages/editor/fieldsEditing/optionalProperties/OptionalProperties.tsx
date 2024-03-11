@@ -6,8 +6,15 @@ import CheckBoxInput from "../../../../compoenents/CheckBoxinput";
 import Modal from "../../../../compoenents/Modal";
 import TableLookup from "./lookUpOpt/TableLookup";
 import Binding from "./bindingOpt/Binding";
+import Button from "../../../../compoenents/Button";
+import styles from "./OptionalProperties.module.css";
 
-const OptionalProperties = () => {
+interface Props {
+  onApply: (obj: TOptional) => void;
+  OptionalProps?: TOptional;
+}
+
+const OptionalProperties = ({ onApply, OptionalProps }: Props) => {
   const [optionalProps, setOptionalProps] = useState<TOptional>({});
   const [isLookUp, setISLookup] = useState({
     needed: false,
@@ -53,11 +60,11 @@ const OptionalProperties = () => {
             Actions.LookUp.onsubmit(obj, optionalProps, setOptionalProps);
           }}
           LookupProps={{
-            col: optionalProps.lookUp?.col ?? "",
-            row: optionalProps.lookUp?.row ?? "",
-            IdCol: optionalProps.lookUp?.IdCol ?? "MPH",
+            col: optionalProps.lookup?.col ?? "",
+            row: optionalProps.lookup?.row ?? "",
+            IdCol: optionalProps.lookup?.IdCol ?? "MPH",
             source:
-              optionalProps.lookUp?.source ??
+              optionalProps.lookup?.source ??
               `[ 
               {"MPH":"",
               "":""}
@@ -102,6 +109,16 @@ const OptionalProperties = () => {
           }}
         />
       </Modal>
+      <div className={styles.buttoncontainer}>
+        <Button
+          color="green"
+          onClick={() => {
+            onApply(optionalProps);
+          }}
+          text="Apply"
+        />
+        <Button color="red" onClick={() => {}} text="Skip" />
+      </div>
     </div>
   );
 };

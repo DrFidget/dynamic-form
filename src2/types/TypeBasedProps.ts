@@ -35,7 +35,7 @@ export interface TLookup {
   col?: string;
   row?: string;
   IdCol?: string;
-  source?: string; //"[{}.{}]"
+  source?: string | TSource; //"[{}.{}]"
 }
 
 export interface TOptional {
@@ -44,7 +44,7 @@ export interface TOptional {
   tag?: string;
   default?: string; // ---
   binding?: any;
-  lookUp?: TLookup;
+  lookup?: TLookup;
 }
 
 export interface TBinding {

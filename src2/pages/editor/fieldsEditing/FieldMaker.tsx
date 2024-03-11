@@ -228,7 +228,13 @@ const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
               if (!inputMode.optional) ChangeMode.optional;
             }}
           >
-            {inputMode.optional && <OptionalProperties />}
+            {inputMode.optional && (
+              <OptionalProperties
+                onApply={(obj) => {
+                  Actions.OptionalProps.Apply(obj, singleField, setSingleField);
+                }}
+              />
+            )}
           </Collapsible>
         )}
       </div>

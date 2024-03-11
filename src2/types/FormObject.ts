@@ -1,4 +1,4 @@
-import { TValidation } from "./TypeBasedProps";
+import { TBinding, TLookup, TValidation } from "./TypeBasedProps";
 
 export interface TFields {
   id?: string;
@@ -13,6 +13,12 @@ export interface TFields {
   visible?: boolean;
   enable?: boolean;
   required?: boolean;
+  altId?: string;
+  groupId?: string;
+  tag?: string;
+  default?: string; // ---
+  binding?: TBinding;
+  lookup?: TLookup;
 }
 
 export interface TFormType {

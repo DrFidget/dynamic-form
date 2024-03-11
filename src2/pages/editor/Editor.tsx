@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styles from "./editor.module.css";
 import FieldMaker from "./fieldsEditing/FieldMaker";
 import { TFormType } from "../../types/FormObject";
 import SingleFieldContextProvider from "../../context/singleField/SingleFieldContextProvider";
+import FormView from "./View/FormView";
 
 interface Props {
   FormObject?: object;
@@ -14,16 +15,18 @@ const Editor = () => {
 
   return (
     <div className={`${styles.container}`}>
-      <div className={`${styles.toolbar}`}>Toolbar</div>
-      <div className={`${styles.flexContainer}`}>
-        <div className={`${styles.flexContainerDiv}`}>
-          <SingleFieldContextProvider>
+      <SingleFieldContextProvider>
+        <div className={`${styles.toolbar}`}>Toolbar</div>
+        <div className={`${styles.flexContainer}`}>
+          <div className={`${styles.flexContainerDiv}`}>
             <FieldMaker />
-          </SingleFieldContextProvider>
+          </div>
+          <div className={`${styles.flexContainerDiv}`}>Fields in Form</div>
+          <div className={`${styles.flexContainerDiv}`}>
+            <FormView />
+          </div>
         </div>
-        <div className={`${styles.flexContainerDiv}`}>Fields in Form</div>
-        <div className={`${styles.flexContainerDiv}`}>view</div>
-      </div>
+      </SingleFieldContextProvider>
     </div>
   );
 };

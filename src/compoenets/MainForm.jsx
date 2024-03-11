@@ -23,7 +23,7 @@ const MainForm = ({ FormSchema, Values, handleSubmit }) => {
           />
         ) : (
           <FormLoader
-            FormSchema={FormSchema}
+            FormSchema={[{ id: "abc", fieldName: "abc", fieldType: "text" }]}
             submitAction={{
               submitText: "Submit",
               stateOnLoad: false,

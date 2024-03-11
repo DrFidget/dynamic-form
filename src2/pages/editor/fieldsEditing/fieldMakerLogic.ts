@@ -4,6 +4,7 @@ import {
   TList,
   TRequired,
   THtmlProps,
+  TOptional,
 } from "../../../types/TypeBasedProps";
 import { TFields } from "../../../types/FormObject";
 
@@ -176,6 +177,24 @@ export const useActions = () => {
       SkipHandle: (ChangeMode: any, setDone: any) => {
         ChangeMode.optional();
         setDone("html");
+      },
+    },
+
+    OptionalProps: {
+      Apply: (
+        object: TOptional,
+        singleField: TFields,
+        setSingleField: React.Dispatch<React.SetStateAction<TFields>>
+      ) => {
+        let x = { ...singleField };
+        object.altId ? (x.altId = object.altId) : null;
+        object.groupId ? (x.groupId = object.groupId) : null;
+        object.tag ? (x.tag = object.tag) : null;
+        object.default ? (x.default = object.default) : null;
+        object.binding ? (x.binding = object.binding) : null;
+        object.lookup ? (x.lookup = object.lookup) : null;
+
+        setSingleField({ ...x });
       },
     },
   };

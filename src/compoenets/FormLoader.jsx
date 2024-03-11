@@ -34,9 +34,31 @@ const FormLoader = ({
     return schema_or_state;
   });
 
+  useEffect(() => {
+    let schema_or_state;
+    if (FormSchema)
+      schema_or_state = FormSchemaProcessor.generateFormFields(FormSchema);
+    else schema_or_state = FormState;
+    HandleGroupVisibility(schema_or_state);
+
+    if (Values) {
+      schema_or_state = schema_or_state.map((e) => ({
+        ...e,
+        dataValues: {
+          ...e.dataValues,
+
+          value: Array.isArray(Values[e.dataValues.id])
+            ? [...Values[e.dataValues.id]]
+            : Values[e.dataValues.id],
+        },
+      }));
+    }
+    setFormSchemaState(schema_or_state);
+  }, [FormSchema]);
+
   const [formValues, setFormValues] = useState(null);
   const [readyToSubmit, setReadyToSubmit] = useState(
-    submitAction.stateOnLoad === true ? true : false
+    submitAction?.stateOnLoad === true ? true : false
   );
 
   useEffect(() => {
