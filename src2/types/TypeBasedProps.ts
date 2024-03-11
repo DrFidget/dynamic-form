@@ -48,9 +48,9 @@ export interface TOptional {
 }
 
 export interface TBinding {
-  property?: "value"; //"enable" | "visible" | "value";
-  targetProperty?: "enable" | "visible" | "value";
-  targetPropertyLookup?: "table"; // only for list | radio List
+  property?: "value" | ""; //"enable" | "visible" | "value";
+  targetProperty?: "enable" | "visible" | "value" | "";
+  targetPropertyLookup?: "table" | ""; // only for list | radio List
   target?: string;
   targetGroup?: string;
   targetArray?: string[];

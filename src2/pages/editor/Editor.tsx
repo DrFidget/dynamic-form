@@ -22,7 +22,7 @@ const Editor = () => {
           </SingleFieldContextProvider>
         </div>
         <div className={`${styles.flexContainerDiv}`}>Fields in Form</div>
-        <div className={`${styles.flexContainerDiv}`}>View</div>
+        <div className={`${styles.flexContainerDiv}`}>view</div>
       </div>
     </div>
   );

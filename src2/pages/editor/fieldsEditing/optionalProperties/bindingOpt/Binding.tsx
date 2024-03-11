@@ -6,8 +6,16 @@ import MathFunctions from "./MathFunctions";
 import Mapping from "./mapping/Mapping";
 import Button from "../../../../../compoenents/Button";
 import swal from "sweetalert";
-const Binding = () => {
-  const [bindingProps, setBindingProps] = useState<TBinding>({});
+
+interface Props {
+  onSubmit: (obj: TBinding) => void;
+  BindingProps?: TBinding;
+}
+const Binding = ({ onSubmit, BindingProps }: Props) => {
+  const [bindingProps, setBindingProps] = useState<TBinding>(() => {
+    if (BindingProps) return BindingProps;
+    return {};
+  });
 
   const Actions = {
     TargetProperties: {
@@ -33,13 +41,23 @@ const Binding = () => {
         } else if (id === "target" || id === "targetGroup") {
           setBindingProps({ ...bindingProps, [id]: val as string });
         }
+        if (val === "") {
+          let x = { ...bindingProps };
+          if (id === "targetArray") delete x.targetArray;
+          if (id === "target") delete x.target;
+          if (id === "targetGroup") delete x.targetGroup;
+          setBindingProps({ ...x });
+        }
       },
       removeIDFromArray: (index: number) => {
         let x = { ...bindingProps };
         if (x.targetArray) {
           let arr = JSON.parse(JSON.stringify(x.targetArray)) as string[];
           arr.splice(index, 1);
-          setBindingProps({ ...bindingProps, targetArray: arr });
+          if (arr.length === 0) {
+            delete x.targetArray;
+            setBindingProps({ ...x });
+          } else setBindingProps({ ...bindingProps, targetArray: arr });
         }
       },
     },
@@ -87,7 +105,6 @@ const Binding = () => {
         setBindingProps({ ...bindingProps, mapping: x });
       },
       DeleteMappingObj: (index: number) => {
-        console.log(index);
         let x = { ...bindingProps };
         if (x.mapping && x.mapping.length > 0) {
           x.mapping.splice(index, 1);
@@ -96,6 +113,33 @@ const Binding = () => {
           }
           setBindingProps({ ...x });
         }
+      },
+    },
+    SubmitHandle: {
+      Validate: () => {
+        if (
+          bindingProps.property === "" ||
+          bindingProps.targetProperty === "" ||
+          !bindingProps.property ||
+          !bindingProps.targetProperty
+        ) {
+          swal("Please enter Property and Target Property");
+          return false;
+        }
+
+        if (bindingProps.target === undefined || bindingProps.target === "") {
+          swal("Please enter a Target Field");
+          return false;
+        }
+        return true;
+      },
+      addBinding: () => {
+        // let x=
+        if (!Actions.SubmitHandle.Validate()) return;
+
+        let newObj = { ...bindingProps };
+        onSubmit(JSON.parse(JSON.stringify(newObj)));
+        // console.log(newObj);
       },
     },
   };
@@ -177,17 +221,22 @@ const Binding = () => {
                       }}
                       text="delete"
                     />
-                    {/* <Button
-                      color="orange"
-                      onClick={() => {}}
-                      text="edit"
-                    />{" "} */}
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
       )}
+      <hr style={{ marginBlock: "30px" }} />
+      <div style={{ marginBlockStart: "30px" }}>
+        <Button
+          color="green"
+          onClick={() => {
+            Actions.SubmitHandle.addBinding();
+          }}
+          text="Add"
+        />
+      </div>
     </>
   );
 };

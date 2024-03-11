@@ -151,6 +151,13 @@ const Mapping = ({ bindingProps, onSubmit, mapProps }: Props) => {
       <Button
         text="Add Mapping"
         color="blue"
+        disabled={
+          bindingProps.targetProperty === undefined
+            ? true
+            : bindingProps.targetProperty === ""
+            ? true
+            : false
+        }
         onClick={() => {
           setAddMapping(true);
         }}

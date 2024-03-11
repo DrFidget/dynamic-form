@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { TFun } from "../../../../../types/TypeBasedProps";
 import CheckBoxInput from "../../../../../compoenents/CheckBoxinput";
 import TextInput from "../../../../../compoenents/TextInput";
 import DropdownInput from "../../../../../compoenents/DropdownList";
 import NumberInput from "../../../../../compoenents/NumberInput";
+import { TSingleField } from "../../../../../types/contextTypes";
+import SingleFieldContext from "../../../../../context/singleField/SingleFieldContext";
 
 const Math = {
   logical: {
@@ -38,17 +40,21 @@ const MathFunctions = ({
     math: false,
     fun: false,
   });
+
+  const { field } = useContext<TSingleField>(SingleFieldContext);
   return (
     <>
       <h3>Math Functions</h3>
-      <CheckBoxInput
-        onChange={(e) => {
-          setRequired({ ...required, Logical: e });
-          if (!e) AddLogical("");
-        }}
-        label="Logical Function"
-        value={required.Logical}
-      />
+      {field?.fieldType === "checkbox" && (
+        <CheckBoxInput
+          onChange={(e) => {
+            setRequired({ ...required, Logical: e });
+            if (!e) AddLogical("");
+          }}
+          label="Logical Function"
+          value={required.Logical}
+        />
+      )}
       {required.Logical && (
         <DropdownInput
           options={Math.logical.options}
@@ -59,11 +65,13 @@ const MathFunctions = ({
         />
       )}
 
-      <CheckBoxInput
-        onChange={(e) => setRequired({ ...required, math: e })}
-        label="Math Function"
-        value={required.math}
-      />
+      {field?.fieldType === "number" && (
+        <CheckBoxInput
+          onChange={(e) => setRequired({ ...required, math: e })}
+          label="Math Function"
+          value={required.math}
+        />
+      )}
       {required.math && (
         <TextInput
           label="Enter Math Function"
@@ -71,11 +79,13 @@ const MathFunctions = ({
           value={MathFunctionProps?.mathFunction}
         />
       )}
-      <CheckBoxInput
-        onChange={(e) => setRequired({ ...required, fun: e })}
-        label="Function"
-        value={required.fun}
-      />
+      {field?.fieldType === "number" && (
+        <CheckBoxInput
+          onChange={(e) => setRequired({ ...required, fun: e })}
+          label="Function"
+          value={required.fun}
+        />
+      )}
       {required.fun && (
         <>
           <DropdownInput

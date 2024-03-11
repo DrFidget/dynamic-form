@@ -1,4 +1,5 @@
-import { TLookup, TOptional } from "../../../../types/TypeBasedProps";
+import { TBinding, TLookup, TOptional } from "../../../../types/TypeBasedProps";
+import Binding from "./bindingOpt/Binding";
 
 export const Actions = {
   ID: {
@@ -31,6 +32,27 @@ export const Actions = {
       let x = { ...optionalProps };
       if (x.lookUp) {
         delete x.lookUp;
+      }
+      setOptionalProps({ ...x });
+    },
+  },
+  Binding: {
+    onsubmit: (
+      object: TBinding,
+      optionalProps: TOptional,
+      setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
+    ) => {
+      let x = { ...optionalProps };
+      x.binding = object;
+      setOptionalProps({ ...x });
+    },
+    resetBinding: (
+      optionalProps: TOptional,
+      setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
+    ) => {
+      let x = { ...optionalProps };
+      if (x.binding) {
+        delete x.binding;
       }
       setOptionalProps({ ...x });
     },

@@ -68,17 +68,39 @@ const OptionalProperties = () => {
 
       <CheckBoxInput
         label="Add Binding"
-        value={isMapping.needed}
+        value={isMapping.needed || isMapping.added}
         onChange={(e) => {
+          if (!e && isMapping.needed && isMapping.added) {
+            Actions.Binding.resetBinding(optionalProps, setOptionalProps);
+            setIsMapping({ added: false, needed: false });
+            return;
+          }
           setIsMapping({ ...isMapping, needed: e });
         }}
       />
       <Modal
         headerText="Binding"
-        isOpen={isMapping.needed}
+        isOpen={isMapping.needed && !isMapping.added}
         onClose={() => setIsMapping({ ...isMapping, needed: false })}
       >
-        <Binding />
+        <Binding
+          onSubmit={(obj) => {
+            setIsMapping({ needed: true, added: true });
+            Actions.Binding.onsubmit(obj, optionalProps, setOptionalProps);
+          }}
+          BindingProps={{
+            property: optionalProps.binding?.property ?? undefined,
+            targetProperty: optionalProps.binding?.targetProperty ?? undefined,
+            target: optionalProps.binding?.target ?? "undefined",
+            targetArray: optionalProps.binding?.targetArray ?? undefined,
+            targetGroup: optionalProps.binding?.targetGroup ?? undefined,
+            fun: optionalProps.binding?.fun ?? undefined,
+            logicalFunction:
+              optionalProps.binding?.logicalFunction ?? undefined,
+            mapping: optionalProps.binding?.mapping ?? undefined,
+            mathFunction: optionalProps.binding?.mathFunction ?? undefined,
+          }}
+        />
       </Modal>
     </div>
   );
