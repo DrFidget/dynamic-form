@@ -3,7 +3,7 @@ import SingleFieldContext from "./SingleFieldContext";
 import { TFields } from "../../types/FormObject";
 
 const SingleFieldContextProvider = ({ children }: any) => {
-  const [field, setField] = useState<TFields>({});
+  const [field, setField] = useState<TFields | undefined>({});
 
   return (
     <SingleFieldContext.Provider value={{ field, setField }}>

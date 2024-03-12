@@ -38,18 +38,9 @@ const Card: React.FC<CardProps> = ({
     marginTop: "16px",
   };
 
-  const buttonStyle: React.CSSProperties = {
-    padding: "8px 16px",
-    borderRadius: "4px",
-    border: "none",
-    cursor: "pointer",
-    backgroundColor: "#007bff",
-    color: "#fff",
-  };
-
   return (
     <div style={cardStyle}>
-      <div style={headerStyle}>{name}</div>
+      <div style={headerStyle}>Name: {name}</div>
       <div>ID: {id}</div>
       <div>Field Type: {fieldType}</div>
       <div style={footerStyle}>

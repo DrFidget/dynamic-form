@@ -22,6 +22,6 @@ export interface TFields {
 }
 
 export interface TFormType {
-  Name: string;
+  Name?: string;
   Schema: TFields[];
 }

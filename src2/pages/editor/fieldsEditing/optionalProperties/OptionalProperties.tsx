@@ -8,6 +8,7 @@ import TableLookup from "./lookUpOpt/TableLookup";
 import Binding from "./bindingOpt/Binding";
 import Button from "../../../../compoenents/Button";
 import styles from "./OptionalProperties.module.css";
+import TextInput from "../../../../compoenents/TextInput";
 
 interface Props {
   onApply: (obj: TOptional) => void;
@@ -48,6 +49,16 @@ const OptionalProperties = ({ onApply, OptionalProperties }: Props) => {
           groupId: optionalProps?.groupId ?? "",
           tag: optionalProps?.tag ?? "",
         }}
+      />
+      <TextInput
+        label="Default"
+        onChange={(s) => {
+          let x = { ...optionalProps };
+          x.default = s;
+          if (s === "") delete x.default;
+          setOptionalProps(x);
+        }}
+        value={optionalProps?.default ?? ""}
       />
 
       <CheckBoxInput

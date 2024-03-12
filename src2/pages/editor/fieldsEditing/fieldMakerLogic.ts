@@ -90,7 +90,13 @@ export const useActions = () => {
         ChangeMode: any,
         setDone: any
       ) => {
-        let xx: TFields = {};
+        let xx = { ...singleField };
+        if (singleField.fieldType) {
+          if (singleField.fieldType !== object.fieldType) {
+            xx = {} as TFields;
+          }
+        }
+
         object.id ? (xx.id = object.id) : null;
         object.fieldName ? (xx.fieldName = object.fieldName) : null;
         object.fieldType ? (xx.fieldType = object.fieldType) : null;

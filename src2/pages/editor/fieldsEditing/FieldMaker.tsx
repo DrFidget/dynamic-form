@@ -10,13 +10,14 @@ import { TList, TNumber, TOptional } from "../../../types/TypeBasedProps";
 import Button from "../../../compoenents/Button";
 import SingleFieldContext from "../../../context/singleField/SingleFieldContext";
 import styles from "./FieldMaker.module.css";
+import { TSingleField } from "../../../types/contextTypes";
 
 interface Props {
   styles?: React.CSSProperties;
   ButtonProps?: {
     text: string;
     onClick: (object: TFields) => void;
-    color?: "string";
+    color?: string;
   };
   PreBuiltField?: TFields;
 }
@@ -40,7 +41,7 @@ const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
   const { setField } = useContext<any>(SingleFieldContext);
 
   useEffect(() => {
-    setField({ ...singleField });
+    setField(singleField);
   }, [singleField]);
 
   return (
