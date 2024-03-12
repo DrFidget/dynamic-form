@@ -26,6 +26,7 @@ export interface THtmlProps {
   visible?: boolean;
   enable?: boolean;
   required?: boolean;
+  //groupVisibiity;
 }
 
 export interface TSource {

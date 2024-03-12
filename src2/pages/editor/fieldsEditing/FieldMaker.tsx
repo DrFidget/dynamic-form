@@ -233,6 +233,7 @@ const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
           >
             {inputMode.optional && (
               <OptionalProperties
+                onSkip={() => Actions.OptionalProps.SkipHandle(setDone)}
                 OptionalProperties={{
                   altId: singleField.altId ?? "",
                   groupId: singleField.groupId ?? "",

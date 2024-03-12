@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import FieldMaker from "./FieldMaker";
 import styles from "./FieldMaker.module.css";
 import Button from "../../../compoenents/Button";
@@ -26,6 +26,13 @@ const FieldEditingIndex = ({
       onCreateField(object);
     },
   };
+  useEffect(() => {
+    if (SingleField) {
+      console.log(setField);
+      setAdding(true);
+      inAddingState(true);
+    }
+  }, [SingleField]);
   return (
     <div>
       {!adding && (
@@ -57,7 +64,7 @@ const FieldEditingIndex = ({
         <FieldMaker
           PreBuiltField={SingleField ?? undefined}
           ButtonProps={{
-            text: "Create Field",
+            text: SingleField ? "Done Editing" : "Create Field",
             onClick: Actions.CreateField,
             color: "green",
           }}

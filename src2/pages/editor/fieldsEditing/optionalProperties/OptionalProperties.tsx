@@ -12,10 +12,11 @@ import TextInput from "../../../../compoenents/TextInput";
 
 interface Props {
   onApply: (obj: TOptional) => void;
+  onSkip: () => void;
   OptionalProperties?: TOptional;
 }
 
-const OptionalProperties = ({ onApply, OptionalProperties }: Props) => {
+const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
   const [optionalProps, setOptionalProps] = useState<TOptional>(() => {
     if (OptionalProperties) return OptionalProperties;
     return {};
@@ -141,7 +142,7 @@ const OptionalProperties = ({ onApply, OptionalProperties }: Props) => {
           }}
           text="Apply"
         />
-        <Button color="red" onClick={() => {}} text="Skip" />
+        <Button color="red" onClick={() => onSkip()} text="Skip" />
       </div>
     </div>
   );

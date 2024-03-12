@@ -226,6 +226,9 @@ export const useActions = () => {
         setSingleField({ ...x });
         setDone("opt");
       },
+      SkipHandle: (setDone: any) => {
+        setDone("opt");
+      },
     },
   };
 
