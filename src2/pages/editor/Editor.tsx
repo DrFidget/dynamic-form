@@ -3,7 +3,8 @@ import styles from "./editor.module.css";
 import FieldMaker from "./fieldsEditing/FieldMaker";
 import { TFormType } from "../../types/FormObject";
 import SingleFieldContextProvider from "../../context/singleField/SingleFieldContextProvider";
-import FormView from "./View/FormView";
+import FormView from "./View/SingleFieldView/SingleFieldView";
+import AddedFields from "./AddedFields/AddedFields";
 
 interface Props {
   FormObject?: object;
@@ -21,7 +22,9 @@ const Editor = () => {
           <div className={`${styles.flexContainerDiv}`}>
             <FieldMaker />
           </div>
-          <div className={`${styles.flexContainerDiv}`}>Fields in Form</div>
+          <div className={`${styles.flexContainerDiv}`}>
+            <AddedFields />
+          </div>
           <div className={`${styles.flexContainerDiv}`}>
             <FormView />
           </div>

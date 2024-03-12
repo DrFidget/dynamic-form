@@ -6,9 +6,10 @@ import OptionalProperties from "./optionalProperties/OptionalProperties";
 import HtmlProperties from "./htmlProperties/HtmlProperties";
 import Collapsible from "../../../compoenents/Collapsible";
 import { useChangeMode, useActions, useDoneFields } from "./fieldMakerLogic";
-import { TList, TNumber } from "../../../types/TypeBasedProps";
+import { TList, TNumber, TOptional } from "../../../types/TypeBasedProps";
 import Button from "../../../compoenents/Button";
 import SingleFieldContext from "../../../context/singleField/SingleFieldContext";
+import styles from "./FieldMaker.module.css";
 
 interface Props {
   styles?: React.CSSProperties;
@@ -20,7 +21,7 @@ interface Props {
   PreBuiltField?: TFields;
 }
 
-const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
+const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
   const [singleField, setSingleField] = useState<TFields>(() => {
     if (PreBuiltField) return PreBuiltField;
     return {
@@ -29,7 +30,7 @@ const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
       fieldType: "",
     };
   });
-  const { doneFields, setDone } = useDoneFields(
+  const { doneFields, setDone, setNotDone } = useDoneFields(
     PreBuiltField
       ? { req: true, type: true, opt: true, html: true }
       : { req: false, type: false, opt: false, html: false }
@@ -43,8 +44,8 @@ const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
   }, [singleField]);
 
   return (
-    <div style={{ ...styles }}>
-      {" "}
+    <div style={{ ...st }}>
+      <h2 className={`${styles.h2}`}>Create a new Field</h2>
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <Collapsible
           isOpen={inputMode.required}
@@ -223,33 +224,48 @@ const FieldMaker = ({ styles, ButtonProps, PreBuiltField }: Props) => {
         {doneFields.html && (
           <Collapsible
             title="Optional Props"
-            isOpen={inputMode.optional}
+            isOpen={inputMode.optional && !doneFields.opt}
             onClick={() => {
               if (!inputMode.optional) ChangeMode.optional;
+              if (doneFields.opt) setNotDone("opt");
             }}
           >
             {inputMode.optional && (
               <OptionalProperties
+                OptionalProperties={{
+                  altId: singleField.altId ?? "",
+                  groupId: singleField.groupId ?? "",
+                  lookup: singleField.lookup ?? undefined,
+                  binding: singleField.binding ?? undefined,
+                  default: singleField.default ?? "",
+                  tag: singleField.tag ?? "",
+                }}
                 onApply={(obj) => {
-                  Actions.OptionalProps.Apply(obj, singleField, setSingleField);
+                  Actions.OptionalProps.Apply(
+                    obj,
+                    singleField,
+                    setSingleField,
+                    setDone
+                  );
                 }}
               />
             )}
           </Collapsible>
         )}
       </div>
-      {doneFields.html && doneFields.req && doneFields.type && (
-        <div>
-          <Button
-            styles={{ marginBlock: "20px", marginInline: "20px" }}
-            color={ButtonProps?.color || "green"}
-            text={ButtonProps?.text || "Create Field"}
-            onClick={() => {
-              ButtonProps?.onClick(singleField);
-            }}
-          />
-        </div>
-      )}
+      {/* {doneFields.html && doneFields.req && doneFields.type && ( */}
+      <div>
+        <Button
+          disabled={doneFields.type ? false : true}
+          styles={{ marginBlock: "20px", marginInline: "20px" }}
+          color={ButtonProps?.color || "green"}
+          text={ButtonProps?.text || "Create Field"}
+          onClick={() => {
+            ButtonProps?.onClick(singleField);
+          }}
+        />
+      </div>
+      {/* )} */}
     </div>
   );
 };

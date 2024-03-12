@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IDoptional from "./IDoptional";
 import { TLookup, TOptional } from "../../../../types/TypeBasedProps";
 import { Actions } from "./OptionalPropsLogic";
@@ -11,19 +11,32 @@ import styles from "./OptionalProperties.module.css";
 
 interface Props {
   onApply: (obj: TOptional) => void;
-  OptionalProps?: TOptional;
+  OptionalProperties?: TOptional;
 }
 
-const OptionalProperties = ({ onApply, OptionalProps }: Props) => {
-  const [optionalProps, setOptionalProps] = useState<TOptional>({});
+const OptionalProperties = ({ onApply, OptionalProperties }: Props) => {
+  const [optionalProps, setOptionalProps] = useState<TOptional>(() => {
+    if (OptionalProperties) return OptionalProperties;
+    return {};
+  });
   const [isLookUp, setISLookup] = useState({
     needed: false,
     added: false,
   });
-  const [isMapping, setIsMapping] = useState({
+  const [isBinding, setIsBinding] = useState({
     needed: false,
     added: false,
   });
+  useEffect(() => {
+    if (OptionalProperties) {
+      if (OptionalProperties.lookup) {
+        setISLookup({ needed: false, added: true });
+      }
+      if (OptionalProperties.binding) {
+        setIsBinding({ needed: false, added: true });
+      }
+    }
+  }, []);
   return (
     <div>
       <IDoptional
@@ -75,30 +88,30 @@ const OptionalProperties = ({ onApply, OptionalProps }: Props) => {
 
       <CheckBoxInput
         label="Add Binding"
-        value={isMapping.needed || isMapping.added}
+        value={isBinding.needed || isBinding.added}
         onChange={(e) => {
-          if (!e && isMapping.needed && isMapping.added) {
+          if (!e && isBinding.needed && isBinding.added) {
             Actions.Binding.resetBinding(optionalProps, setOptionalProps);
-            setIsMapping({ added: false, needed: false });
+            setIsBinding({ added: false, needed: false });
             return;
           }
-          setIsMapping({ ...isMapping, needed: e });
+          setIsBinding({ ...isBinding, needed: e });
         }}
       />
       <Modal
         headerText="Binding"
-        isOpen={isMapping.needed && !isMapping.added}
-        onClose={() => setIsMapping({ ...isMapping, needed: false })}
+        isOpen={isBinding.needed && !isBinding.added}
+        onClose={() => setIsBinding({ ...isBinding, needed: false })}
       >
         <Binding
           onSubmit={(obj) => {
-            setIsMapping({ needed: true, added: true });
+            setIsBinding({ needed: true, added: true });
             Actions.Binding.onsubmit(obj, optionalProps, setOptionalProps);
           }}
           BindingProps={{
             property: optionalProps.binding?.property ?? undefined,
             targetProperty: optionalProps.binding?.targetProperty ?? undefined,
-            target: optionalProps.binding?.target ?? "undefined",
+            target: optionalProps.binding?.target ?? undefined,
             targetArray: optionalProps.binding?.targetArray ?? undefined,
             targetGroup: optionalProps.binding?.targetGroup ?? undefined,
             fun: optionalProps.binding?.fun ?? undefined,

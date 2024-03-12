@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TSingleField } from "../../../types/contextTypes";
-import SingleFieldContext from "../../../context/singleField/SingleFieldContext";
-import FormLoader from "../../../../src/compoenets/FormLoader";
-import { TSource } from "../../../types/TypeBasedProps";
+import { TSingleField } from "../../../../types/contextTypes";
+import SingleFieldContext from "../../../../context/singleField/SingleFieldContext";
+import FormLoader from "../../../../../src/compoenets/FormLoader";
+import { TSource } from "../../../../types/TypeBasedProps";
+import styles from "../View.module.css";
 
 const FormView = () => {
   const [singleField, setSingleField] = useState<TSingleField[]>([]);
@@ -25,7 +26,7 @@ const FormView = () => {
 
   return (
     <div>
-      <h2>View</h2>
+      <h2 className={styles.h2}>View</h2>
 
       {singleField.length > 0 && (
         <FormLoader

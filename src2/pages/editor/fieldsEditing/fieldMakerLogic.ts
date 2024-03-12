@@ -73,8 +73,11 @@ export const useDoneFields = (
   const setDone = (key: "req" | "type" | "opt" | "html") => {
     setDoneFields({ ...doneFields, [key]: true });
   };
+  const setNotDone = (key: "req" | "type" | "opt" | "html") => {
+    setDoneFields({ ...doneFields, [key]: false });
+  };
 
-  return { doneFields, setDone };
+  return { doneFields, setDone, setNotDone };
 };
 
 export const useActions = () => {
@@ -87,7 +90,7 @@ export const useActions = () => {
         ChangeMode: any,
         setDone: any
       ) => {
-        let xx = { ...singleField };
+        let xx: TFields = {};
         object.id ? (xx.id = object.id) : null;
         object.fieldName ? (xx.fieldName = object.fieldName) : null;
         object.fieldType ? (xx.fieldType = object.fieldType) : null;
@@ -106,6 +109,11 @@ export const useActions = () => {
           setDone: any
         ) => {
           let x = { ...singleField };
+          if (x.numberMin) delete x.numberMin;
+          if (x.numberMax) delete x.numberMax;
+          if (x.numberDecimal) delete x.numberDecimal;
+          if (x.validation) delete x.validation;
+
           object.numberMin ? (x.numberMin = object.numberMin) : null;
           object.numberMax ? (x.numberMax = object.numberMax) : null;
           object.numberDecimal
@@ -130,6 +138,9 @@ export const useActions = () => {
           setDone: any
         ) => {
           let x = { ...singleField };
+          if (x.data) delete x.data;
+          if (x.options) delete x.options;
+
           x.options = object.options;
           if (object.data) {
             x.data = object.data;
@@ -151,6 +162,7 @@ export const useActions = () => {
           setDone: any
         ) => {
           let x = { ...singleField };
+          if (x.options) delete x.options;
           x.options = objList;
           setSingleField(x);
           ChangeMode.HtmlProps();
@@ -167,6 +179,9 @@ export const useActions = () => {
         setDone: any
       ) => {
         let x = { ...singleField };
+        if (x.visible) delete x.visible;
+        if (x.enable) delete x.enable;
+        if (x.required) delete x.required;
         x.visible = object.visible ? true : false;
         x.enable = object.enable ? true : false;
         x.required = object.required ? true : false;
@@ -184,9 +199,17 @@ export const useActions = () => {
       Apply: (
         object: TOptional,
         singleField: TFields,
-        setSingleField: React.Dispatch<React.SetStateAction<TFields>>
+        setSingleField: React.Dispatch<React.SetStateAction<TFields>>,
+        setDone: any
       ) => {
         let x = { ...singleField };
+        if (x.altId) delete x.altId;
+        if (x.groupId) delete x.groupId;
+        if (x.tag) delete x.tag;
+        if (x.default) delete x.default;
+        if (x.binding) delete x.binding;
+        if (x.lookup) delete x.lookup;
+
         object.altId ? (x.altId = object.altId) : null;
         object.groupId ? (x.groupId = object.groupId) : null;
         object.tag ? (x.tag = object.tag) : null;
@@ -195,6 +218,7 @@ export const useActions = () => {
         object.lookup ? (x.lookup = object.lookup) : null;
 
         setSingleField({ ...x });
+        setDone("opt");
       },
     },
   };

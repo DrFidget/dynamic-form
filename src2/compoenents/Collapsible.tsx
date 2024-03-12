@@ -24,7 +24,7 @@ const Collapsible = ({
         flexDirection: "column",
         width: "100%",
         // backgroundColor: "green",
-        borderRadius: "10px",
+        borderRadius: "15px",
         overflow: "hidden",
         ...styles,
       }}
@@ -34,8 +34,10 @@ const Collapsible = ({
           display: "flex",
           justifyContent: "space-between",
           margin: "0",
-          padding: "0.5rem",
-          backgroundColor: "#acb9bf",
+          padding: "1rem",
+          backgroundColor: "#6e8593",
+          color: "white",
+          textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
         }}
       >
         <h2 style={{ margin: "0" }}>{title}</h2>
@@ -49,7 +51,7 @@ const Collapsible = ({
       {isOpen && (
         <div
           style={{
-            backgroundColor: "#dee3e5",
+            backgroundColor: "#F2F3F5",
             paddingInline: "20px",
             paddingBlock: "10px",
           }}
