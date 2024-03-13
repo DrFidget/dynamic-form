@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../../compoenents/Button";
 const Dashboard = () => {
   return (
-    <div style={{paddingInline: '10px'}}>
+    <div style={{ paddingInline: "10px" }}>
       <div style={{ textAlign: "center" }}>
         <h1>Dashboard</h1>
       </div>
@@ -11,9 +11,8 @@ const Dashboard = () => {
         <h2>Forms</h2>
         <br />
         <br />
-        <Button color="blue" onClick={()=>{}} text="Add Form" key="1"/>
+        <Button color="#007BFF" onClick={() => {}} text="Add Form" key="1" />
       </div>
-
     </div>
   );
 };

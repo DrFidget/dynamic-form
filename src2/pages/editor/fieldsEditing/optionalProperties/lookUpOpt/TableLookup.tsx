@@ -183,7 +183,7 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
           </table>
           <div style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
             <Button
-              color="blue"
+              color="#007BFF"
               onClick={Actions.handleAddCol}
               text="Add Col"
               styles={{ height: "100%" }}
@@ -197,7 +197,11 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
           </div>
         </div>
         <div style={{ display: "flex", gap: "2px", marginBlockStart: "5px" }}>
-          <Button color="blue" onClick={Actions.handleAddRow} text="Add Row" />
+          <Button
+            color="#007BFF"
+            onClick={Actions.handleAddRow}
+            text="Add Row"
+          />
           <Button color="red" onClick={Actions.handleDelRow} text="Del Row" />
         </div>
       </div>

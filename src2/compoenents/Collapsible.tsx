@@ -35,7 +35,7 @@ const Collapsible = ({
           justifyContent: "space-between",
           margin: "0",
           padding: "1rem",
-          backgroundColor: "#6e8593",
+          backgroundColor: "rgba(0, 0, 0, 0.6)",
           color: "white",
           textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
         }}
@@ -45,13 +45,14 @@ const Collapsible = ({
           styles={{}}
           text={isOpen ? "-" : "+"}
           onClick={onClick}
-          color="blue"
+          color="#007BFF"
         />
       </div>
       {isOpen && (
         <div
           style={{
-            backgroundColor: "#F2F3F5",
+            // backgroundColor: "#F2F3F5",
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
             paddingInline: "20px",
             paddingBlock: "10px",
           }}

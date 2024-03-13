@@ -32,7 +32,7 @@ const Modal: React.FC<ModalProps> = ({
     >
       <div
         style={{
-          backgroundColor: "white",
+          backgroundColor: "#23243B",
           width: "70vw",
           height: "90vh",
           padding: "20px",
@@ -50,6 +50,7 @@ const Modal: React.FC<ModalProps> = ({
           }}
         >
           <h2>{headerText}</h2>
+
           <button
             style={{
               background: "none",
@@ -62,6 +63,7 @@ const Modal: React.FC<ModalProps> = ({
             X
           </button>
         </div>
+        <hr />
         <div style={{ marginTop: "20px" }}>{children}</div>
       </div>
     </div>

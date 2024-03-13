@@ -90,7 +90,7 @@ const ValidationNumber = ({
       })}
 
       <Button
-        color="blue"
+        color="#007BFF"
         onClick={() => {
           handleRuleAddition();
         }}

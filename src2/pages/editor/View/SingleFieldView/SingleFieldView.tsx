@@ -25,7 +25,7 @@ const FormView = () => {
   }, [field]);
 
   return (
-    <div>
+    <div style={{ color: "white" }}>
       <h2 className={styles.h2}>View</h2>
       <hr />
       {singleField.length > 0 && (
@@ -39,7 +39,14 @@ const FormView = () => {
       )}
       <div style={{ marginBlock: "40px" }}>
         <h3>Object : </h3>
-        <div style={{ display: "flex", flexWrap: "wrap", width: "20rem" }}>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            width: "20rem",
+            paddingInline: "20px",
+          }}
+        >
           {/* <br /> */}
           <pre>{JSON.stringify(singleField[0], null, 2)}</pre>
         </div>

@@ -150,7 +150,7 @@ const Mapping = ({ bindingProps, onSubmit, mapProps }: Props) => {
       <h3>Mapping</h3>
       <Button
         text="Add Mapping"
-        color="blue"
+        color="#007BFF"
         disabled={
           bindingProps.targetProperty === undefined
             ? true

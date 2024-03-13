@@ -136,7 +136,7 @@ const NumberFields = ({
                     <td>Rule {k + 1} Added </td>
                     <td>
                       <Button
-                        color="blue"
+                        color="#007BFF"
                         text="edit"
                         onClick={() => {
                           tableActions.onEdit(k);

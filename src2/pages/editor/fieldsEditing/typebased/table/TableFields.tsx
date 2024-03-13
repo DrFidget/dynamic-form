@@ -52,7 +52,7 @@ const TableFields = ({ onNext, TableOptions }: Props) => {
       <div>
         <Button
           text="Add Fields"
-          color="blue"
+          color="#007BFF"
           onClick={() => setIsModalOpen(true)}
         />
       </div>

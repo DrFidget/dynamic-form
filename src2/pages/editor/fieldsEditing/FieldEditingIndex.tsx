@@ -50,7 +50,7 @@ const FieldEditingIndex = ({
             <h3>Create a new Field</h3>
 
             <Button
-              color="blue"
+              color="#007BFF"
               onClick={() => {
                 setAdding(true);
                 inAddingState(true);

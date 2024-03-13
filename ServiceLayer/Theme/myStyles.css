@@ -3,134 +3,137 @@
     font-family: Arial, sans-serif;
     font-size: 16px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #474866; /* Changed border color */
     border-radius: 5px;
     margin-bottom: 10px;
-    /* background-color: #23243B; */
-}
-
-/* Container for all input types */
-.custom_Input_container {
-    /* color: white; */
+    background-color: #23243B; /* Changed background color */
+    color: white; /* Changed text color */
+  }
+  
+  /* Container for all input types */
+  .custom_Input_container {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-    /* margin-inline: 10px; */
-}
-
-label {
+  }
+  
+  label {
+    color: white;
     margin-bottom: 5px;
-}
-
-
-/* Container for select input */
-.custom_select_container {
+  }
+  
+  /* Container for select input */
+  .custom_select_container {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
-}
-
-/* Label style for select */
-
-/* Select style */
-.custom_select_container select {
+  }
+  
+  /* Label style for select */
+  
+  /* Select style */
+  .custom_select_container select {
     font-family: Arial, sans-serif;
     font-size: 16px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #474866; /* Changed border color */
     border-radius: 5px;
     margin-bottom: 10px;
-}
-
-/* Option style */
-.custom_select_container select option {
+    background-color: #23243B; /* Changed background color */
+    color: white; /* Changed text color */
+  }
+  
+  /* Option style */
+  .custom_select_container select option {
     font-family: Arial, sans-serif;
     font-size: 16px;
-}
-
-
-
-
-/* Container for radio buttons */
-.custom_radio_container {
+  }
+  
+  /* Container for radio buttons */
+  .custom_radio_container {
     margin-bottom: 20px;
-}
-
-/* Style for each radio button div */
-.custom_radio_container div {
+  }
+  
+  /* Style for each radio button div */
+  .custom_radio_container div {
     margin-bottom: 10px;
-}
-
-/* Style for radio button input */
-.custom_radio_container input[type="radio"] {
+  }
+  
+  /* Style for radio button input */
+  .custom_radio_container input[type="radio"] {
     margin-right: 5px; /* Adjust spacing between input and label as needed */
-}
-
-/* Style for radio button label */
-.custom_radio_container label {
+  }
+  
+  /* Style for radio button label */
+  .custom_radio_container label {
     font-family: Arial, sans-serif;
     font-size: 16px;
-}
-
-.custom_Checkbox{
+    color: white; /* Changed text color */
+  }
+  
+  .custom_Checkbox {
     margin-bottom: 20px;
-}
-
-.custom_Checkbox  input[type=checkbox]{
+  }
+  
+  .custom_Checkbox input[type=checkbox] {
     margin-right: 5px;
-}
-.custom_Checkbox label{
+  }
+  
+  .custom_Checkbox label {
     font-family: Arial, sans-serif;
     font-size: 16px;
-}
-button {
+    color: white; /* Changed text color */
+  }
+  
+  button {
     font-family: Arial, sans-serif;
-    background-color: rgb(185, 185, 185);
+    background-color: #474866; /* Changed background color */
     font-size: 16px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s, color 0.3s;
-}
-
-/* Button hover effect */
-button:hover {
-    background-color: #8a8a8a; /* Change to desired hover background color */
-}
-
-/* Button active effect */
-button:active {
+    color: white; /* Changed text color */
+  }
+  
+  /* Button hover effect */
+  button:hover {
+    background-color: #6E6F91; /* Changed hover background color */
+  }
+  
+  /* Button active effect */
+  button:active {
     transform: translateY(1px); /* Push the button down slightly when clicked */
-}
-
-
-/* Global table styles */
-table {
+  }
+  
+  /* Global table styles */
+  table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
-}
-
-/* Table header style */
-table th {
-    background-color: #f2f2f2;
+  }
+  
+  /* Table header style */
+  table th {
+    background-color: #23243B; /* Changed background color */
     padding: 10px;
     text-align: left;
-}
-
-/* Table row style */
-table tr {
-    border-bottom: 1px solid #ddd;
-}
-
-/* Table cell style */
-table td {
+    color: white; /* Changed text color */
+  }
+  
+  /* Table row style */
+  table tr {
+    border-bottom: 1px solid #474866; /* Changed border color */
+  }
+  
+  /* Table cell style */
+  table td {
     padding: 10px;
-}
-
-/* Hover effect on table rows */
-table tbody tr:hover {
-    background-color: #f0f0f0;
-}
-
+  }
+  
+  /* Hover effect on table rows */
+  table tbody tr:hover {
+    background-color: #2C2D45; /* Changed hover background color */
+  }
+  
