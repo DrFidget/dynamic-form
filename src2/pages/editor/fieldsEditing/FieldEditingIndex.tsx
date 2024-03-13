@@ -38,7 +38,7 @@ const FieldEditingIndex = ({
       {!adding && (
         <>
           <h2 className={`${styles.h2}`}>Editor</h2>
-
+          <hr />
           <div
             style={{
               display: "flex",

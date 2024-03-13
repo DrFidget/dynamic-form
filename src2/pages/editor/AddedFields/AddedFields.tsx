@@ -11,7 +11,7 @@ const AddedFields = ({ ListOfFields, onDelete, onEdit }: Props) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.h2}>Added Fields</h2>
-
+      <hr />
       {ListOfFields.length > 0
         ? ListOfFields.map((e, k) => (
             <Card

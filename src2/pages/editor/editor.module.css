@@ -19,16 +19,17 @@
     gap: 25px;
     /* height: 100%; 
     width: 100%; */
-    padding: 2px;
+    padding: 20px;
 }
 
 .flexContainerDiv {
-    padding: 10px;
+    padding-inline: 10px;
     flex: 1; /* Equal spacing */
     width: 100%; /* Full width */
-    height: 100%; /* Full height */
+    /* height: 100%; Full height */
     color: black;
     /* border: 1px solid black; */
-
-    /* background-color: rgb(92, 92, 92); */
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    box-shadow: 4px 4px 5px  #a8a8a8;
 }

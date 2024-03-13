@@ -26,18 +26,19 @@ const Modal: React.FC<ModalProps> = ({
         backgroundColor: "rgba(0, 0, 0, 0.5)",
         display: "flex",
         justifyContent: "center",
-        // alignItems: "center",
+        alignItems: "center",
       }}
       onClick={onClose}
     >
       <div
         style={{
           backgroundColor: "white",
-          width: "60vw",
+          width: "70vw",
+          height: "90vh",
           padding: "20px",
           borderRadius: "8px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
-          overflowY: "scroll",
+          overflowY: "auto",
         }}
         onClick={(e) => e.stopPropagation()}
       >

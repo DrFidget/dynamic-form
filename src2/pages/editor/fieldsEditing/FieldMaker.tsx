@@ -47,6 +47,7 @@ const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
   return (
     <div style={{ ...st }}>
       <h2 className={`${styles.h2}`}>Create a new Field</h2>
+      <hr />
       <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
         <Collapsible
           isOpen={inputMode.required}

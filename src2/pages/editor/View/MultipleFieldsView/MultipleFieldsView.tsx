@@ -9,6 +9,7 @@ const MultipleFieldsView = ({ ListOfFields }: Props) => {
   return (
     <div>
       <h2 className={styles.h2}>Current Fields</h2>
+      <hr />
       {ListOfFields.length > 0 ? (
         <FormLoader
           FormSchema={ListOfFields}

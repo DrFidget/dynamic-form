@@ -27,7 +27,7 @@ const FormView = () => {
   return (
     <div>
       <h2 className={styles.h2}>View</h2>
-
+      <hr />
       {singleField.length > 0 && (
         <FormLoader
           FormSchema={singleField}

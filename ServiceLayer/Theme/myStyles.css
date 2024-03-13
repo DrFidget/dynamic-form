@@ -6,10 +6,12 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     margin-bottom: 10px;
+    /* background-color: #23243B; */
 }
 
 /* Container for all input types */
 .custom_Input_container {
+    /* color: white; */
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
