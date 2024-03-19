@@ -5,3 +5,31 @@
     color: white;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
+
+.customTable{
+    width: 100%;
+    border-collapse: separate;
+}
+.customTabletr{
+
+}
+
+.customTableth{
+    background-color: rgba(0, 0, 0, 0.5) ;
+    text-align: center;
+}
+.customTabletd{
+    /* background-color: rgba(0, 0, 0, 0.5) ; */
+    text-align: center;
+}
+.customTabletr:hover{
+    background-color: rgba(255, 255, 255, 0.041);
+}
+.tableContainer{
+    margin-top: 30px;
+    /* padding: 10px; */
+    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Adjust the alpha value */
+    color: white; 
+}

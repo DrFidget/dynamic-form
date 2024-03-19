@@ -139,10 +139,11 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
           color="green"
           onClick={() => {
             onApply(optionalProps);
+            console.log("optional->", optionalProps);
           }}
           text="Apply"
         />
-        <Button color="red" onClick={() => onSkip()} text="Skip" />
+        <Button color="#E70127" onClick={() => onSkip()} text="Skip" />
       </div>
     </div>
   );

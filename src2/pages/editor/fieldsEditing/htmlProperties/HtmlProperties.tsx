@@ -48,7 +48,7 @@ const HtmlProperties = ({ onSkip, onApply, HtmlProps }: Props) => {
           }}
           text="Apply"
         />
-        <Button color="red" onClick={onSkip} text="Skip" />
+        <Button color="#E70127" onClick={onSkip} text="Skip" />
       </div>
     </div>
   );

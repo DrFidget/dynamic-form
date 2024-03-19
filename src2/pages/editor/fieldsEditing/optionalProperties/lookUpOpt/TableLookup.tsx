@@ -189,7 +189,7 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
               styles={{ height: "100%" }}
             />
             <Button
-              color="red"
+              color="#E70127"
               onClick={Actions.handleDelCol}
               text="Del Col"
               styles={{ height: "100%" }}
@@ -202,7 +202,11 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
             onClick={Actions.handleAddRow}
             text="Add Row"
           />
-          <Button color="red" onClick={Actions.handleDelRow} text="Del Row" />
+          <Button
+            color="#E70127"
+            onClick={Actions.handleDelRow}
+            text="Del Row"
+          />
         </div>
       </div>
 

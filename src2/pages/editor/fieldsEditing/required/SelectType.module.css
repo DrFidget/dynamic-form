@@ -1,16 +1,20 @@
 .buttonContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
     gap: 20px;
     overflow-x: auto;
     height: 100%;
     width: 100%;
+    justify-content: center;
+    align-items: center;
     /* padding: 10px; */
   }
   
   .button {
     margin: 0 5px;
     padding: 20px 16px;
+    width: 43%;
     border: none;
     background-color: #4caf50;
     color: white;

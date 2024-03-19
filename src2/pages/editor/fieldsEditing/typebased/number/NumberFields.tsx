@@ -146,7 +146,7 @@ const NumberFields = ({
                     </td>
                     <td>
                       <Button
-                        color="red"
+                        color="#E70127"
                         text="delete"
                         onClick={() => {
                           tableActions.onDelete(k);
@@ -191,7 +191,7 @@ const NumberFields = ({
             }}
             text="Apply"
           />
-          <Button color="red" onClick={onSkipProperties} text="Skip" />
+          <Button color="#E70127" onClick={onSkipProperties} text="Skip" />
         </div>
       </div>
     </>

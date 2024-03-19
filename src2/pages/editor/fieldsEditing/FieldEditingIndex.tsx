@@ -34,7 +34,7 @@ const FieldEditingIndex = ({
     }
   }, [SingleField]);
   return (
-    <div>
+    <div style={{ color: "white" }}>
       {!adding && (
         <>
           <h2 className={`${styles.h2}`}>Editor</h2>
@@ -75,22 +75,3 @@ const FieldEditingIndex = ({
 };
 
 export default FieldEditingIndex;
-// {
-//     "id": "123",
-//     "fieldName": "sas",
-//     "fieldType": "text",
-//     "visible": true,
-//     "enable": true,
-//     "required": false,
-//     "lookup": {
-//       "col": "asd",
-//       "row": "asd",
-//       "IdCol": "MPH",
-//       "source": [
-//         {
-//           "MPH": "sd",
-//           "asda": "asd"
-//         }
-//       ]
-//     }
-//   }

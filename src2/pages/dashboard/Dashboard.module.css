@@ -1,0 +1,14 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 20px;
+    gap: 10px;
+    height: 100%;
+}
+.vertical_divider {
+    border-left: 1px solid #f0f0f0; /* Adjust thickness and color as needed */
+    height: 30vh; /* Take full height of parent */
+    /* width: 1px; */
+    margin: 0 20px; /* Adjust margin as needed */
+  }

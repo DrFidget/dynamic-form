@@ -54,7 +54,7 @@ const OptionsInput = ({ Options, AppendOptions, RemoveOption }: Props) => {
               <p>{option}</p>
               <Button
                 text="x"
-                color="red"
+                color="#E70127"
                 onClick={() => {
                   RemoveOption(index);
                 }}

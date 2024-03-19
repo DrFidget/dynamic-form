@@ -208,6 +208,7 @@ export const useActions = () => {
         setSingleField: React.Dispatch<React.SetStateAction<TFields>>,
         setDone: any
       ) => {
+        // console.log(object);
         let x = { ...singleField };
         if (x.altId) delete x.altId;
         if (x.groupId) delete x.groupId;

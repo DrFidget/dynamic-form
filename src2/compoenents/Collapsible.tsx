@@ -26,6 +26,7 @@ const Collapsible = ({
         // backgroundColor: "green",
         borderRadius: "15px",
         overflow: "hidden",
+
         ...styles,
       }}
     >

@@ -1,0 +1,229 @@
+[
+    {
+      "id": "date",
+      "fieldName": "Date",
+      "fieldType": "date",
+      "default": "#VAR_NOW#",
+      "enabled": false,
+      "clearValues": false
+    },
+    {
+      "id": "testBat",
+      "fieldName": "BUS Nom",
+      "fieldType": "list",
+      "default": "#ASSET.lists('busNomenclature')#",
+      "options": []
+    },
+    {
+      "id": "materialType",
+      "fieldName": "Material Type",
+      "fieldType": "list",
+      "default": "#APPLICATIONLOOKUP.lists('materialTypes','${des} (${key1}, ${key2})','${des}','sort')#",
+      "options": []
+    },
+    {
+      "id": "empl",
+      "fieldName": "User Name",
+      "fieldType": "text",
+      "default": "#VAR_UNAME#",
+      "enabled": false,
+      "clearValues": false
+    },
+    {
+      "id": "date1",
+      "fieldName": "Date",
+      "fieldType": "date"
+    },
+    {
+      "id": "time",
+      "fieldName": "Time",
+      "fieldType": "time"
+    },
+    {
+      "id": "datetime",
+      "fieldName": "Date and Time",
+      "fieldType": "datetime"
+    },
+    {
+      "id": "UserMobileNo",
+      "fieldName": "Contact Number",
+      "fieldType": "text",
+      "default": "#VAR_UMOBILE#"
+    },
+    {
+      "id": "id_lat",
+      "fieldName": "Latitude",
+      "fieldType": "text",
+      "default": "#VAR_CLAT#"
+    },
+    {
+      "id": "id_long",
+      "fieldName": "Longitude",
+      "fieldType": "text",
+      "default": "#VAR_CLONG#"
+    },
+    {
+      "id": "div",
+      "fieldName": "",
+      "fieldType": "divider"
+    },
+    {
+      "id": "label",
+      "fieldName": "Title/ Label",
+      "fieldType": "label"
+    },
+    {
+      "id": "texte",
+      "fieldName": "Text/ Input Field",
+      "fieldType": "text"
+    },
+    {
+      "id": "noif",
+      "fieldName": "Number Input Field",
+      "fieldType": "number"
+    },
+    {
+      "id": "noifd",
+      "fieldName": "Number Input Field with Decimal",
+      "fieldType": "number",
+      "numberDecimal": true
+    },
+    {
+      "id": "noifd1",
+      "fieldName": "Number field with Max and Min Number Validation",
+      "fieldType": "number",
+      "numberDecimal": false,
+      "numberMin": "10",
+      "numberMax": "20",
+      "validation": {
+        "rules": [
+          {
+            "type": "e",
+            "rule": "${noifd1} >= 10 && ${noifd1} <= 20",
+            "msg": "Value must be between 10 and 20",
+            "color": "red"
+          }
+        ]
+      }
+    },
+    {
+      "id": "radio",
+      "fieldName": "Radio Buttons",
+      "fieldType": "radioList",
+      "options": ["Lahore", "Karachi", "Islamabad", "Peshawar", "Faisalabad"],
+      "data": ["LHR", "KHI", "ISB", "PSH", "FSD"]
+    },
+    {
+      "id": "radio1",
+      "fieldName": "Drop Down List",
+      "fieldType": "list",
+      "options": ["Lahore", "Karachi", "Islamabad", "Peshawar", "Faisalabad"]
+    },
+    {
+      "id": "tables",
+      "fieldName": "Table",
+      "fieldType": "table",
+      "options": [
+        {
+          "id": "mile12",
+          "fieldName": "Text Field",
+          "fieldType": "text"
+        },
+        {
+          "id": "radio12",
+          "fieldName": "Drop Down List",
+          "fieldType": "list",
+          "options": ["Lahore", "Karachi", "Islamabad", "Peshawar", "Faisalabad"]
+        },
+        {
+          "id": "noifd",
+          "fieldName": "Number field with Max and Min Number Validation",
+          "fieldType": "number",
+          "numberDecimal": false,
+          "numberMin": "10",
+          "numberMax": "20",
+          "validation": {
+            "rules": [
+              {
+                "type": "e",
+                "rule": "${noifd} >= 10 && ${noifd} <= 20",
+                "msg": "Value must be between 10 and 20",
+                "color": "red"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "fieldName": "CheckBox",
+      "fieldType": "checkbox"
+    },
+    {
+      "id": "Serial Number1",
+      "fieldName": "Signature",
+      "fieldType": "scribble"
+    },
+    {
+      "id": "sigPic",
+      "fieldName": "Image",
+      "fieldType": "image"
+    },
+    {
+      "id": "evenNum",
+      "fieldName": "Number Input (100-200) Warning Message",
+      "fieldType": "number",
+      "validation": {
+        "rules": [
+          {
+            "type": "w",
+            "rule": "${evenNum} >= 10 && ${evenNum} <= 20",
+            "msg": "Value must be between 10 and 20",
+            "color": "#F9A825"
+          }
+        ]
+      }
+    },
+    {
+      "id": "towork",
+      "fieldName": "Lone Worker",
+      "fieldType": "checkbox",
+      "binding": {
+        "property": "value",
+        "target": "div55",
+        "targetArray": ["div55", "name"],
+        "targetProperty": "visible"
+      }
+    },
+    {
+      "id": "div55",
+      "fieldName": "",
+      "fieldType": "divider",
+      "groupId": "loneform",
+      "groupVisibility": "false"
+    },
+    {
+      "id": "name",
+      "fieldName": "Name",
+      "fieldType": "text",
+      "default": "#VAR_UNAME#",
+      "enabled": false,
+      "clearValues": false,
+      "visible": false,
+      "groupId": "loneform"
+    },
+    {
+      "id": "lookupSpeed",
+      "fieldName": "Speed MPH",
+      "fieldType": "list",
+      "options": ["10", "15"],
+      "binding": {
+        "property": "value",
+        "target": "textDistanceField",
+        "targetProperty": "value",
+        "targetPropertyLookup": "table"
+      }
+    }
+]
+  

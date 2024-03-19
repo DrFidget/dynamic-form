@@ -17,3 +17,37 @@ const MyRoutes = () => {
 };
 
 export default MyRoutes;
+
+let x = [
+  {
+    id: "date",
+    fieldName: "Date",
+    fieldType: "date",
+    default: "#VAR_NOW#",
+    enabled: false,
+    clearValues: false,
+  },
+  {
+    id: "testBat",
+    fieldName: "BUS Nom",
+    fieldType: "list",
+    default: "#ASSET.lists('busNomenclature')#",
+    options: [],
+  },
+  {
+    id: "materialType",
+    fieldName: "Material Type",
+    fieldType: "list",
+    default:
+      "#APPLICATIONLOOKUP.lists('materialTypes','${des} (${key1}, ${key2})','${des}','sort')#",
+    options: [],
+  },
+  {
+    id: "empl",
+    fieldName: "User Name",
+    fieldType: "text",
+    default: "#VAR_UNAME#",
+    enabled: false,
+    clearValues: false,
+  },
+];

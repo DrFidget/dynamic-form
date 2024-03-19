@@ -9,8 +9,8 @@
 .toolbar{
     font-weight: bold;
     /* width:100vw; */
-    padding-block: 10px;
-    padding-inline: 20px;
+    padding-block: 13px;
+    padding-inline: 30px;
     background-color: rgba(0, 0, 0, 0.493);
 }
 .flexContainer {
@@ -29,6 +29,31 @@
     /* height: 100%; Full height */
     color: black;
     /* border: 1px solid black; */
+    border-radius: 10px;
+    background-color: #23243B;
+    box-shadow: 4px 4px 5px  #0B0C12;
+}
+
+
+.AddedFieldsContainer{
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    justify-content: space-between;
+    gap:10px;
+    height: 100%;
+}
+
+.AddedLists{
+    border-radius: 10px;
+    background-color: #23243B;
+    box-shadow: 4px 4px 5px  #0B0C12;
+    width: 70vw;
+    padding: 20px;
+}
+.objectView{
+    padding: 20px;
+    min-width: 30%;
     border-radius: 10px;
     background-color: #23243B;
     box-shadow: 4px 4px 5px  #0B0C12;

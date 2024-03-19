@@ -215,7 +215,7 @@ const Binding = ({ onSubmit, BindingProps }: Props) => {
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Button
-                      color="red"
+                      color="#E70127"
                       onClick={() => {
                         Actions.Mapping.DeleteMappingObj(k);
                       }}

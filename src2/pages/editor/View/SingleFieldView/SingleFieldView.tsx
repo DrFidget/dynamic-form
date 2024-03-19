@@ -5,7 +5,11 @@ import FormLoader from "../../../../../src/compoenets/FormLoader";
 import { TSource } from "../../../../types/TypeBasedProps";
 import styles from "../View.module.css";
 
-const FormView = () => {
+interface Props {
+  ST?: React.CSSProperties;
+}
+
+const FormView = ({ ST }: Props) => {
   const [singleField, setSingleField] = useState<TSingleField[]>([]);
   const { field } = useContext<TSingleField>(SingleFieldContext);
 
@@ -18,14 +22,14 @@ const FormView = () => {
       if (x.lookup && x.lookup.source) {
         let p = JSON.parse(x.lookup.source as string) as TSource;
         x.lookup.source = p as TSource;
-        console.log(p);
+        // console.log(p);
       }
       setSingleField([x as TSingleField]);
     }
   }, [field]);
 
   return (
-    <div style={{ color: "white" }}>
+    <div style={{ color: "white", ...ST }}>
       <h2 className={styles.h2}>View</h2>
       <hr />
       {singleField.length > 0 && (

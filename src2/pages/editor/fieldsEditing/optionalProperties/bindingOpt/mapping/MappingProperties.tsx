@@ -66,7 +66,7 @@ const MappingProperties = ({
               <Button
                 styles={{ height: "40px" }}
                 text="reset"
-                color="red"
+                color="#E70127"
                 onClick={() => {
                   resetOptions();
                 }}

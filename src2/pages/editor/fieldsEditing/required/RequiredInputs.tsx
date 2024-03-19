@@ -71,7 +71,6 @@ const RequiredInputs = ({ onNext, RequiredProperties }: Props) => {
 
   return (
     <>
-      <h2>Required Properties</h2>
       {enabletypeSelector && (
         <SelectType
           fieldTypes={fieldTypes}
@@ -103,7 +102,7 @@ const RequiredInputs = ({ onNext, RequiredProperties }: Props) => {
             }}
           >
             <Button
-              color="red"
+              color="#E70127"
               text="< Back"
               onClick={Actions.Buttons.back}
               type="button"

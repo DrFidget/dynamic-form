@@ -7,7 +7,7 @@ interface ModalProps {
   children: any;
 }
 
-const Modal: React.FC<ModalProps> = ({
+const ModalVariableWidth: React.FC<ModalProps> = ({
   isOpen,
   headerText,
   onClose,
@@ -33,8 +33,8 @@ const Modal: React.FC<ModalProps> = ({
       <div
         style={{
           backgroundColor: "#161724",
-          width: "70vw",
-          height: "90vh",
+          minWidth: "40vw",
+          minHeight: "40vh",
           padding: "20px",
           borderRadius: "8px",
           boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.3)",
@@ -70,4 +70,4 @@ const Modal: React.FC<ModalProps> = ({
   );
 };
 
-export default Modal;
+export default ModalVariableWidth;

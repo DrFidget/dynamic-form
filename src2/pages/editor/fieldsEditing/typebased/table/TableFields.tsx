@@ -118,7 +118,7 @@ const TableFields = ({ onNext, TableOptions }: Props) => {
                       Actions.Table.Delete(k);
                     }}
                     text="Delete"
-                    color="red"
+                    color="#E70127"
                   />
                 </td>
               </tr>

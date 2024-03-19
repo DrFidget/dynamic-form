@@ -1,0 +1,21 @@
+.toolbar{
+    display: flex;
+    gap:20px;
+    /* margin: 5px; */
+}
+
+
+.toolbar>div{
+    width: 50%;
+    /* background-color: blueviolet; */
+}
+
+
+.Actions{
+    display: flex;
+    flex-direction: row-reverse;
+}
+.text{
+    display: flex;
+    align-items: center;
+}

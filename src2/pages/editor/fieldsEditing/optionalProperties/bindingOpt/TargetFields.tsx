@@ -64,7 +64,7 @@ const TargetFields = ({ TFValues: state, onChange, RemoveOption }: Props) => {
             <Button
               key={index}
               text={option + " (x)"}
-              color="red"
+              color="#E70127"
               onClick={() => RemoveOption(index)}
             />
           ))}
