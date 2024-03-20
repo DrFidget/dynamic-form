@@ -24,4 +24,5 @@ export interface TFields {
 export interface TFormType {
   Name?: string;
   Schema: TFields[];
+  _id?: string;
 }

@@ -9,9 +9,10 @@ import FieldEditingIndex from "./fieldsEditing/FieldEditingIndex";
 import MultipleFieldsView from "./View/MultipleFieldsView/MultipleFieldsView";
 import ObjectView from "./View/MultipleFieldsView/ObjectView";
 import ToolBar from "../../compoenents/toolBar/ToolBar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
+import { FormApis } from "../../service/API/Form/FormApi";
 
 interface Props {
   FormObject?: any;
@@ -22,11 +23,8 @@ const Editor = ({ FormObject }: Props) => {
   const location = useLocation();
 
   const [Form, setForm] = useState<TFormType>(() => {
-    // if (location.state?.addExisting) {
-    //   return { Schema: location.state?.addExisting as TFields[] };
-    // }
-    if (FormObject) return { Schema: FormObject as TFields[] };
-    return { Schema: [] };
+    if (FormObject) return { Name: "", Schema: FormObject as TFields[] };
+    return { Name: "", Schema: [] };
   });
   const [creatingField, setCreatingField] = useState(false);
   const [editMode, setEditMode] = useState({
@@ -34,11 +32,12 @@ const Editor = ({ FormObject }: Props) => {
     data: {} as TFields,
     index: -1,
   });
+  const navigate = useNavigate();
   useEffect(() => {
-    let x = location.state?.addExisting as string;
-    if (x) {
-      let j = JSON.parse(x) as TFields[];
-      setForm({ ...Form, Schema: j });
+    let parsedSchema = location.state?.parsedSchema as TFields[];
+    let fromName = location.state?.formName as string;
+    if (parsedSchema && fromName) {
+      setForm({ ...Form, Schema: parsedSchema, Name: fromName });
     }
   }, []);
 
@@ -74,19 +73,9 @@ const Editor = ({ FormObject }: Props) => {
     FormView: {},
 
     Submit: async () => {
-      console.log("tyring");
-      let x = JSON.stringify(Form.Schema);
-      console.log(x);
-      try {
-        const res = await axios.post("http://localhost:9000/form", x, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-        swal("submitted");
-      } catch (e) {
-        console.log(e);
-      }
+      FormApis.CreateForm(Form);
+      swal("Form Submitted Sucessfully");
+      navigate("/");
     },
   };
 
