@@ -29,27 +29,41 @@ const Dashboard = () => {
 
   const navigate = useNavigate();
   const Actions = {
+    validate: () => {
+      if (formNameinput === "") {
+        swal("please enter from name");
+        return false;
+      } else return true;
+    },
     addNewForm: () => {
-      navigate("/editor");
+      if (Actions.validate()) navigate("/editor");
     },
     addExisting: {
-      validate: () => {
-        // console.log("tyring");
-        let parsedSchema = addExisting;
-        try {
-          parsedSchema = JSON.parse(parsedSchema);
-          // console.log(typeof parsedSchema);
-          navigate("/editor", {
-            state: { parsedSchema, formName: formNameinput },
-          });
-        } catch (e) {
-          swal("error occured");
+      parseAndSend: () => {
+        if (Actions.validate()) {
+          let parsedSchema = addExisting;
+          try {
+            parsedSchema = JSON.parse(parsedSchema);
+            navigate("/editor", {
+              state: { parsedSchema, formName: formNameinput },
+            });
+          } catch (e) {
+            swal("please enter correct json schema");
+          }
         }
       },
     },
     Table: {
-      edit: (id: string, addExisting: TFormType) => {
-        navigate("/editor", { state: {} });
+      edit: (e: TFormType) => {
+        const { _id, Schema, Name } = e;
+        navigate("/editor", {
+          state: {
+            parsedSchema: Schema,
+            formName: Name,
+            id: _id,
+            isEditingPrevForm: true,
+          },
+        });
       },
       delete: (id: string) => {
         FormApis.deleteByID(id);
@@ -100,7 +114,13 @@ const Dashboard = () => {
                       className={`${styles.customTableActions}`}
                       // style={{ maxWidth: "" }}
                     >
-                      <Button color="#007BFF" onClick={() => {}} text="edit" />
+                      <Button
+                        color="#007BFF"
+                        onClick={() => {
+                          Actions.Table.edit(e);
+                        }}
+                        text="edit"
+                      />
                       <Button
                         color="#E70127"
                         onClick={() => {
@@ -155,7 +175,7 @@ const Dashboard = () => {
                   text="Create"
                   color="#007BFF"
                   onClick={() => {
-                    Actions.addExisting.validate();
+                    Actions.addExisting.parseAndSend();
                   }}
                 />
               </div>

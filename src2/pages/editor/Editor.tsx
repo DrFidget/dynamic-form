@@ -73,8 +73,17 @@ const Editor = ({ FormObject }: Props) => {
     FormView: {},
 
     Submit: async () => {
-      FormApis.CreateForm(Form);
-      swal("Form Submitted Sucessfully");
+      let isEditingPrevForm = location.state?.isEditingPrevForm;
+      console.log("1", isEditingPrevForm);
+      if (!isEditingPrevForm) {
+        FormApis.CreateForm(Form);
+        swal("Form Submitted Sucessfully");
+      } else {
+        let formId = location.state?.id;
+        console.log("1", formId);
+        FormApis.UpdateByID(formId, Form);
+        swal("Form Updated Successfully");
+      }
       navigate("/");
     },
   };

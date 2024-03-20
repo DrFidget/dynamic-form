@@ -49,9 +49,20 @@ export const FormApis = {
       console.log(e);
     }
   },
-  //   UpdateByID:async(id:string,updatedData:TFormType)=>{
-  //     try{
-  //         const Response=await axios.
-  //     }
-  //   }
+  UpdateByID: async (id: string, updatedData: TFormType) => {
+    try {
+      const res = await axios.put(
+        `http://localhost:9000/form/${id}`,
+        updatedData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Updated response ->", res.data);
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };
