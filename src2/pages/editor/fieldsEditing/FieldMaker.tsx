@@ -257,7 +257,14 @@ const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
         )}
       </div>
       {/* {doneFields.html && doneFields.req && doneFields.type && ( */}
-      <div>
+      <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <Button
+          // disabled={doneFields.type ? false : true}
+          styles={{ marginBlock: "20px", marginInline: "20px" }}
+          color={"#E70127"}
+          text={"Cancel"}
+          onClick={() => {}}
+        />
         <Button
           disabled={doneFields.type ? false : true}
           styles={{ marginBlock: "20px", marginInline: "20px" }}

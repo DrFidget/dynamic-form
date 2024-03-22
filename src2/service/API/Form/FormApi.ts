@@ -1,10 +1,29 @@
 import swal from "sweetalert";
 import axios from "axios";
 import { TFormType } from "../../../types/FormObject";
+import { useState } from "react";
+
+type CallbackFunction<T> = (...args: any[]) => Promise<T>;
+
+export const useLoadingState = <T>() => {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const withLoading = async (callback: CallbackFunction<T>, ...args: any[]) => {
+    setLoading(true);
+    try {
+      await callback(...args);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  };
+
+  return [loading, withLoading] as const;
+};
 
 export const FormApis = {
   CreateForm: async (Form: TFormType) => {
-    console.log(Form);
+    // console.log(Form);
 
     try {
       let x = JSON.stringify(Form);
@@ -13,7 +32,7 @@ export const FormApis = {
           "Content-Type": "application/json",
         },
       });
-      console.log("response->", res.data);
+      // console.log("response->", res.data);
     } catch (e) {
       console.log(e);
     }
@@ -25,9 +44,10 @@ export const FormApis = {
         console.log("No such id found!");
         return null;
       }
-      console.log(Response.data);
+      return Response.data;
     } catch (e) {
       console.log(e);
+      return undefined;
     }
   },
   GetAllForms: async () => {
@@ -44,7 +64,7 @@ export const FormApis = {
     try {
       const Response = await axios.delete(`http://localhost:9000/form/${id}`);
       if (!Response) console.log("No such id found!");
-      else console.log(Response.data);
+      // else console.log(Response.data);
     } catch (e) {
       console.log(e);
     }
@@ -60,7 +80,7 @@ export const FormApis = {
           },
         }
       );
-      console.log("Updated response ->", res.data);
+      // console.log("Updated response ->", res.data);
     } catch (e) {
       console.log(e);
     }

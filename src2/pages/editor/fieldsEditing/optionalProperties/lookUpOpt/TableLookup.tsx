@@ -118,6 +118,7 @@ const TableLookup = ({ LookupProps, OnSubmit }: Props) => {
         IdCol: tableData[0][0],
         source: xString,
       };
+      // console.log(submitObj);
       OnSubmit(submitObj);
     },
     ChangeFormat: () => {

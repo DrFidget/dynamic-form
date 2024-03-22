@@ -4,10 +4,11 @@ import Button from "../Button";
 
 interface Props {
   isRedyToSubmit: boolean;
-  onClick: () => void;
+  onCreate: () => void;
+  onCancel: () => void;
 }
 
-const ToolBar = ({ isRedyToSubmit, onClick }: Props) => {
+const ToolBar = ({ isRedyToSubmit, onCreate, onCancel }: Props) => {
   return (
     <div className={styles.toolbar}>
       <div className={styles.text}>ToolBar</div>
@@ -15,8 +16,14 @@ const ToolBar = ({ isRedyToSubmit, onClick }: Props) => {
       <div className={styles.Actions}>
         <Button
           color="green"
-          onClick={onClick}
-          text="Done"
+          onClick={onCreate}
+          text="Create"
+          disabled={isRedyToSubmit}
+        />
+        <Button
+          color="#E70127"
+          onClick={onCancel}
+          text="Cancel"
           disabled={isRedyToSubmit}
         />
       </div>

@@ -17,14 +17,18 @@ const Dashboard = () => {
   const [ListOfForms, setListOfForms] = useState<TFormType[]>([]);
   const fetchData = async () => {
     try {
-      let list = await FormApis.GetAllForms();
-      setListOfForms(list as unknown as TFormType[]);
+      let list = (await FormApis.GetAllForms()) as unknown as TFormType[];
+
+      console.log("abc->", ListOfForms);
+      console.log("list->", list);
+      setListOfForms(list);
     } catch (error) {
       console.error("Error fetching forms:", error);
     }
   };
   useEffect(() => {
     fetchData();
+    console.log("rerenderd");
   }, []);
 
   const navigate = useNavigate();
@@ -65,9 +69,24 @@ const Dashboard = () => {
           },
         });
       },
-      delete: (id: string) => {
-        FormApis.deleteByID(id);
+      delete: async (id: string) => {
+        await FormApis.deleteByID(id);
         fetchData();
+      },
+      exportData: (data: TFormType) => {
+        let x = {
+          Name: data.Name,
+          Schema: data.Schema,
+        };
+        // Indent JSON with 2 spaces
+        const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+          JSON.stringify(x, null, 2)
+        )}`;
+        const link = document.createElement("a");
+        link.href = jsonString;
+        link.download = "data.json";
+
+        link.click();
       },
     },
   };
@@ -130,7 +149,7 @@ const Dashboard = () => {
                       />
                     </td>
                     <td className={`${styles.customTabletd}`}>
-                      <div>
+                      <div onClick={() => Actions.Table.exportData(e)}>
                         <FaFileDownload color="white" size={30} />
                       </div>
                     </td>

@@ -10,9 +10,9 @@ import MultipleFieldsView from "./View/MultipleFieldsView/MultipleFieldsView";
 import ObjectView from "./View/MultipleFieldsView/ObjectView";
 import ToolBar from "../../compoenents/toolBar/ToolBar";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import swal from "sweetalert";
-import { FormApis } from "../../service/API/Form/FormApi";
+import { FormApis, useLoadingState } from "../../service/API/Form/FormApi";
+import LoadingComponent from "../../compoenents/LoadingCompoenent";
 
 interface Props {
   FormObject?: any;
@@ -32,6 +32,7 @@ const Editor = ({ FormObject }: Props) => {
     data: {} as TFields,
     index: -1,
   });
+  const [loading, withLoading] = useLoadingState<void>();
   const navigate = useNavigate();
   useEffect(() => {
     let parsedSchema = location.state?.parsedSchema as TFields[];
@@ -40,7 +41,7 @@ const Editor = ({ FormObject }: Props) => {
       setForm({ ...Form, Schema: parsedSchema, Name: fromName });
     }
   }, []);
-
+  const [selected, setSelected] = useState(0);
   const Actions = {
     FieldMaker: {
       onCreateField: (object: TFields) => {
@@ -76,26 +77,31 @@ const Editor = ({ FormObject }: Props) => {
       let isEditingPrevForm = location.state?.isEditingPrevForm;
       console.log("1", isEditingPrevForm);
       if (!isEditingPrevForm) {
-        FormApis.CreateForm(Form);
+        await withLoading(FormApis.CreateForm, Form);
         swal("Form Submitted Sucessfully");
       } else {
         let formId = location.state?.id;
         console.log("1", formId);
-        FormApis.UpdateByID(formId, Form);
+        await withLoading(FormApis.UpdateByID, formId, Form);
         swal("Form Updated Successfully");
       }
+
       navigate("/");
     },
   };
 
   return (
     <div className={`${styles.container}`}>
+      {loading && <LoadingComponent />}
       <SingleFieldContextProvider>
         <div className={`${styles.toolbar}`}>
           <ToolBar
             isRedyToSubmit={creatingField}
-            onClick={() => {
+            onCreate={() => {
               Actions.Submit();
+            }}
+            onCancel={() => {
+              navigate("/");
             }}
           />
         </div>
@@ -121,7 +127,7 @@ const Editor = ({ FormObject }: Props) => {
             // style={{ maxHeight: "80vh", overflowY: "scroll" }}
           >
             {creatingField || editMode.isEditing ? (
-              <FormView ST={{ maxHeight: "80vh", overflowY: "auto" }} />
+              <FormView ST={{ overflowY: "auto" }} />
             ) : (
               <MultipleFieldsView
                 ListOfFields={Form.Schema}
@@ -137,10 +143,11 @@ const Editor = ({ FormObject }: Props) => {
               onDelete={Actions.AddedFields.onDelete}
               onEdit={Actions.AddedFields.onEdit}
               ST={{ maxHeight: "80vh", overflowY: "auto" }}
+              onSelect={(k: number) => setSelected(k)}
             />
           </div>
           <div className={`${styles.objectView}`}>
-            <ObjectView />{" "}
+            <ObjectView data={Form.Schema[selected]} />
           </div>
         </div>
       </SingleFieldContextProvider>

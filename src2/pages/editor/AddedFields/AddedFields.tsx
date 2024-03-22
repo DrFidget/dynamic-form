@@ -7,9 +7,16 @@ interface Props {
   ListOfFields: TFields[];
   onEdit: (index: number) => void;
   onDelete: (index: number) => void;
+  onSelect: (index: number) => void;
   ST?: React.CSSProperties;
 }
-const AddedFields = ({ ListOfFields, onDelete, onEdit, ST }: Props) => {
+const AddedFields = ({
+  ListOfFields,
+  onDelete,
+  onEdit,
+  ST,
+  onSelect,
+}: Props) => {
   return (
     <div className={styles.container}>
       <h2 className={styles.h2}>Added Fields</h2>
@@ -31,7 +38,11 @@ const AddedFields = ({ ListOfFields, onDelete, onEdit, ST }: Props) => {
           <tbody>
             {ListOfFields.length > 0
               ? ListOfFields.map((e, k) => (
-                  <tr className={`${styles.customTabletr}`} key={k}>
+                  <tr
+                    className={`${styles.customTabletr}`}
+                    key={k}
+                    onClick={() => onSelect(k)}
+                  >
                     <td className={`${styles.customTabletd}`}>{k + 1}</td>
                     <td className={`${styles.customTabletd}`}>{e.id}</td>
                     <td className={`${styles.customTabletd}`}>{e.fieldName}</td>
@@ -45,13 +56,7 @@ const AddedFields = ({ ListOfFields, onDelete, onEdit, ST }: Props) => {
                     <td className={`${styles.customTabletd}`}>
                       {e.binding ? "Yes" : "No"}
                     </td>
-                    <td
-                      className={`${styles.customTabletd}`}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-evenly",
-                      }}
-                    >
+                    <td className={`${styles.customTabletdA}`}>
                       <Button
                         onClick={() => onDelete(k)}
                         text="Del"

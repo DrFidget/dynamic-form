@@ -19,6 +19,7 @@ const OptionsInput = ({ Options, AppendOptions, RemoveOption }: Props) => {
           label="Enter Options"
           placeHolder="press enter to add..."
           onKeyDown={(s: string) => {
+            if (inputstate === "") return;
             setInputState("");
             AppendOptions(s);
           }}
@@ -28,6 +29,7 @@ const OptionsInput = ({ Options, AppendOptions, RemoveOption }: Props) => {
           color="green"
           text="add"
           onClick={() => {
+            if (inputstate === "") return;
             setInputState("");
             AppendOptions(inputstate);
           }}
