@@ -6,11 +6,10 @@ import OptionalProperties from "./optionalProperties/OptionalProperties";
 import HtmlProperties from "./htmlProperties/HtmlProperties";
 import Collapsible from "../../../compoenents/Collapsible";
 import { useChangeMode, useActions, useDoneFields } from "./fieldMakerLogic";
-import { TList, TNumber, TOptional } from "../../../types/TypeBasedProps";
+import { TList, TNumber } from "../../../types/TypeBasedProps";
 import Button from "../../../compoenents/Button";
 import SingleFieldContext from "../../../context/singleField/SingleFieldContext";
 import styles from "./FieldMaker.module.css";
-import { TSingleField } from "../../../types/contextTypes";
 
 interface Props {
   styles?: React.CSSProperties;
@@ -20,9 +19,15 @@ interface Props {
     color?: string;
   };
   PreBuiltField?: TFields;
+  onCancel: () => void;
 }
 
-const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
+const FieldMaker = ({
+  styles: st,
+  ButtonProps,
+  PreBuiltField,
+  onCancel,
+}: Props) => {
   const [singleField, setSingleField] = useState<TFields>(() => {
     if (PreBuiltField) return PreBuiltField;
     return {
@@ -263,7 +268,7 @@ const FieldMaker = ({ styles: st, ButtonProps, PreBuiltField }: Props) => {
           styles={{ marginBlock: "20px", marginInline: "20px" }}
           color={"#E70127"}
           text={"Cancel"}
-          onClick={() => {}}
+          onClick={onCancel}
         />
         <Button
           disabled={doneFields.type ? false : true}

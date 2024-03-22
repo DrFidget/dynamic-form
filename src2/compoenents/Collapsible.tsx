@@ -55,7 +55,7 @@ const Collapsible = ({
             // backgroundColor: "#F2F3F5",
             backgroundColor: "rgba(0, 0, 0, 0.4)",
             paddingInline: "20px",
-            paddingBlock: "10px",
+            paddingBlock: "30px",
           }}
         >
           {" "}

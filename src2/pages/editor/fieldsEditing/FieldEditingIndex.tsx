@@ -25,6 +25,11 @@ const FieldEditingIndex = ({
       inAddingState(false);
       onCreateField(object);
     },
+    CancelCreatingField: () => {
+      setField({});
+      setAdding(false);
+      inAddingState(false);
+    },
   };
   useEffect(() => {
     if (SingleField) {
@@ -62,6 +67,7 @@ const FieldEditingIndex = ({
       )}
       {adding && (
         <FieldMaker
+          onCancel={Actions.CancelCreatingField}
           PreBuiltField={SingleField ?? undefined}
           ButtonProps={{
             text: SingleField ? "Done Editing" : "Create Field",
