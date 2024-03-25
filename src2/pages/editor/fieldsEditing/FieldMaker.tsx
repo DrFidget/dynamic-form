@@ -249,6 +249,7 @@ const FieldMaker = ({
                   tag: singleField.tag ?? "",
                 }}
                 onApply={(obj) => {
+                  // console.log("fieldmaker->", obj);
                   Actions.OptionalProps.Apply(
                     obj,
                     singleField,

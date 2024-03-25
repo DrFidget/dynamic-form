@@ -208,7 +208,7 @@ export const useActions = () => {
         setSingleField: React.Dispatch<React.SetStateAction<TFields>>,
         setDone: any
       ) => {
-        console.log(object);
+        // console.log("from logic", object);
 
         let x = { ...singleField };
         if (x.altId) delete x.altId;

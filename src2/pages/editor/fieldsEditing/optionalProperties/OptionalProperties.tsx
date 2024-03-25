@@ -66,7 +66,7 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
         value={isLookUp.needed || isLookUp.added}
         label="Add Lookup Property"
         onChange={(e) => {
-          if (!e && isLookUp.needed && isLookUp.added) {
+          if (!e && isLookUp.added) {
             Actions.LookUp.resetLookup(optionalProps, setOptionalProps);
             setISLookup({ added: false, needed: false });
             return;
@@ -102,7 +102,8 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
         label="Add Binding"
         value={isBinding.needed || isBinding.added}
         onChange={(e) => {
-          if (!e && isBinding.needed && isBinding.added) {
+          if (!e && isBinding.added) {
+            // console.log("clicking");
             Actions.Binding.resetBinding(optionalProps, setOptionalProps);
             setIsBinding({ added: false, needed: false });
             return;
@@ -138,8 +139,10 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
         <Button
           color="green"
           onClick={() => {
-            onApply(optionalProps);
-            console.log("optional->", optionalProps);
+            // console.log("optional->", optionalProps);
+            let x: TOptional = JSON.parse(JSON.stringify(optionalProps));
+            onApply(x);
+            console.log("xyz", x);
           }}
           text="Apply"
         />

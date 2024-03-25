@@ -22,7 +22,9 @@ export const Actions = {
       setOptionalProps: React.Dispatch<React.SetStateAction<TOptional>>
     ) => {
       let x = { ...optionalProps };
+      // console.log(object);
       x.lookup = object;
+      // console.log(x, typeof x.lookup.source);
       setOptionalProps(x);
     },
     resetLookup: (

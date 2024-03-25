@@ -9,6 +9,7 @@ import TextInput from "../../compoenents/TextInput";
 import { FormApis } from "../../service/API/Form/FormApi";
 import { TFields, TFormType } from "../../types/FormObject";
 import { FaFileDownload } from "react-icons/fa";
+import state from "sweetalert/typings/modules/state";
 
 const Dashboard = () => {
   const [addForm, setAddform] = useState(false);
@@ -19,8 +20,8 @@ const Dashboard = () => {
     try {
       let list = (await FormApis.GetAllForms()) as unknown as TFormType[];
 
-      console.log("abc->", ListOfForms);
-      console.log("list->", list);
+      // console.log("abc->", ListOfForms);
+      // console.log("list->", list);
       setListOfForms(list);
     } catch (error) {
       console.error("Error fetching forms:", error);
@@ -28,7 +29,7 @@ const Dashboard = () => {
   };
   useEffect(() => {
     fetchData();
-    console.log("rerenderd");
+    // console.log("rerenderd");
   }, []);
 
   const navigate = useNavigate();
@@ -40,7 +41,8 @@ const Dashboard = () => {
       } else return true;
     },
     addNewForm: () => {
-      if (Actions.validate()) navigate("/editor");
+      if (Actions.validate())
+        navigate("/editor", { state: { formName: formNameinput } });
     },
     addExisting: {
       parseAndSend: () => {

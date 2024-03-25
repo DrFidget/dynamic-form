@@ -5,12 +5,13 @@ import styles from "../View.module.css";
 
 interface Props {
   ST?: React.CSSProperties;
+  Name?: string;
   ListOfFields: TFields[];
 }
-const MultipleFieldsView = ({ ListOfFields, ST }: Props) => {
+const MultipleFieldsView = ({ ListOfFields, ST, Name }: Props) => {
   return (
     <div style={{}}>
-      <h2 className={styles.h2}>Current Fields</h2>
+      <h2 className={styles.h2}>{Name}</h2>
       <div style={{ ...ST }}>
         <hr />
         {ListOfFields.length > 0 ? (

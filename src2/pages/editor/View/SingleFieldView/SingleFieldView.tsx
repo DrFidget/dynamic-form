@@ -14,7 +14,7 @@ const FormView = ({ ST }: Props) => {
   const { field } = useContext<TSingleField>(SingleFieldContext);
 
   useEffect(() => {
-    let x = { ...field };
+    let x = JSON.parse(JSON.stringify(field));
     if (x?.id && x.fieldName && x.fieldType) {
       if (x.fieldType === "list" || x.fieldType === "radioList") {
         if (!x.options) x.options = ["undefined"];

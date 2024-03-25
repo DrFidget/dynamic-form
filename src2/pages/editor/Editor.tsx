@@ -40,6 +40,9 @@ const Editor = ({ FormObject }: Props) => {
     if (parsedSchema && fromName) {
       setForm({ ...Form, Schema: parsedSchema, Name: fromName });
     }
+    if (fromName) {
+      setForm({ ...Form, Name: fromName });
+    }
   }, []);
   const [selected, setSelected] = useState(0);
   const Actions = {
@@ -59,6 +62,11 @@ const Editor = ({ FormObject }: Props) => {
     },
     AddedFields: {
       onEdit: (index: number) => {
+        window.scrollTo(0, 0);
+        if (editMode.isEditing) {
+          swal("please complete the selected field first");
+          return;
+        }
         setEditMode({
           isEditing: true,
           data: Form.Schema[index],
@@ -130,6 +138,7 @@ const Editor = ({ FormObject }: Props) => {
               <FormView ST={{ overflowY: "auto" }} />
             ) : (
               <MultipleFieldsView
+                Name={Form.Name}
                 ListOfFields={Form.Schema}
                 ST={{ maxHeight: "80vh", overflowY: "auto" }}
               />
