@@ -19,9 +19,6 @@ const Dashboard = () => {
   const fetchData = async () => {
     try {
       let list = (await FormApis.GetAllForms()) as unknown as TFormType[];
-
-      // console.log("abc->", ListOfForms);
-      // console.log("list->", list);
       setListOfForms(list);
     } catch (error) {
       console.error("Error fetching forms:", error);
@@ -90,6 +87,14 @@ const Dashboard = () => {
 
         link.click();
       },
+      LoadForm: (data: TFormType) => {
+        let x = JSON.parse(JSON.stringify(data));
+        navigate("/presenter", { state: { FormDataToLoad: x } });
+      },
+      showResponses: (data: TFormType) => {
+        let x = JSON.parse(JSON.stringify(data));
+        navigate("/responses", { state: { FormObj: x } });
+      },
     },
   };
   return (
@@ -123,6 +128,7 @@ const Dashboard = () => {
                   <th className={`${styles.customTableth}`}>#</th>
                   <th className={`${styles.customTableth}`}>Name</th>
                   <th className={`${styles.customTableth}`}>Actions</th>
+                  <th className={`${styles.customTableth}`}>Responses</th>
                   <th className={`${styles.customTableth}`}>Download</th>
                 </tr>
               </thead>
@@ -149,6 +155,22 @@ const Dashboard = () => {
                         }}
                         text="Delete"
                       />
+                    </td>
+                    <td className={`${styles.customTabletd}`}>
+                      {/* <Button
+                        color="green"
+                        onClick={() => {
+                          Actions.Table.LoadForm(e);
+                        }}
+                        text="Load"
+                      ></Button> */}
+                      <Button
+                        color="green"
+                        onClick={() => {
+                          Actions.Table.showResponses(e);
+                        }}
+                        text="Show"
+                      ></Button>
                     </td>
                     <td className={`${styles.customTabletd}`}>
                       <div onClick={() => Actions.Table.exportData(e)}>

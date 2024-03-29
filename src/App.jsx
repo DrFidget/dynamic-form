@@ -43,15 +43,6 @@ const App = () => {
     },
   };
   return (
-    // <Model
-    //   isOpen={true}
-    //   onClose={(e) => {
-    //     console.log("close it");
-    //   }}
-    //   headerText={"Add a new record"}
-    // >
-    //   ABC
-    // </Model>
     <Routes>
       <Route
         path="/"

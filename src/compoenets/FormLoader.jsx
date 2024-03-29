@@ -4,6 +4,7 @@ import FormBody from "./FormBody";
 import { FormSchemaProcessor } from "../../ServiceLayer/FormPresenter/FormSchema/FormSchemaProcessor";
 import { HandleChangeState } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleChange";
 import { HandleGroupVisibility } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleBinding";
+import Button from "./utilCompoenents/Button";
 
 const FormLoader = ({
   FormSchema,
@@ -88,22 +89,20 @@ const FormLoader = ({
         DefaultMethods={DefaultMethods}
       />
       {submitAction && (
-        <button
+        <Button
           type="button"
-          className="btn btn-primary"
+          color="green"
           disabled={!readyToSubmit}
-          onClick={(e) => {
+          onClick={() => {
             let x = [];
             formSchemaState.forEach((element) => {
               x.push(element.dataValues);
             });
 
             submitAction.onSubmit && submitAction.onSubmit(formValues, x);
-            e.preventDefault();
           }}
-        >
-          {submitAction.submitText}
-        </button>
+          text={submitAction.submitText}
+        ></Button>
       )}
     </>
   );

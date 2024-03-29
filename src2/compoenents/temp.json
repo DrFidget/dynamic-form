@@ -224,6 +224,40 @@
         "targetProperty": "value",
         "targetPropertyLookup": "table"
       }
+    },
+    {
+      "id": "lookupTime",
+      "fieldName": "Time",
+      "fieldType": "list",
+      "options": ["10", "15"],
+      "binding": {
+        "property": "value",
+        "target": "textDistanceField",
+        "targetProperty": "value",
+        "targetPropertyLookup": "table"
+      }
+    },
+    {
+      "id": "textDistanceField",
+      "fieldName": "Distance meters",
+      "fieldType": "text",
+      "enabled": false,
+      "lookup": {
+        "col": "lookupSpeed", 
+        "row": "lookupTime", 
+        "source": [
+          {
+            "MPH": "10",
+            "10": "367",
+            "15": "440"
+          },
+          {
+            "MPH": "15",
+            "10": "550",
+            "15": "660"
+          }
+        ]
+      }
     }
 ]
   

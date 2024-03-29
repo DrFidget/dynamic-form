@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Button from "../../../utilCompoenents/Button";
 
 const Modal = ({
   isOpen,
@@ -25,7 +26,7 @@ const Modal = ({
   };
 
   const contentStyle = {
-    backgroundColor: "#fefefe",
+    backgroundColor: "#0D0E16",
     margin: "auto",
     padding: "20px",
     border: "1px solid #888",
@@ -40,9 +41,7 @@ const Modal = ({
       <div style={contentStyle}>
         <div>
           {headerText}
-          <button type="button" onClick={onClose}>
-            close
-          </button>
+          <Button color={"red"} text="close" onClick={onClose}></Button>
         </div>
         {children}
       </div>

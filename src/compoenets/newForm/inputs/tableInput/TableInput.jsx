@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Modal";
 import FormLoader from "../../../FormLoader";
 import { DEEPCOPY } from "../../../../utils";
+import Button from "../../../utilCompoenents/Button";
 
 const TableInput = ({ Element, Styles, HandleChange }) => {
   const { dataValues, inputProperties } = Element;
@@ -56,9 +57,14 @@ const TableInput = ({ Element, Styles, HandleChange }) => {
 
   return (
     <div style={Styles} id={dataValues.id}>
-      <button type="button" onClick={() => handleShow()}>
-        Add +
-      </button>
+      <Button
+        text={dataValues.fieldName + " +"}
+        color="blue"
+        type="button"
+        onClick={() => handleShow()}
+      />
+
+      {/* </button> */}
       {show && (
         <Modal isOpen={show} onClose={() => handleClose()}>
           {editHandler.editMode === true ? (
@@ -87,35 +93,42 @@ const TableInput = ({ Element, Styles, HandleChange }) => {
         </Modal>
       )}
 
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Values</th>
-            <th>Edit</th>
-            <th>Delete</th>
-          </tr>
-        </thead>
-        <tbody>
-          {TableFormState.length > 0 &&
-            TableFormState.map((e, k) => (
+      {TableFormState.length > 0 && (
+        <table style={{ marginBlockStart: "20px" }}>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Values</th>
+              <th>Edit</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {TableFormState.map((e, k) => (
               <tr key={k}>
                 <td>{k + 1}</td>
                 <td>{JSON.stringify(e)}</td>
                 <td>
-                  <button type="button" onClick={() => TableActions.edit(k)}>
-                    Edit
-                  </button>
+                  <Button
+                    text={"Edit"}
+                    type="button"
+                    onClick={() => TableActions.edit(k)}
+                    color={"blue"}
+                  />
                 </td>
                 <td>
-                  <button type="button" onClick={() => TableActions.delete(k)}>
-                    Delete
-                  </button>
+                  <Button
+                    text={"Delete"}
+                    type="button"
+                    onClick={() => TableActions.delete(k)}
+                    color={"red"}
+                  />
                 </td>
               </tr>
             ))}
-        </tbody>
-      </table>
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };

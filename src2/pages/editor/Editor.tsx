@@ -39,8 +39,7 @@ const Editor = ({ FormObject }: Props) => {
     let fromName = location.state?.formName as string;
     if (parsedSchema && fromName) {
       setForm({ ...Form, Schema: parsedSchema, Name: fromName });
-    }
-    if (fromName) {
+    } else if (fromName) {
       setForm({ ...Form, Name: fromName });
     }
   }, []);
