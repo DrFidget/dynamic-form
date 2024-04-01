@@ -7,7 +7,8 @@ interface TFormResponesDataValues {
 interface TFormResponsesObj {
   _id?: string;
   timeStamp: string;
-  singleResponse: TFormResponesDataValues[];
+  singleResponse?: TFormResponesDataValues[]; //either this or response
+  response?: TFormResponesDataValues[];
 }
 interface TFormRespones {
   FormId: string;

@@ -8,6 +8,8 @@ import { FormResponseApis } from "../../service/API/FormResponses/FormResponses"
 import { MdDeleteOutline } from "react-icons/md";
 import { CiEdit } from "react-icons/ci";
 import swal from "sweetalert";
+import EditingPreviousResponse from "./EditingPreviousResponse/EditingPreviousResponse";
+import { usePrevious } from "./ResponsesLogic";
 interface Actions {
   fetchData: (
     setListOfForms: React.Dispatch<React.SetStateAction<TFormType[]>>
@@ -59,20 +61,37 @@ const Actions: Actions = {
 const Responses: React.FC = () => {
   const [ListOfForms, setListOfForms] = useState<TFormType[]>([]);
   const [selectedForm, setSelectedForm] = useState<number>(0);
+  const [selectedResponse, setSelectedResponse] = useState<TFormResponsesObj>();
   const [collectingNewRes, setCollectingNewRes] = useState<boolean>(false);
-  const [editingRes, setEditingRes] = useState<boolean>(false);
+  const [editingPrevRes, setEditingPrevRes] = useState<boolean>(false);
   const [responses, setResponses] = useState<TFormResponsesObj[]>([]);
 
   useEffect(() => {
     const func = async () => {
       await Actions.fetchData(setListOfForms);
     };
+
     func();
   }, []);
 
   useEffect(() => {
     Actions.fetchAndSetResponses(selectedForm, ListOfForms, setResponses);
   }, [selectedForm]);
+  const prevListofForms = usePrevious(ListOfForms);
+
+  useEffect(() => {
+    const fetchResponses = async () => {
+      if (ListOfForms.length > 0 && prevListofForms !== ListOfForms) {
+        await Actions.fetchAndSetResponses(
+          selectedForm,
+          ListOfForms,
+          setResponses
+        );
+      }
+    };
+
+    fetchResponses();
+  }, [ListOfForms, prevListofForms]);
   const ResponsesActions = {
     onEdit: () => {},
     onDelete: async (responseId: string) => {
@@ -109,29 +128,38 @@ const Responses: React.FC = () => {
               <h2>{ListOfForms[selectedForm].Name}</h2> <hr />
             </>
           )}
-          <div className={styles.responsesContainer}>
-            <h3>Responses Submitted :</h3>
-            {responses.length > 0 &&
-              responses.map((e, k) => (
-                <li key={k}>
-                  <div className={styles.lidiv}>
-                    <div>
-                      <div className={styles.lidivItem1}>{e.timeStamp}</div>
-                      <div className={styles.lidivItem2}>
-                        <div>
-                          <CiEdit size={25} />
-                        </div>
-                        <div
-                          onClick={() => ResponsesActions.onDelete(e._id || "")}
-                        >
-                          <MdDeleteOutline size={25} />
+          {responses.length > 0 && (
+            <div className={styles.responsesContainer}>
+              <h3>Responses Submitted :</h3>
+              {responses.length > 0 &&
+                responses.map((e, k) => (
+                  <li key={k}>
+                    <div className={styles.lidiv}>
+                      <div>
+                        <div className={styles.lidivItem1}>{e.timeStamp}</div>
+                        <div className={styles.lidivItem2}>
+                          <div
+                            onClick={() => {
+                              setEditingPrevRes(true);
+                              setSelectedResponse(e);
+                            }}
+                          >
+                            <CiEdit size={25} />
+                          </div>
+                          <div
+                            onClick={() =>
+                              ResponsesActions.onDelete(e._id || "")
+                            }
+                          >
+                            <MdDeleteOutline size={25} />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </li>
-              ))}
-          </div>
+                  </li>
+                ))}
+            </div>
+          )}
           <div>
             <p>Submit a new Response</p>
             <Button
@@ -150,6 +178,20 @@ const Responses: React.FC = () => {
           Form={ListOfForms[selectedForm]}
           onclose={() => {
             setCollectingNewRes(false);
+            Actions.fetchAndSetResponses(
+              selectedForm,
+              ListOfForms,
+              setResponses
+            );
+          }}
+        />
+      )}
+      {editingPrevRes && (
+        <EditingPreviousResponse
+          FormResponse={selectedResponse!}
+          Form={ListOfForms[selectedForm]}
+          onclose={() => {
+            setEditingPrevRes(false);
             Actions.fetchAndSetResponses(
               selectedForm,
               ListOfForms,

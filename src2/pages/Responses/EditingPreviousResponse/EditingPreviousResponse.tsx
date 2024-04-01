@@ -1,27 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import Modal from "../../../compoenents/Modal";
 import { TFormType } from "../../../types/FormObject";
 import MainForm from "../../../../src/compoenets/MainForm";
-import Modal from "../../../compoenents/Modal";
 import { FormResponseApis } from "../../../service/API/FormResponses/FormResponses";
 import swal from "sweetalert";
 
 interface Props {
+  FormResponse: TFormResponsesObj;
   Form: TFormType;
   onclose: () => void;
 }
-const NewResponseCollector = ({ Form, onclose }: Props) => {
-  const { _id, Schema, Name } = Form;
+const EditingPreviousResponse = ({ FormResponse, Form, onclose }: Props) => {
+  const { _id, Name, Schema } = Form;
   const [isOpen, setIsOpen] = React.useState(true);
+  const [dataValues, setDataValues] = useState(() => {
+    let x: any = {};
+    console.log(FormResponse);
+    FormResponse.response!.forEach((e) => {
+      x[e.id] = e.value;
+    });
+    return x;
+  });
   const Actions = {
-    submitResponse: async (data: TFormResponesDataValues[]) => {
+    updateResponse: async (data: TFormResponesDataValues[]) => {
       const currentTimestampString = getCurrentTimestampString();
       let body: TFormResponsesObj = {
         singleResponse: data,
         timeStamp: currentTimestampString,
       };
+      console.log(body);
       try {
-        await FormResponseApis.submitResponse(body, _id || "");
-        swal("submitted SucessFully !");
+        await FormResponseApis.updateResponse(body, _id!, FormResponse._id!);
+        swal("updated Sucessfully!");
         onclose();
       } catch (e) {
         swal("error occured" + e);
@@ -40,18 +50,18 @@ const NewResponseCollector = ({ Form, onclose }: Props) => {
         headerText={"Form Name : " + Name || ""}
       >
         <MainForm
-          handleSubmit={(dict: any, data: TFormResponesDataValues[]) => {
-            Actions.submitResponse(data);
-          }}
+          Values={dataValues}
           FormSchema={Schema}
-          Values={undefined}
+          handleSubmit={(dict: any, data: TFormResponesDataValues[]) => {
+            Actions.updateResponse(data);
+          }}
         />
       </Modal>
     </div>
   );
 };
 
-export default NewResponseCollector;
+export default EditingPreviousResponse;
 
 function getCurrentTimestampString(): string {
   const currentDate: Date = new Date();
