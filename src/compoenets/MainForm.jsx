@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import FormLoader from "./FormLoader";
-const MainForm = ({ FormSchema, Values, handleSubmit }) => {
+const MainForm = ({ FormSchema, Values, handleSubmit, Name }) => {
   return (
     <div className="" style={{}}>
       <form className=" bg-secondary ">
-        <h1>FORM</h1>
+        <h1>{Name || "FORM"}</h1>
         {Values ? (
           <FormLoader
             FormSchema={FormSchema}

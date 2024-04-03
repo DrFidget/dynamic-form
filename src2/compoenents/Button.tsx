@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 interface ButtonProps {
   onClick: () => void;
-  color: string;
+  color?: string;
   text: string;
   disabled?: boolean;
   type?: "submit" | "button";
