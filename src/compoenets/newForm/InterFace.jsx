@@ -10,6 +10,7 @@ import Signature from "./inputs/Signature";
 import Text from "./inputs/Text";
 import Time from "./inputs/Time";
 import TableInput from "./inputs/tableInput/tableInput";
+import Label from "./inputs/Label";
 
 //export all
 export {
@@ -25,4 +26,5 @@ export {
   Text,
   Time,
   TableInput,
+  Label,
 };

@@ -22,10 +22,23 @@ const LoadMultipleForms = ({ ListOfForms }: Props) => {
   const [formsData, setFormsData] = useState<TFormResponesDataValues[]>([]);
   const [formsValues, setFormsValues] = useState<any[]>([]);
   const Actions = {
-    handleSubmit: (values: any, data: TFormResponesDataValues) => {
-      setFormsData([...formsData, data]);
+    handleSubmit: (
+      values: any,
+      data: TFormResponesDataValues,
+      index: number
+    ) => {
+      if (index < formsData.length) {
+        let x = [...formsData];
+        let y = [...formsValues];
+        x[index] = data;
+        y[index] = values;
+        setFormsData([...x]);
+        setFormsValues([...y]);
+      } else {
+        setFormsData([...formsData, data]);
 
-      setFormsValues([...formsValues, values]);
+        setFormsValues([...formsValues, values]);
+      }
 
       if (current == ListOfForms.length - 1) {
         swal("submitted");
@@ -44,7 +57,7 @@ const LoadMultipleForms = ({ ListOfForms }: Props) => {
 
   return (
     <Modal
-      headerText=""
+      headerText="Multiple Forms"
       isOpen={isOpen}
       onClose={() => {
         setIsOpen(false);
@@ -65,7 +78,7 @@ const LoadMultipleForms = ({ ListOfForms }: Props) => {
               FormSchema={e.Schema}
               Values={formsValues[k]}
               handleSubmit={(values: any, data: TFormResponesDataValues) => {
-                Actions.handleSubmit(values, data);
+                Actions.handleSubmit(values, data, k);
               }}
             />
           </>

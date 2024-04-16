@@ -32,7 +32,6 @@ export const FormApis = {
           "Content-Type": "application/json",
         },
       });
-      // console.log("response->", res.data);
     } catch (e) {
       console.log(e);
     }

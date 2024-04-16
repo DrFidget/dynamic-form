@@ -1,0 +1,45 @@
+.navbar{
+    display: flex;
+    padding: 15px;
+    padding-inline: 35px;
+    background-color: rgba(0, 0, 0, 0.623);
+    justify-content: space-between;
+    position: sticky;
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: larger;
+}
+.itemsList{
+     display: flex;
+     gap: 30px;
+     
+}
+
+.body {
+    background: rgb(210,0,255);
+    background: linear-gradient(90deg, rgba(210,0,255,1) 0%, rgba(152,0,232,1) 50%, rgba(26,0,30,1) 100%);
+    /* height: 100%; */
+    display: flex;
+    padding: 80px;
+    padding-inline: 10vw;
+    justify-content: space-between;
+    /* align-items: center; */
+    gap: 100px;
+}
+.bodycontent{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 30vw;
+}
+.heading{
+    font-size: xx-large;
+    filter: drop-shadow(2px 2px 2px #000000);
+}
+.img{
+    filter: drop-shadow(5px 5px 5px #222);
+}

@@ -36,11 +36,13 @@ const FieldMaker = ({
       fieldType: "",
     };
   });
+
   const { doneFields, setDone, setNotDone } = useDoneFields(
     PreBuiltField
       ? { req: true, type: true, opt: true, html: true }
       : { req: false, type: false, opt: false, html: false }
   );
+  //
   const { inputMode, ChangeMode } = useChangeMode();
   const Actions = useActions();
   const { setField } = useContext<any>(SingleFieldContext);
@@ -61,7 +63,7 @@ const FieldMaker = ({
           }}
           title="Required Props"
         >
-          <RequiredInputs
+          <RequiredInputs // required inputs like (id,name,type)
             onNext={(object) =>
               Actions.requiredFields.Next(
                 object,
@@ -89,7 +91,9 @@ const FieldMaker = ({
           >
             {inputMode.typeBased &&
               (() => {
-                switch (singleField.fieldType) {
+                switch (
+                  singleField.fieldType //type based properties
+                ) {
                   case "number":
                     let x: TNumber = {};
                     if (doneFields.type) {
@@ -198,7 +202,7 @@ const FieldMaker = ({
             }}
           >
             {inputMode.HtmlProps && (
-              <HtmlProperties
+              <HtmlProperties //html properties like enable , disable etc
                 HtmlProps={{
                   visible:
                     singleField.visible !== undefined
@@ -238,7 +242,7 @@ const FieldMaker = ({
             }}
           >
             {inputMode.optional && (
-              <OptionalProperties
+              <OptionalProperties //optional properties like binding
                 onSkip={() => Actions.OptionalProps.SkipHandle(setDone)}
                 OptionalProperties={{
                   altId: singleField.altId ?? "",

@@ -33,7 +33,7 @@ const FieldEditingIndex = ({
   };
   useEffect(() => {
     if (SingleField) {
-      console.log(setField);
+      // console.log(setField);
       setAdding(true);
       inAddingState(true);
     }

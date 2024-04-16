@@ -14,4 +14,5 @@ export const InputTypes = {
   table: Components.TableInput,
   text: Components.Text,
   time: Components.Time,
+  label: Components.Label,
 };

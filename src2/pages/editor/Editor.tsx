@@ -22,17 +22,21 @@ interface Props {
 const Editor = ({ FormObject }: Props) => {
   const location = useLocation();
 
+  //main sate for forms
   const [Form, setForm] = useState<TFormType>(() => {
     if (FormObject) return { Name: "", Schema: FormObject as TFields[] };
     return { Name: "", Schema: [] };
   });
+  //chsck if Field is being created or not
   const [creatingField, setCreatingField] = useState(false);
+  //Edit mode
   const [editMode, setEditMode] = useState({
     isEditing: false,
     data: {} as TFields,
     index: -1,
   });
-  const [loading, withLoading] = useLoadingState<void>();
+
+  const [loading, withLoading] = useLoadingState<void>(); // custom hook
   const navigate = useNavigate();
   useEffect(() => {
     let parsedSchema = location.state?.parsedSchema as TFields[];
@@ -43,7 +47,7 @@ const Editor = ({ FormObject }: Props) => {
       setForm({ ...Form, Name: fromName });
     }
   }, []);
-  const [selected, setSelected] = useState(0);
+  const [selected, setSelected] = useState(0); //currently selected  field in the list
   const Actions = {
     FieldMaker: {
       onCreateField: (object: TFields) => {

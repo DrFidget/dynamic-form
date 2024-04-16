@@ -17,7 +17,7 @@
       "jsx": "react-jsx",
       "suppressImplicitAnyIndexErrors": true
     },
-    "include": ["src","src2"],
+    "include": ["src","src2","src3"],
     "references": [
       {
         "path": "./tsconfig.node.json"
