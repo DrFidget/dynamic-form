@@ -15,6 +15,8 @@ const fieldTypes = [
   { id: "date", name: "Date" },
   { id: "datetime", name: "Date and Time" },
   { id: "table", name: "Table" },
+  { id: "image", name: "Image" },
+  { id: "scribble", name: "Signature" },
 ];
 
 interface Props {

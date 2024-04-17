@@ -17,9 +17,9 @@ const Text = ({ Element, Styles, HandleChange }) => {
       <input
         type="text"
         className="custom_input"
-        {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
     </div>
   );

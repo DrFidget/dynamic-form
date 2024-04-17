@@ -12,9 +12,9 @@ const CheckBox = ({ Element, Styles, HandleChange }) => {
       <input
         type="checkbox"
         className="custom_Checkbox_input"
-        {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
       <label className="custom_Checkbox_label">{dataValues.fieldName}</label>
     </div>

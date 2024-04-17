@@ -12,9 +12,9 @@ const Number = ({ Element, Styles, HandleChange }) => {
       <input
         type="number"
         className="custom_input"
-        {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
 
       {optionalProperties &&

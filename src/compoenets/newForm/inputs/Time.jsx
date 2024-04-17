@@ -11,9 +11,9 @@ const Time = ({ Element, Styles, HandleChange }) => {
       <input
         type="time"
         className="custom_input"
-        {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
     </div>
   );

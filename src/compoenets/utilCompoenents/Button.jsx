@@ -11,9 +11,9 @@ const Button = ({ onClick, color, text, type, disabled = false, styles }) => {
     setIsHovered(false);
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
     if (!disabled) {
-      onClick();
+      onClick(e);
     }
   };
 
@@ -29,7 +29,9 @@ const Button = ({ onClick, color, text, type, disabled = false, styles }) => {
         cursor: disabled ? "not-allowed" : "pointer",
         ...styles,
       }}
-      onClick={handleClick}
+      onClick={(e) => {
+        handleClick(e);
+      }}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       disabled={disabled}

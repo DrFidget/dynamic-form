@@ -4,7 +4,7 @@ import Carousel from "../../../compoenents/Carousel";
 import MainForm from "../../../../src/compoenets/MainForm";
 import swal from "sweetalert";
 import { TFormType } from "../../../types/FormObject";
-import ProgressMonitor from "./progressMonitor";
+import ProgressMonitor from "./ProgressMonitor";
 interface Props {
   ListOfForms: TFormType[];
 }

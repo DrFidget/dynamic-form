@@ -13,9 +13,9 @@ const DateCompoenent = ({ Element, Styles, HandleChange }) => {
       <input
         type="date"
         className="custom_input"
-        {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
     </div>
   );

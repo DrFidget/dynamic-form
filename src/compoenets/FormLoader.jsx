@@ -90,10 +90,11 @@ const FormLoader = ({
       />
       {submitAction && (
         <Button
-          type="button"
+          type="submit"
           color="green"
           disabled={!readyToSubmit}
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             let x = [];
             formSchemaState.forEach((element) => {
               x.push(element.dataValues);

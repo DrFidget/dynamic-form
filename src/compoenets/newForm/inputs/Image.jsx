@@ -13,9 +13,9 @@ const Image = ({ Element, Styles, HandleChange }) => {
         type="file"
         className="custom_input"
         accept="image/png, image/gif, image/jpeg"
-        {...inputProperties}
         value={dataValues.value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
     </div>
   );

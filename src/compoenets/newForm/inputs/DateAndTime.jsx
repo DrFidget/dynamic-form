@@ -15,9 +15,9 @@ const DateAndTime = ({ Element, Styles, HandleChange, DefaultMethods }) => {
       <input
         type="datetime-local"
         className="custom_input"
-        {...inputProperties}
         value={value || ""}
         onChange={HandleInputChange}
+        {...inputProperties}
       />
     </div>
   );
