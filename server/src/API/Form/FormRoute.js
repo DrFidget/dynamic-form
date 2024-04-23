@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.formRouter = void 0;
+var express_1 = require("express");
+var Form_service_js_1 = require("./Form.service.js");
+var formRouter = express_1.default.Router();
+exports.formRouter = formRouter;
+formRouter.post("/", Form_service_js_1.formMethods.createForm);
+formRouter.get("/", Form_service_js_1.formMethods.getForm.all);
+formRouter.get("/:id", Form_service_js_1.formMethods.getForm.byId);
+formRouter.put("/:id", Form_service_js_1.formMethods.updateForm);
+formRouter.delete("/:id", Form_service_js_1.formMethods.deleteForm);

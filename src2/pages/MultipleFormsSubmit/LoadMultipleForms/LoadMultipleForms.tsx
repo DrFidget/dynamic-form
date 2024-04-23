@@ -7,8 +7,9 @@ import { TFormType } from "../../../types/FormObject";
 import ProgressMonitor from "./ProgressMonitor";
 interface Props {
   ListOfForms: TFormType[];
+  onSubmitForms: (data: TFormResponesDataValues[]) => void;
 }
-const LoadMultipleForms = ({ ListOfForms }: Props) => {
+const LoadMultipleForms = ({ ListOfForms, onSubmitForms }: Props) => {
   const [isOpen, setIsOpen] = React.useState(true);
   const [current, setcurrent] = useState(0);
   const [visited, setVisited] = useState(() => {
@@ -43,6 +44,7 @@ const LoadMultipleForms = ({ ListOfForms }: Props) => {
       if (current == ListOfForms.length - 1) {
         swal("submitted");
         setIsOpen(false);
+        onSubmitForms([...formsData, data]);
         return;
       }
       setcurrent((p) => p + 1);
@@ -56,13 +58,14 @@ const LoadMultipleForms = ({ ListOfForms }: Props) => {
   };
 
   return (
-    <Modal
-      headerText="Multiple Forms"
-      isOpen={isOpen}
-      onClose={() => {
-        setIsOpen(false);
-      }}
-    >
+    // <Modal
+    //   headerText="Multiple Forms"
+    //   isOpen={isOpen}
+    //   onClose={() => {
+    //     setIsOpen(false);
+    //   }}
+    // >
+    <>
       <ProgressMonitor
         length={ListOfForms.length}
         current={current}
@@ -84,7 +87,9 @@ const LoadMultipleForms = ({ ListOfForms }: Props) => {
           </>
         ))}
       </Carousel>
-    </Modal>
+    </>
+
+    // </Modal>
   );
 };
 

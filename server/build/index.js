@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { formResponseRouter } from "./API/FormResponese/FormResponeRoute.js";
 import dotenv from "dotenv";
 import { userAuthRouter } from "./API/Auth/AuthRoute.js";
+import OrderRouter from "./API/Order/OrderRoutes.js";
 dotenv.config();
 const app = express();
 const port = 9000;
@@ -13,6 +14,7 @@ app.use(cors());
 app.use("/form", formRouter);
 app.use("/formResponse", formResponseRouter);
 app.use("/userAuth", userAuthRouter);
+app.use("/order", OrderRouter);
 app.listen(port, () => {
     console.log("server is running on port ", port);
 });

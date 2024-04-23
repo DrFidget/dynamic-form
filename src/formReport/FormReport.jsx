@@ -17,17 +17,17 @@ const FormReport = ({ data }) => {
           data.map((e, key) => (
             <tr key={key}>
               <td>{key}</td>
-              <td>{e.dataValues.id}</td>
-              <td>{e.dataValues.fieldName}</td>
-              <td>{e.dataValues.fieldType}</td>
-              {e.dataValues.fieldType === "table" ? (
+              <td>{e?.dataValues?.id || e?.id}</td>
+              <td>{e?.dataValues?.fieldName || e?.fieldName}</td>
+              <td>{e?.dataValues?.fieldType || e?.fieldType}</td>
+              {e?.dataValues?.fieldType === "table" ? (
                 <td>
                   {/* {e.dataValues.value.map((element, key) => (
                     <span key={key}> {element.value} ,</span>
                   ))} */}
                 </td>
               ) : (
-                <td>{e.dataValues.value}</td>
+                <td>{e?.dataValues?.value || e?.value}</td>
               )}
             </tr>
           ))}

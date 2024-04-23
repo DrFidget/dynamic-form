@@ -12,8 +12,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
 
   // <BrowserRouter>{<App />}</BrowserRouter>
-  <Routes />
-  // <MyRoutes />
+  // <Routes />
+  <MyRoutes />
   //
   // </React.StrictMode>,
 );

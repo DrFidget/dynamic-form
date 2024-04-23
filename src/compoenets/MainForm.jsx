@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import FormLoader from "./FormLoader";
+import { useNavigate } from "react-router-dom";
 const MainForm = ({ FormSchema, Values, handleSubmit, Name }) => {
+  const navigate = useNavigate();
   return (
     <div className="" style={{}}>
       <form className=" bg-secondary ">

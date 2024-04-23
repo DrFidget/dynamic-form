@@ -14,4 +14,15 @@ export const AuthApis = {
       console.log(error.response.data);
     }
   },
+  authenticateUser: async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get("http://localhost:9000/userAuth/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.status === 200 ? true : false;
+    } catch (e) {}
+  },
 };

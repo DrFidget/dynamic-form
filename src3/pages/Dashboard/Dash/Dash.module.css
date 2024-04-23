@@ -1,0 +1,40 @@
+.heading{
+    text-align: center;
+}
+
+.chartContainer{
+    width: 50%;
+    height: 50%;
+}
+.tableContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50%;
+}
+.listItems{
+    width: 100%;
+    padding-inline: 20px;
+    padding-block: 10px;
+    border-radius: 10px;
+    background-color: #6497B1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: large;
+    color:white;
+    text-shadow: 0.3px 0.3px 0.3px black;
+    font-weight: 500;
+}
+.dataContainer{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.open{
+    
+}
+.open:hover{
+    scale: 1.1;
+    cursor: pointer;
+}

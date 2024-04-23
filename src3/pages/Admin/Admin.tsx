@@ -38,7 +38,6 @@ const Admin = () => {
             const reskey = await AuthApis.login(cradentials);
             if (reskey) {
               localStorage.setItem("token", reskey);
-              localStorage.setItem("user", JSON.stringify(cradentials));
               navigate("/dashboard");
             }
           }}

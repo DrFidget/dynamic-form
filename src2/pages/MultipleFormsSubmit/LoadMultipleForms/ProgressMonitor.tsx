@@ -21,6 +21,7 @@ const ProgressMonitor: React.FC<Props> = ({
       <div className={styles.container}>
         {Array.from({ length: length }, (_, index) => (
           <Button
+            key={index}
             text=""
             // color="white"
             onClick={() => {
