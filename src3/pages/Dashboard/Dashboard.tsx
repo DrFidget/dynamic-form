@@ -61,6 +61,10 @@ const Dashboard: FC = () => {
     return () => clearInterval(intervalId);
   }, []);
   const [selectedCompoenet, setSelectedComponent] = useState("Dashboard");
+  // const [dataToShow,setDataToShow] = useState<any>({
+  //   show: true,
+  //   data: [],
+  // });
   return (
     <div className={styles.container}>
       <div className={styles.sidepanel}>
@@ -68,6 +72,9 @@ const Dashboard: FC = () => {
         <div className={styles.navigation}>
           {NavItems.map((item, index) => (
             <li
+              style={{
+                scale: selectedCompoenet === item.name ? "1.05" : "1",
+              }}
               key={index}
               className={styles.navItem}
               onClick={() => setSelectedComponent(item.name)}
@@ -99,6 +106,9 @@ const Dashboard: FC = () => {
             case "Printing":
               return (
                 <Printing
+                  Printing={orders.filter((e) => e.stage === "printing")}
+                  refresh={() => fetchOrders()}
+                  Ready={orders.filter((e) => e.stage === "ready")}
                   Styles={{
                     backgroundColor: "#0A0B11",
                     padding: "40px",

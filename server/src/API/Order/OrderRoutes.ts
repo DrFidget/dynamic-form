@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { OrderActions } from "./Order.service.js";
-import { authenticateToken } from "../Auth/Auth.service.js";
+import { authenticateToken, authToken } from "../Auth/Auth.service.js";
 
 const OrderRouter: Router = express.Router();
 

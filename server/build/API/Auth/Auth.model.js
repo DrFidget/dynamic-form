@@ -11,10 +11,9 @@ userSchema.methods.generateAuthToken = function () {
         name: this.name,
         email: this.email,
     };
-    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-        expiresIn: "7d",
-    });
-    return token;
+    const token = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
+    const refreshToken = jwt.sign(token, process.env.REFRESH_TOKEN_SECRET);
+    return { token, refreshToken };
 };
 const UserAuthModel = model("User", userSchema);
 export default UserAuthModel;

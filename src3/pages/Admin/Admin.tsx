@@ -35,9 +35,12 @@ const Admin = () => {
           text="login"
           color="blue"
           onClick={async () => {
-            const reskey = await AuthApis.login(cradentials);
-            if (reskey) {
-              localStorage.setItem("token", reskey);
+            const { token, refreshToken } = await AuthApis.login(cradentials);
+            if (token) {
+              localStorage.setItem("token", token);
+              if (refreshToken) {
+                localStorage.setItem("refreshToken", refreshToken);
+              }
               navigate("/dashboard");
             }
           }}

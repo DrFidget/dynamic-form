@@ -8,4 +8,6 @@ export interface TOrder {
   timeStamp: string;
   processing?: any;
   "pending approval": any;
+  printing?: any;
+  ready?: any;
 }

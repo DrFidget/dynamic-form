@@ -4,6 +4,9 @@ import { PieChart } from "react-minimal-pie-chart";
 import styles from "./Dash.module.css";
 import DropdownInput from "../../../../src2/compoenents/DropdownList";
 import { FaBookOpen } from "react-icons/fa";
+import ModalVariableWidth from "../../../../src2/compoenents/ModalVariableWidth";
+import FormReport from "../../../../src/formReport/FormReport";
+import Modal from "../../../../src2/compoenents/Modal";
 interface Props {
   allOrders: TOrder[];
   Styles?: React.CSSProperties;
@@ -71,6 +74,10 @@ const Dash = ({ allOrders, Styles }: Props) => {
       setAngle(-40 * x.avg);
     }
   }, [filter]);
+  const [isViewing, setIsViewing] = useState<any>({
+    isViewing: false,
+    payLoad: {},
+  });
   return (
     <div className={styles.container} style={{ ...Styles }}>
       <h1 className={styles.heading}>Dashboard</h1>
@@ -91,11 +98,6 @@ const Dash = ({ allOrders, Styles }: Props) => {
             startAngle={angle}
             onClick={(e, no) => console.log(no)}
             radius={40}
-            // background="white"
-            // rounded={false}
-            // children={<div>abc</div>}
-            // lengthAngle={360}
-            // paddingAngle={10}
           />
         </div>
       </div>
@@ -119,13 +121,28 @@ const Dash = ({ allOrders, Styles }: Props) => {
                   order {k + 1} ({e.stage})
                 </li>
                 <div>{e.timeStamp}</div>
-                <div className={styles.open}>
+                <div
+                  className={styles.open}
+                  onClick={() =>
+                    setIsViewing({
+                      isViewing: true,
+                      payLoad: e.data.flat(),
+                    })
+                  }
+                >
                   <FaBookOpen />
                 </div>
               </div>
             ))}
         </div>
       </div>
+      <Modal
+        headerText="Order"
+        isOpen={isViewing.isViewing}
+        onClose={() => setIsViewing({ ...isViewing, isViewing: false })}
+      >
+        <FormReport data={isViewing.payLoad} />
+      </Modal>
     </div>
   );
 };
