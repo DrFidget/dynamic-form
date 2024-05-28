@@ -5,9 +5,9 @@ interface Props {
 }
 const ObjectView = ({ data }: Props) => {
   return (
-    <div>
+    <div style={{overflowY:"auto"}}>
       <h2>Object View</h2>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      <pre style={{}}>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 };

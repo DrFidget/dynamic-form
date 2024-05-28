@@ -10,6 +10,7 @@ import { CiEdit } from "react-icons/ci";
 import swal from "sweetalert";
 import EditingPreviousResponse from "./EditingPreviousResponse/EditingPreviousResponse";
 import { usePrevious } from "./ResponsesLogic";
+import { useNavigate } from "react-router-dom";
 interface Actions {
   fetchData: (
     setListOfForms: React.Dispatch<React.SetStateAction<TFormType[]>>
@@ -102,10 +103,18 @@ const Responses: React.FC = () => {
       }
     },
   };
+  const navigate=useNavigate();
   return (
-    <div style={{ paddingInline: "5rem" }}>
+    <div style={{ paddingInline: "5rem",position:"relative" }}>
+      <Button styles={{
+        position:"absolute",
+        top:"20",
+        left:"20"
+      }} onClick={()=>{
+        navigate('/');
+      }} text=" < Dashboard" color="green"/>
       <div style={{ textAlign: "center" }}>
-        <h1 className={styles.mainHeading}>Forms</h1>
+        <h1 className={styles.mainHeading}>Submit Response</h1>
         <hr />
       </div>
       <div className={styles.container}>

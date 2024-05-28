@@ -16,7 +16,7 @@ const MultipleFieldsView = ({ ListOfFields, ST, Name }: Props) => {
         <hr />
         {ListOfFields.length > 0 ? (
           <FormLoader
-            FormSchema={ListOfFields}
+            FormSchema={JSON.parse(JSON.stringify(ListOfFields))}
             DefaultMethods={undefined}
             FormState={undefined}
             Values={undefined}

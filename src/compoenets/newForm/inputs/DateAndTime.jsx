@@ -1,7 +1,7 @@
 import React from "react";
 
 const DateAndTime = ({ Element, Styles, HandleChange, DefaultMethods }) => {
-  const { dataValues, inputProperties } = Element;
+  const { dataValues, inputProperties, optionalProperties } = Element;
 
   const HandleInputChange = (e) => {
     HandleChange(e.target.value, dataValues.id);
@@ -19,6 +19,13 @@ const DateAndTime = ({ Element, Styles, HandleChange, DefaultMethods }) => {
         onChange={HandleInputChange}
         {...inputProperties}
       />
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

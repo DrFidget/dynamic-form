@@ -1,6 +1,6 @@
 import React from "react";
 
-const CheckBox = ({ Element, Styles, HandleChange }) => {
+const CheckBox = ({ Element, Styles, HandleChange, optionalProperties }) => {
   const { dataValues, inputProperties } = Element;
 
   const HandleInputChange = (e) => {
@@ -17,6 +17,13 @@ const CheckBox = ({ Element, Styles, HandleChange }) => {
         {...inputProperties}
       />
       <label className="custom_Checkbox_label">{dataValues.fieldName}</label>
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

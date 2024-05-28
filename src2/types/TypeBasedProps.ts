@@ -26,7 +26,7 @@ export interface THtmlProps {
   visible?: boolean;
   enable?: boolean;
   required?: boolean;
-  //groupVisibiity;
+  groupVisibility?:boolean;
 }
 
 export interface TSource {
@@ -46,6 +46,7 @@ export interface TOptional {
   default?: string; // ---
   binding?: any;
   lookup?: TLookup;
+  validation?: { rules: TValidation[] };
 }
 
 export interface TBinding {

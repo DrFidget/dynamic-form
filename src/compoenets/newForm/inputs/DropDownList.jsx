@@ -1,6 +1,11 @@
 import React from "react";
 
-const DropDownList = ({ Element, Styles, HandleChange }) => {
+const DropDownList = ({
+  Element,
+  Styles,
+  HandleChange,
+  optionalProperties,
+}) => {
   const { inputProperties, dataValues } = Element;
 
   const HandleInputChange = (e) => {
@@ -32,6 +37,13 @@ const DropDownList = ({ Element, Styles, HandleChange }) => {
           );
         })}
       </select>
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

@@ -30,7 +30,7 @@ export const ValidateEachProperty = (rule, dict) => {
   }
 };
 
-const HandleValidation = (ChangedObject, Dictionary) => {
+export const HandleValidation = (ChangedObject, Dictionary) => {
   if (!ChangedObject.optionalProperties) return;
 
   const { optionalProperties } = ChangedObject;

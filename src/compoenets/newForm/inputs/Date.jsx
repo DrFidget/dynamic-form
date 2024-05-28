@@ -1,6 +1,11 @@
 import React from "react";
 
-const DateCompoenent = ({ Element, Styles, HandleChange }) => {
+const DateCompoenent = ({
+  Element,
+  Styles,
+  HandleChange,
+  optionalProperties,
+}) => {
   const { dataValues, inputProperties } = Element;
 
   const HandleInputChange = (e) => {
@@ -17,6 +22,13 @@ const DateCompoenent = ({ Element, Styles, HandleChange }) => {
         onChange={HandleInputChange}
         {...inputProperties}
       />
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

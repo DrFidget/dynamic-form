@@ -13,6 +13,7 @@ const fieldTypes = [
   { id: "list", name: "DropDown List" },
   { id: "radioList", name: "Radio List" },
   { id: "date", name: "Date" },
+  { id: "time", name: "Time" },
   { id: "datetime", name: "Date and Time" },
   { id: "table", name: "Table" },
   { id: "image", name: "Image" },

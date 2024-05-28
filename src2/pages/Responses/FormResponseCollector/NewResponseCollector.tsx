@@ -40,10 +40,11 @@ const NewResponseCollector = ({ Form, onclose }: Props) => {
         headerText={"Form Name : " + Name || ""}
       >
         <MainForm
+        Name={undefined}
           handleSubmit={(dict: any, data: TFormResponesDataValues[]) => {
             Actions.submitResponse(data);
           }}
-          FormSchema={Schema}
+          FormSchema={JSON.parse(JSON.stringify(Schema))}
           Values={undefined}
         />
       </Modal>

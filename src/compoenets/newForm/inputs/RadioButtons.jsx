@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const RadioButtons = ({ Element, Styles, HandleChange }) => {
-  const { dataValues, inputProperties } = Element;
+  const { dataValues, inputProperties, optionalProperties } = Element;
   const { data, options } = inputProperties;
   const [Values, setValues] = useState(data ? data : options);
 
@@ -10,6 +10,7 @@ const RadioButtons = ({ Element, Styles, HandleChange }) => {
   };
   return (
     <div style={Styles} id={dataValues.id} className="custom_radio_container">
+      <label className="custom_Checkbox_label">{dataValues.fieldName}</label>
       {inputProperties.options.map((item, key) => (
         <div key={key} className="">
           <input
@@ -23,6 +24,13 @@ const RadioButtons = ({ Element, Styles, HandleChange }) => {
           <label className="">{item}</label>
         </div>
       ))}
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

@@ -13,6 +13,7 @@ export interface TFields {
   visible?: boolean;
   enable?: boolean;
   required?: boolean;
+  groupVisibility?:boolean;
   altId?: string;
   groupId?: string;
   tag?: string;

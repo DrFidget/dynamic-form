@@ -98,11 +98,22 @@ const Dashboard = () => {
     },
   };
   return (
-    <div style={{ paddingInline: "5rem" }}>
+    <div style={{ paddingInline: "5rem",position:"relative"}}>
+      <Button styles={{
+        position:"absolute",
+        top:"20",
+        left:"20"
+      }} onClick={()=>{
+        navigate('/responses');
+      }} text="< Submit a Response" color="green"/>
       <div style={{ textAlign: "center" }}>
         <h1 className={styles.mainHeading}>Dashboard</h1>
         <hr />
       </div>
+      
+      
+
+     
 
       <div>
         <div className={styles.container1}>

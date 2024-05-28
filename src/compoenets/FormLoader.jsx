@@ -2,7 +2,10 @@
 import React, { useEffect, useState } from "react";
 import FormBody from "./FormBody";
 import { FormSchemaProcessor } from "../../ServiceLayer/FormPresenter/FormSchema/FormSchemaProcessor";
-import { HandleChangeState } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleChange";
+import {
+  HandleChangeState,
+  HandleValidation,
+} from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleChange";
 import { HandleGroupVisibility } from "../../ServiceLayer/FormPresenter/LogicLayer/FormHandler/FormLoaderHandleBinding";
 import Button from "./utilCompoenents/Button";
 
@@ -65,8 +68,11 @@ const FormLoader = ({
   useEffect(() => {
     let x = {};
     formSchemaState.forEach((element) => {
-      x[element.dataValues.id] = element.dataValues.value;
+      x[element.dataValues.id] = element.dataValues.value ?? "";
     });
+    const xx = formSchemaState.filter((e) => e.optionalProperties?.validation);
+    xx.forEach((e) => HandleValidation(e, x));
+    // console.log(x);
     setFormValues(x);
   }, [formSchemaState]);
 
@@ -81,6 +87,7 @@ const FormLoader = ({
     setFormSchemaState(updatedFields);
     setReadyToSubmit(isReadyToSubmit);
   };
+
   return (
     <>
       <FormBody

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import IDoptional from "./IDoptional";
-import { TLookup, TOptional } from "../../../../types/TypeBasedProps";
+import { TLookup, TOptional, TValidation } from "../../../../types/TypeBasedProps";
 import { Actions } from "./OptionalPropsLogic";
 import CheckBoxInput from "../../../../compoenents/CheckBoxinput";
 import Modal from "../../../../compoenents/Modal";
@@ -9,7 +9,15 @@ import Binding from "./bindingOpt/Binding";
 import Button from "../../../../compoenents/Button";
 import styles from "./OptionalProperties.module.css";
 import TextInput from "../../../../compoenents/TextInput";
+import ValidationNumber from "../typebased/number/Validation";
+import { TSingleField } from "../../../../types/contextTypes";
+import SingleFieldContext from "../../../../context/singleField/SingleFieldContext";
 
+interface EditMode {
+  isOpen: boolean;
+  data?: TValidation;
+  row?: number;
+}
 interface Props {
   onApply: (obj: TOptional) => void;
   onSkip: () => void;
@@ -29,6 +37,12 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
     needed: false,
     added: false,
   });
+
+  const [needValidation,setNeedvalidation]=useState(()=>false);
+  const [validationEdit, setValidationEdit] = useState<EditMode>({
+    isOpen: false,
+  });
+  const {field}=useContext<TSingleField>(SingleFieldContext);
   useEffect(() => {
     if (OptionalProperties) {
       if (OptionalProperties.lookup) {
@@ -135,6 +149,79 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
           }}
         />
       </Modal>
+          {
+            field?.fieldType!="number" && <>
+            <Button onClick={()=>setNeedvalidation(true)} text="Add Validation Rule" color="green" />
+        { optionalProps.validation&&optionalProps.validation.rules.length>0 &&
+          <table>
+            <thead>
+                  <tr>
+                    <th>Rules</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {optionalProps.validation.rules.map((e, k) => (
+                    <tr key={k}>
+                      <td>Rule {k + 1} Added </td>
+                      <td>
+                        <Button
+                          color="#007BFF"
+                          text="edit"
+                          onClick={() => {
+                            Actions.Validation.EditRule(k,setValidationEdit,optionalProps);
+                          }}
+                          type="button"
+                        />
+                      </td>
+                      <td>
+                        <Button
+                          color="#E70127"
+                          text="delete"
+                          onClick={() => {
+                           Actions.Validation.onDelete(k,optionalProps,setOptionalProps);
+                          }}
+                          type="button"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+          </table>
+        }
+        <Modal    
+        isOpen={needValidation}
+            headerText="Validation"
+            onClose={() => {
+              setNeedvalidation(false);
+            }}>
+              <ValidationNumber handleApplyRule={(object:TValidation)=>{
+                Actions.Validation.handleApplyRule(object,setNeedvalidation,optionalProps,setOptionalProps);
+              }}/>
+        </Modal>
+        <Modal
+            children={
+              <ValidationNumber
+                EditModeState={validationEdit.data}
+                handleApplyRule={(object)=>{
+                  Actions.Validation.onEditSave(object,optionalProps,setOptionalProps,validationEdit,setValidationEdit);
+                }}
+                ButtonText="Confirm"
+              />
+            }
+            isOpen={validationEdit.isOpen}
+            headerText="Edit Validation Rule"
+            onClose={() => {
+              let x: EditMode = { isOpen: false };
+              setValidationEdit(x);
+            }}
+          />
+  
+            </>
+          }
+         
+      
       <div className={styles.buttoncontainer}>
         <Button
           color="green"
@@ -148,6 +235,7 @@ const OptionalProperties = ({ onApply, OptionalProperties, onSkip }: Props) => {
         />
         <Button color="#E70127" onClick={() => onSkip()} text="Skip" />
       </div>
+      
     </div>
   );
 };

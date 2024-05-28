@@ -37,7 +37,7 @@ const Modal = ({
   };
 
   return (
-    <div style={modalStyle}>
+    <div style={{ ...modalStyle, maxHeight: "90vh", overflowX: "auto" }}>
       <div style={contentStyle}>
         <div>
           {headerText}

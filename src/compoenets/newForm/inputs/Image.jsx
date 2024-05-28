@@ -1,6 +1,6 @@
 import React from "react";
 const Image = ({ Element, Styles, HandleChange }) => {
-  const { dataValues, inputProperties } = Element;
+  const { dataValues, inputProperties, optionalProperties } = Element;
 
   const HandleInputChange = (e) => {
     // Element.updateValue(e.target.value);
@@ -17,6 +17,13 @@ const Image = ({ Element, Styles, HandleChange }) => {
         onChange={HandleInputChange}
         {...inputProperties}
       />
+      {optionalProperties &&
+        optionalProperties.validation &&
+        optionalProperties.validation.message !== "" && (
+          <p style={{ color: `${optionalProperties.validation.color}` }}>
+            {optionalProperties.validation.message}
+          </p>
+        )}
     </div>
   );
 };

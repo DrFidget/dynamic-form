@@ -27,7 +27,7 @@ export const FormApis = {
 
     try {
       let x = JSON.stringify(Form);
-      const res = await axios.post("http://localhost:9000/form", x, {
+      const res = await axios.post("http://172.19.91.78:9000/form", x, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -38,7 +38,7 @@ export const FormApis = {
   },
   GetFormByID: async (id: string) => {
     try {
-      const Response = await axios.get(`http://localhost:9000/form/${id}`);
+      const Response = await axios.get(`http://172.19.91.78:9000/form/${id}`);
       if (!Response) {
         console.log("No such id found!");
         return null;
@@ -51,7 +51,7 @@ export const FormApis = {
   },
   GetAllForms: async () => {
     try {
-      const Response = await axios.get(`http://localhost:9000/form`);
+      const Response = await axios.get(`http://172.19.91.78:9000/form`);
       if (!Response) console.log("No Forms Found!");
       return Response.data as TFormType[];
     } catch (e) {
@@ -61,7 +61,7 @@ export const FormApis = {
   },
   deleteByID: async (id: string) => {
     try {
-      const Response = await axios.delete(`http://localhost:9000/form/${id}`);
+      const Response = await axios.delete(`http://172.19.91.78:9000/form/${id}`);
       if (!Response) console.log("No such id found!");
       // else console.log(Response.data);
     } catch (e) {
@@ -71,7 +71,7 @@ export const FormApis = {
   UpdateByID: async (id: string, updatedData: TFormType) => {
     try {
       const res = await axios.put(
-        `http://localhost:9000/form/${id}`,
+        `http://172.19.91.78:9000/form/${id}`,
         updatedData,
         {
           headers: {

@@ -171,7 +171,7 @@ const allowedInputKeys = {
   default: {
     method: (kv) => {
       // Method to process default key
-
+      if (typeof kv === "boolean") return kv ? "true" : "false";
       if (kv in DefaultMethods) return DefaultMethods[kv]();
       if (kv in InternalDefaultfunctions) return InternalDefaultfunctions[kv]();
       let x = callExternalMethods(kv);

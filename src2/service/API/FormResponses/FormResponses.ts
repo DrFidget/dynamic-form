@@ -4,7 +4,7 @@ export const FormResponseApis = {
   submitResponse: async (body: TFormResponsesObj, formId: string) => {
     try {
       const res = await axios.post(
-        `http://localhost:9000/formResponse/${formId}`,
+        `http://172.19.91.78:9000/formResponse/${formId}`,
         body,
         {
           headers: {
@@ -23,7 +23,7 @@ export const FormResponseApis = {
   ) => {
     try {
       const res = await axios.put(
-        `http://localhost:9000/formResponse/${formID}/${responseId}`,
+        `http://172.19.91.78:9000/formResponse/${formID}/${responseId}`,
         body,
         {
           headers: {
@@ -38,7 +38,7 @@ export const FormResponseApis = {
   getResponsesByFormId: async (formId: string) => {
     try {
       const response = await axios.get(
-        `http://localhost:9000/formResponse/${formId}`
+        `http://172.19.91.78:9000/formResponse/${formId}`
       );
       return response.data;
     } catch (e) {
@@ -48,7 +48,7 @@ export const FormResponseApis = {
   deleteResponse: async (formID: string, responseId: string) => {
     try {
       const response = await axios.delete(
-        `http://localhost:9000/formResponse/${formID}/${responseId}`
+        `http://172.19.91.78:9000/formResponse/${formID}/${responseId}`
       );
     } catch (e) {
       console.log(e);

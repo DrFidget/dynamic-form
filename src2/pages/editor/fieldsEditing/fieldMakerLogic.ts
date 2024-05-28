@@ -185,12 +185,16 @@ export const useActions = () => {
         setDone: any
       ) => {
         let x = { ...singleField };
-        if (x.visible) delete x.visible;
-        if (x.enable) delete x.enable;
-        if (x.required) delete x.required;
+        if (x.visible!== undefined) delete x.visible;
+        if (x.enable!== undefined) delete x.enable;
+        if (x.required!== undefined) delete x.required;
+        if(x.groupVisibility) delete x.groupVisibility;
         x.visible = object.visible ? true : false;
         x.enable = object.enable ? true : false;
         x.required = object.required ? true : false;
+        if (object.groupVisibility !== undefined) {
+          x.groupVisibility = object.groupVisibility ? true : false;
+        }
         setSingleField({ ...x });
         ChangeMode.optional();
         setDone("html");
@@ -217,6 +221,7 @@ export const useActions = () => {
         if (x.default) delete x.default;
         if (x.binding) delete x.binding;
         if (x.lookup) delete x.lookup;
+        if(x.validation)delete x.validation;
 
         object.altId ? (x.altId = object.altId) : null;
         object.groupId ? (x.groupId = object.groupId) : null;
@@ -224,6 +229,7 @@ export const useActions = () => {
         object.default ? (x.default = object.default) : null;
         object.binding ? (x.binding = object.binding) : null;
         object.lookup ? (x.lookup = object.lookup) : null;
+        object.validation?(x.validation=object.validation):null;
 
         setSingleField({ ...x });
         setDone("opt");

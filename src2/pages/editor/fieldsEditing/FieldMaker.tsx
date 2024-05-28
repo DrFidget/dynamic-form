@@ -216,6 +216,10 @@ const FieldMaker = ({
                     singleField.required !== undefined
                       ? singleField.required
                       : false,
+                  groupVisibility:
+                    singleField.groupVisibility !== undefined
+                      ? singleField.groupVisibility
+                      : true,
                 }}
                 onApply={(object) =>
                   Actions.HtmlProps.Apply(
@@ -251,6 +255,7 @@ const FieldMaker = ({
                   binding: singleField.binding ?? undefined,
                   default: singleField.default ?? "",
                   tag: singleField.tag ?? "",
+                  validation:singleField.validation??undefined
                 }}
                 onApply={(obj) => {
                   // console.log("fieldmaker->", obj);
