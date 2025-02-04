@@ -16,7 +16,6 @@ const Text = ({ Element, Styles, HandleChange }) => {
         className="custom_Input_container"
       >
         <label className="">{dataValues.fieldName}</label>
-        {/* {!inputProperties?.hidden ? <div>not hidden</div> : <div>hidden</div>} */}
         <input
           type="text"
           className="custom_input"

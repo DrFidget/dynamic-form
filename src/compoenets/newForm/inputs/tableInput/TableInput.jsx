@@ -59,7 +59,7 @@ const TableInput = ({ Element, Styles, HandleChange }) => {
     <div style={Styles} id={dataValues.id}>
       <Button
         text={dataValues.fieldName + " +"}
-        color="blue"
+        color="#007BFF"
         type="button"
         onClick={() => handleShow()}
       />
