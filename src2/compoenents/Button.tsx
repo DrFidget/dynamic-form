@@ -3,10 +3,11 @@ import React, { useState } from "react";
 interface ButtonProps {
   onClick: () => void;
   color?: string;
-  text: string;
+  text: string | React.ReactNode;
   disabled?: boolean;
   type?: "submit" | "button";
   styles?: React.CSSProperties;
+  title?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -16,6 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   type,
   disabled = false,
   styles,
+  title,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -49,6 +51,7 @@ const Button: React.FC<ButtonProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       disabled={disabled}
+      title={title}
     >
       {text}
     </button>
