@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ToolBar.module.css";
 import Button from "../Button";
-import { FiRotateCcw, FiRotateCw } from "react-icons/fi";
+import { FiRotateCcw, FiRotateCw, FiClipboard } from "react-icons/fi";
 
 interface Props {
   isRedyToSubmit: boolean;
@@ -9,19 +9,20 @@ interface Props {
   onCancel: () => void;
   onUndo: () => void;
   onRedo: () => void;
+  onPasteJSON: () => void;
   canUndo: boolean;
   canRedo: boolean;
 }
-
-const ToolBar = ({
+const ToolBar: React.FC<Props> = ({
   isRedyToSubmit,
   onCreate,
   onCancel,
   onUndo,
   onRedo,
+  onPasteJSON,
   canUndo,
   canRedo,
-}: Props) => {
+}) => {
   return (
     <div className={styles.toolbar}>
       <div className={styles.leftActions}>
@@ -38,6 +39,13 @@ const ToolBar = ({
           text={<FiRotateCw />}
           disabled={!canRedo}
           title="Redo (Ctrl+Y)"
+        />
+        <Button
+          color="#4a4a4a"
+          onClick={onPasteJSON}
+          text={<FiClipboard />}
+          disabled={false}
+          title="Paste JSON Field"
         />
       </div>
 

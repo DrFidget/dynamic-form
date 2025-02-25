@@ -14,6 +14,7 @@ import swal from "sweetalert";
 import { FormApis, useLoadingState } from "../../service/API/Form/FormApi";
 import LoadingComponent from "../../compoenents/LoadingCompoenent";
 import { getFieldTemplate } from "../../types/FieldTemplates";
+import PasteJSONModal from "../../compoenents/PasteJSONModal";
 
 interface Props {
   FormObject?: any;
@@ -46,10 +47,10 @@ const Editor = ({ FormObject }: Props) => {
     data: {} as TFields,
     index: -1,
   });
-
   const [loading, withLoading] = useLoadingState<void>();
   const navigate = useNavigate();
   const [selected, setSelected] = useState(0);
+  const [isPasteModalOpen, setIsPasteModalOpen] = useState(false);
 
   // History management
   const addToHistory = useCallback(
@@ -164,8 +165,10 @@ const Editor = ({ FormObject }: Props) => {
     };
 
     window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleUndo, handleRedo]);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleUndo, handleRedo, Form, updateForm]);
 
   useEffect(() => {
     let parsedSchema = location.state?.parsedSchema as TFields[];
@@ -241,6 +244,14 @@ const Editor = ({ FormObject }: Props) => {
     <div className={`${styles.container}`}>
       {loading && <LoadingComponent />}
       <SingleFieldContextProvider>
+        <PasteJSONModal
+          isOpen={isPasteModalOpen}
+          onClose={() => setIsPasteModalOpen(false)}
+          onPaste={(field) => {
+            updateForm({ ...Form, Schema: [...Form.Schema, field] });
+            swal("Success", "Field added successfully", "success");
+          }}
+        />
         <div className={`${styles.toolbar}`}>
           <ToolBar
             isRedyToSubmit={creatingField}
@@ -248,6 +259,7 @@ const Editor = ({ FormObject }: Props) => {
             onCancel={() => navigate("/")}
             onUndo={handleUndo}
             onRedo={handleRedo}
+            onPasteJSON={() => setIsPasteModalOpen(true)}
             canUndo={historyIndex > 0}
             canRedo={historyIndex < history.length - 1}
           />
