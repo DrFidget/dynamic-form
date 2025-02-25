@@ -1,0 +1,46 @@
+.formBody {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.fieldWrapper {
+    width: 100%;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+    .formBody {
+        padding: 0.5rem;
+    }
+}
+
+/* Print styles */
+@media print {
+    .formBody {
+        max-width: none;
+        padding: 0;
+    }
+
+    .fieldWrapper {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
